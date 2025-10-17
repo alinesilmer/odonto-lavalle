@@ -1,0 +1,186 @@
+.section {
+  padding: 5rem 0;
+  background-color: var(--color-white);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-secondary);
+  text-align: center;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+  }
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--color-silver);
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carouselWrapper {
+  position: relative;
+  padding: 0 3rem;
+  
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+.carousel {
+  overflow: hidden;
+}
+
+.testimonialGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.testimonialCard {
+  background: var(--color-white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: var(--transition);
+  flex: 0 1 calc(33.333% - 1.334rem);
+  max-width: calc(33.333% - 1.334rem);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .testimonialCard {
+    flex: 0 1 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonialCard {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+}
+
+.quoteIcon {
+  color: var(--color-primary);
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+.testimonialText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-dark);
+  margin-bottom: 1.5rem;
+  min-height: 80px;
+}
+
+.testimonialAuthor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-primary);
+}
+
+.authorName {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  margin-bottom: 0.25rem;
+}
+
+.authorDate {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 10;
+  
+  &:hover {
+    background-color: var(--color-hover);
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.navButtonLeft {
+  left: 0;
+  
+  @media (max-width: 768px) {
+    left: -10px;
+  }
+}
+
+.navButtonRight {
+  right: 0;
+  
+  @media (max-width: 768px) {
+    right: -10px;
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-gray);
+  transition: var(--transition);
+  
+  &:hover {
+    background-color: var(--color-primary);
+  }
+}
+
+.dotActive {
+  background-color: var(--color-primary);
+  width: 32px;
+  border-radius: 6px;
+}

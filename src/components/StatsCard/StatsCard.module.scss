@@ -1,0 +1,46 @@
+.statsCard {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--color-silver);
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin: 0;
+  font-family: var(--font-heading);
+}

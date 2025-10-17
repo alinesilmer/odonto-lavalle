@@ -1,0 +1,55 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: min(92vw, 440px);
+  background: white;
+  color: black;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.animation {
+  width: 140px;
+  margin: 4px auto 8px;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 6px 0 4px;
+}
+
+.message {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0 8px 16px;
+}
+
+.button {
+  width: 70%;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--color-secondary);
+  color: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(91, 113, 200, 0.35);
+}

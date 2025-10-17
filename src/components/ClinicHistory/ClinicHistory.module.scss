@@ -1,0 +1,69 @@
+.section {
+  background: #fff; border-radius: 16px; padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(16,24,40,.06);
+}
+
+.header {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  margin-bottom: .75rem;
+  h2 { margin: 0; font-size: 1.25rem; color: var(--color-secondary); }
+}
+
+.filters { display: flex; gap: .5rem; }
+.pill {
+  background: #fff; border: 1px solid #e6e9f2; color: #64748b;
+  padding: .35rem .6rem; border-radius: 999px; font-weight: 700; font-size: .85rem;
+  transition: .2s ease;
+  &:hover { border-color: #cdd6ff; color: #3749ff; background: #f5f7ff; }
+}
+.active { border-color: #cdd6ff; color: #3749ff; background: #eef2ff; }
+
+.timeline { position: relative; }
+.yearGroup { position: relative; padding-left: 26px; }
+
+.yearHeader { display: flex; align-items: center; gap: .6rem; margin: .75rem 0; }
+.yearDot { width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; box-shadow: 0 0 0 4px rgba(124,58,237,.12); }
+.yearLabel { font-weight: 900; color: #111827; font-size: 1.05rem; }
+.yearAction {
+  margin-left: auto; font-weight: 700; font-size: .85rem;
+  background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe;
+  border-radius: 8px; padding: .3rem .6rem; transition: .2s ease;
+  &:hover { filter: brightness(.98); }
+}
+
+.items { margin-left: 6px; }
+
+.item {
+  position: relative; display: grid; grid-template-columns: 116px 1fr;
+  gap: .75rem; align-items: start; margin: .6rem 0;
+}
+
+.rail {
+  position: absolute; left: -21px; top: 0; bottom: -6px; width: 2px;
+  background: linear-gradient(180deg, #eaeaf3, #e0e7ff);
+}
+
+.monthBadge { justify-self: start; align-self: start; font-weight: 800; color: #6b7280; width: 116px; }
+
+.card {
+  background: #fff; border: 1px solid #e8ebf4; border-radius: 12px;
+  padding: .8rem 1rem; box-shadow: 0 8px 14px rgba(0,0,0,.04);
+}
+.cardTitle { margin: 0 0 .25rem; font-size: 1rem; color: #0f172a; }
+.sub { margin: 0 0 .4rem; color: #475569; }
+.textMuted { margin: 0 0 .6rem; color: #64748b; }
+
+.cardFooter { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.dateTag {
+  background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0;
+  padding: .2rem .5rem; border-radius: 6px; font-size: .82rem; font-weight: 700;
+}
+.pillLight {
+  background: #eef2ff; color: #3730a3; border: 1px solid #dbe2ff;
+  padding: .2rem .5rem; border-radius: 999px; font-size: .82rem; font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .item { grid-template-columns: 84px 1fr; }
+  .monthBadge { width: 84px; }
+}
