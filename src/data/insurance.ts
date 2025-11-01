@@ -7,7 +7,7 @@ export const insuranceProviders: InsuranceProvider[] = [
   { id: "4", name: "SanCor Salud", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1761928437/sancor_r7ylav.png" },
   { id: "5", name: "Medifé", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1761932182/medife_mf71ll.png" },
   { id: "6", name: "Galeno", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1761928438/galeno_osprxo.png"},
-  { id: "7", name: "OSPIM", logo: "https://imgs.search.brave.com/tN2P24WBtfE58HIqf-VtARv7rtbH3GOrcEzdNPKu0Iw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAx/MTg1MzMwOC92ZWN0/b3IvcGFnZS1ub3Qt/Zm91bmQuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPXBTX0ky/VG1CaFhsN2FhT1ct/MGlHb19EZ0ZqNnhy/U244Mkk3Q3dtWFV3/TDQ9"},
+  { id: "7", name: "OSPIM", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1762015725/ospim_qlpfpv.png"},
   { id: "8", name: "OSPJN", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1761932181/ospjn_qrgk8f.png"},
   { id: "8", name: "SADAIC", logo: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1761932184/sadaic_gms7uk.png"},
 ]

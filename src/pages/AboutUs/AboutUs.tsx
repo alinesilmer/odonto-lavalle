@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { Award, Heart, Users, Target, CheckCircle, Star } from "lucide-react";
 import Button from "../../components/UI/Button/Button";
-import reason from "../../assets/images/reasons.png";
+import image1 from "../../assets/images/imagen1.jpg";
 // import { goToBooking } from "../../utils/session";
 import styles from "./AboutUs.module.scss";
-import pfp from "../../assets/images/profile.png";
+import PageHero from "@/components/PageHero/PageHero";
+import hero from "../../assets/images/aboutUs.png";
 
 const AboutUs = () => {
   const values = [
@@ -56,43 +57,13 @@ const AboutUs = () => {
 
   return (
     <div className={styles.aboutUs}>
-      <section className={styles.hero}>
-        <motion.div
-          className={styles.heroContent}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1>Sobre Nosotros</h1>
-          <p className={styles.subtitle}>
-            Transformando sonrisas, cambiando vidas desde 2010
-          </p>
-          <p className={styles.description}>
-            En Lavalle Odontología, creemos que una sonrisa saludable es la
-            puerta a una vida plena. Nuestro equipo de profesionales altamente
-            capacitados se dedica a brindar atención dental de excelencia con
-            calidez humana y tecnología de vanguardia.
-          </p>
-        </motion.div>
-      </section>
+       <PageHero
+        title="CONTÁCTANOS"
+        subtitle="Transformando sonrisas, cambiando vidas desde 2010"
+        backgroundImage={hero}
+      />
 
-      <section className={styles.achievements}>
-        <div className={styles.achievementsGrid}>
-          {achievements.map((achievement, idx) => (
-            <motion.div
-              key={idx}
-              className={styles.achievementCard}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <h2>{achievement.number}</h2>
-              <p>{achievement.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+     
 
       <section className={styles.mission}>
         <div className={styles.missionContent}>
@@ -134,7 +105,7 @@ const AboutUs = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src={reason} alt="Dental consultation" />
+            <img src={image1} alt="Dental consultation" />
           </motion.div>
         </div>
       </section>
@@ -162,7 +133,10 @@ const AboutUs = () => {
       <section className={styles.team}>
         <h2>Nuestro Equipo</h2>
         <p className={styles.teamIntro}>
-          Profesionales apasionados comprometidos con tu salud bucal
+         En Lavalle Odontología, creemos que una sonrisa saludable es la
+          puerta a una vida plena. Nuestro equipo de profesionales altamente
+          capacitados se dedica a brindar atención dental de excelencia con
+          calidez humana y tecnología de vanguardia.
         </p>
         <div className={styles.teamGrid}>
           {team.map((member, idx) => (
