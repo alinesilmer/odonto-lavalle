@@ -65,7 +65,7 @@ export interface DetailedService {
   title: string
   description: string
   image: string
-  category: "estetica" | "cirugia" | "ortodoncia" | "otros"
+  category: "estetica" | "cirugia" | "tratamiento de conducto" | "otros"
 }
 
 export interface FAQ {

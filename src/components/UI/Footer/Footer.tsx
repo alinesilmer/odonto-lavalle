@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { Instagram } from "lucide-react";
 import styles from "./Footer.module.scss";
-import Logo from "../../assets/images/Logo.png";
+import Logo from "../../../assets/images/Logo.png";
+// import { goToBooking } from "../../utils/session";
 
 const Footer = () => {
+
+  // const path = bookingPath();
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -73,11 +77,13 @@ const Footer = () => {
               <li>
                 <Link to="/servicios">Ver Servicios</Link>
               </li>
+
+              {/*<li><Link to={path}>Reservar Turno</Link></li> */}
               <li>
-                <Link to="/contacto">Reservar Turno</Link>
+                <Link to="/tuno">Reservar Turno</Link>
               </li>
               <li>
-                <Link to="/obras-sociales">Obras Sociales</Link>
+                <Link to="/#obras-sociales">Obras Sociales</Link>
               </li>
             </ul>
           </div>
@@ -88,9 +94,7 @@ const Footer = () => {
               <li>
                 <Link to="/contacto">Formulario de Contacto</Link>
               </li>
-              <li>
-                <Link to="/contacto">Información de Contacto</Link>
-              </li>
+              
             </ul>
           </div>
         </div>

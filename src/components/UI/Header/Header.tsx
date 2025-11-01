@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, User, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../../assets/images/Logo.png";
-import SearchModal from "../SearchModal/SearchModal";
+import Logo from "../../../assets/images/Logo.png";
+import SearchModal from "../../SearchModal/SearchModal";
 import styles from "./Header.module.scss";
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
 
   const navItems = [
     { path: "/", label: "INICIO" },
-    { path: "/not-found", label: "NOSOTROS" },
+    { path: "/nosotros", label: "NOSOTROS" },
     { path: "/servicios", label: "SERVICIOS" },
     { path: "/contacto", label: "CONTACTO" },
   ];
@@ -78,7 +78,7 @@ const Header = () => {
             <Search size={20} />
           </button>
 
-          <Link to="/not-found" className={styles.appointmentButton}>
+          <Link to="/login" className={styles.appointmentButton}>
             <button
               className={styles.iconButton}
               aria-label="Usuario"

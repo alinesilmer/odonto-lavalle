@@ -1,41 +1,34 @@
-"use client";
-
-import { Users, Calendar, DollarSign, X } from "lucide-react";
-import styles from "./StatsCard.module.scss";
+import { Users, Calendar, DollarSign, X } from "lucide-react"
+import styles from "./StatsCard.module.scss"
 
 interface StatsCardProps {
-  label: string;
-  value: number | string;
-  icon: "users" | "calendar" | "dollar" | "x";
-  color?: "primary" | "info" | "success" | "danger";
+  icon: "users" | "calendar" | "dollar" | "x"
+  value: string | number
+  label: string
+  color: "primary" | "info" | "success" | "danger"
 }
 
-const StatsCard = ({ label, value, icon, color }: StatsCardProps) => {
-  const Icon = (() => {
-    switch (icon) {
-      case "users":
-        return Users;
-      case "calendar":
-        return Calendar;
-      case "dollar":
-        return DollarSign;
-      case "x":
-      default:
-        return X;
-    }
-  })();
+const iconMap = {
+  users: Users,
+  calendar: Calendar,
+  dollar: DollarSign,
+  x: X,
+}
+
+const StatsCard = ({ icon, value, label, color }: StatsCardProps) => {
+  const IconComponent = iconMap[icon]
 
   return (
-    <div className={styles.statsCard} data-color={color || "primary"}>
-      <div className={styles.icon}>
-        <Icon size={32} />
+    <div className={`${styles.card} ${styles[color]}`}>
+      <div className={styles.iconWrapper}>
+        <IconComponent className={styles.icon} />
       </div>
       <div className={styles.content}>
-        <h3 className={styles.label}>{label}</h3>
-        <p className={styles.value}>{value}</p>
+        <h3 className={styles.value}>{value}</h3>
+        <p className={styles.label}>{label}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default StatsCard;
+export default StatsCard

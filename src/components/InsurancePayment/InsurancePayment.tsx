@@ -8,15 +8,23 @@ const InsurancePayment = () => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
+       
+
         <div className={styles.infoSection}>
-          <motion.div
-            className={styles.insuranceBlock}
+          {/* --- OBRAS SOCIALES --- */}
+          <motion.section
+            id="obras-sociales"
+            aria-labelledby="heading-obras-sociales"
+            className={styles.block}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className={styles.blockTitle}>OBRAS SOCIALES</h2>
+            <h2 id="heading-obras-sociales" className={styles.blockTitle}>
+              OBRAS SOCIALES
+            </h2>
+
             <div className={styles.logoGrid}>
               {insuranceProviders.map((provider) => (
                 <div key={provider.id} className={styles.logoCard}>
@@ -30,16 +38,22 @@ const InsurancePayment = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
 
-          <motion.div
-            className={styles.paymentBlock}
+          {/* --- MÉTODOS DE PAGO --- */}
+          <motion.section
+            id="metodos-de-pago"
+            aria-labelledby="heading-metodos-de-pago"
+            className={styles.block}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className={styles.blockTitle}>MÉTODOS DE PAGO</h2>
+            <h2 id="heading-metodos-de-pago" className={styles.blockTitle}>
+              MÉTODOS DE PAGO
+            </h2>
+
             <div className={styles.paymentGrid}>
               {paymentMethods.map((method) => (
                 <div key={method.id} className={styles.paymentCard}>
@@ -53,7 +67,7 @@ const InsurancePayment = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.section>
         </div>
       </div>
     </section>

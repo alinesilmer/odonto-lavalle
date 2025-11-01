@@ -1,30 +1,20 @@
-"use client";
+"use client"
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Search,
-  X,
-  ChevronRight,
-  Calendar,
-  Phone,
-  Info,
-  Stethoscope,
-  Sparkles,
-  Clock,
-} from "lucide-react";
-import { FaTooth } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import styles from "./SearchModal.module.scss";
+import { useEffect, useMemo, useRef, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { Search, X, ChevronRight, Calendar, Phone, Info, Stethoscope, Sparkles, Clock } from "lucide-react"
+import { FaTooth } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
+import styles from "./SearchModal.module.scss"
 
 type Item = {
-  title: string;
-  description?: string;
-  url: string;
-  category: "Servicio" | "Turnos" | "Contacto" | "Nosotros" | "Paciente";
-  icon?: "tooth" | "stethoscope" | "calendar" | "phone" | "info";
-  keywords?: string[];
-};
+  title: string
+  description?: string
+  url: string
+  category: "Servicio" | "Turnos" | "Contacto" | "Nosotros" | "Paciente"
+  icon?: "tooth" | "stethoscope" | "calendar" | "phone" | "info"
+  keywords?: string[]
+}
 
 const DEFAULT_DATA: Item[] = [
   {
@@ -91,133 +81,122 @@ const DEFAULT_DATA: Item[] = [
     icon: "info",
     keywords: ["panel", "historia", "mensajes"],
   },
-];
+]
 
-const RECENTS_KEY = "lavalle_search_recents";
-const SUGGESTIONS = ["Limpieza", "Ortodoncia", "Implantes", "Turno"];
+const RECENTS_KEY = "lavalle_search_recents"
+const SUGGESTIONS = ["Limpieza", "Ortodoncia", "Implantes", "Turno"]
 
 function normalize(s: string) {
   return s
     .toLowerCase()
     .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "");
+    .replace(/\p{Diacritic}/gu, "")
 }
 
 function highlight(text: string, query: string) {
-  if (!query) return text;
-  const q = normalize(query);
-  const t = text;
-  const tn = normalize(text);
-  const idx = tn.indexOf(q);
-  if (idx === -1) return t;
-  const end = idx + q.length;
+  if (!query) return text
+  const q = normalize(query)
+  const t = text
+  const tn = normalize(text)
+  const idx = tn.indexOf(q)
+  if (idx === -1) return t
+  const end = idx + q.length
   return (
     <>
       {t.slice(0, idx)}
       <mark>{t.slice(idx, end)}</mark>
       {t.slice(end)}
     </>
-  );
+  )
 }
 
 type Props = {
-  open: boolean;
-  onClose: () => void;
-  data?: Item[];
-};
+  open: boolean
+  onClose: () => void
+  data?: Item[]
+}
 
-export default function SearchModal({
-  open,
-  onClose,
-  data = DEFAULT_DATA,
-}: Props) {
-  const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(0);
-  const [recents, setRecents] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const navigate = useNavigate();
+export default function SearchModal({ open, onClose, data = DEFAULT_DATA }: Props) {
+  const [query, setQuery] = useState("")
+  const [selected, setSelected] = useState(0)
+  const [recents, setRecents] = useState<string[]>([])
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const raw = localStorage.getItem(RECENTS_KEY);
-    if (raw) setRecents(JSON.parse(raw));
-  }, []);
+    const raw = localStorage.getItem(RECENTS_KEY)
+    if (raw) setRecents(JSON.parse(raw))
+  }, [])
 
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden";
-      setTimeout(() => inputRef.current?.focus(), 80);
+      document.body.style.overflow = "hidden"
+      setTimeout(() => inputRef.current?.focus(), 80)
     }
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+      document.body.style.overflow = ""
+    }
+  }, [open])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (!open) return;
-      if (e.key === "Escape") onClose();
+      if (!open) return
+      if (e.key === "Escape") onClose()
       if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setSelected((s) => Math.min(s + 1, filtered.length - 1));
+        e.preventDefault()
+        setSelected((s) => Math.min(s + 1, filtered.length - 1))
       }
       if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setSelected((s) => Math.max(s - 1, 0));
+        e.preventDefault()
+        setSelected((s) => Math.max(s - 1, 0))
       }
       if (e.key === "Enter") {
-        const item = filtered[selected] || null;
-        if (item) handleGo(item);
+        const item = filtered[selected] || null
+        if (item) handleGo(item)
       }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, selected]); // eslint-disable-line
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [open, selected]) // eslint-disable-line
 
   const filtered = useMemo(() => {
-    const q = normalize(query);
-    if (!q) return [];
+    const q = normalize(query)
+    if (!q) return []
     return data
       .map((it) => {
-        const haystack = [
-          it.title,
-          it.description || "",
-          ...(it.keywords || []),
-          it.category,
-        ]
-          .map(normalize)
-          .join(" ");
-        const score = haystack.includes(q) ? 1 : 0;
-        return { it, score };
+        const haystack = [it.title, it.description || "", ...(it.keywords || []), it.category].map(normalize).join(" ")
+        const score = haystack.includes(q) ? 1 : 0
+        return { it, score }
       })
       .filter((r) => r.score > 0)
       .map((r) => r.it)
-      .slice(0, 8);
-  }, [query, data]);
+      .slice(0, 8)
+  }, [query, data])
 
   function saveRecent(term: string) {
-    const next = [term, ...recents.filter((r) => r !== term)].slice(0, 6);
-    setRecents(next);
-    localStorage.setItem(RECENTS_KEY, JSON.stringify(next));
+    const next = [term, ...recents.filter((r) => r !== term)].slice(0, 6)
+    setRecents(next)
+    localStorage.setItem(RECENTS_KEY, JSON.stringify(next))
   }
 
   function handleGo(item: Item) {
-    saveRecent(query || item.title);
-    onClose();
-    navigate(item.url);
+    saveRecent(query || item.title)
+    onClose()
+    navigate(item.url)
   }
 
   function iconFor(i?: Item["icon"]) {
     switch (i) {
       case "tooth":
-        return <FaTooth size={18} />;
+        return <FaTooth size={18} />
       case "stethoscope":
-        return <Stethoscope size={18} />;
+        return <Stethoscope size={18} />
       case "calendar":
-        return <Calendar size={18} />;
+        return <Calendar size={18} />
       case "phone":
-        return <Phone size={18} />;
+        return <Phone size={18} />
       default:
-        return <Info size={18} />;
+        return <Info size={18} />
     }
   }
 
@@ -249,18 +228,14 @@ export default function SearchModal({
                   ref={inputRef}
                   value={query}
                   onChange={(e) => {
-                    setQuery(e.target.value);
-                    setSelected(0);
+                    setQuery(e.target.value)
+                    setSelected(0)
                   }}
                   placeholder="Buscar tratamientos, servicios y ayuda..."
                   aria-label="Buscar"
                 />
               </div>
-              <button
-                className={styles.closeBtn}
-                onClick={onClose}
-                aria-label="Cerrar"
-              >
+              <button className={styles.closeBtn} onClick={onClose} aria-label="Cerrar">
                 <X size={20} />
               </button>
             </div>
@@ -277,10 +252,7 @@ export default function SearchModal({
                     <Sparkles size={40} strokeWidth={1.5} />
                   </div>
                   <h3>Descubre nuestros servicios</h3>
-                  <p>
-                    Encuentra tratamientos, agenda turnos y accede a toda la
-                    información que necesitas
-                  </p>
+                  <p>Encuentra tratamientos, agenda turnos y accede a toda la información que necesitas</p>
 
                   <div className={styles.suggestions}>
                     <div className={styles.sectionHeader}>
@@ -335,11 +307,7 @@ export default function SearchModal({
               )}
 
               {query && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
                   <ul className={styles.results} role="listbox">
                     {filtered.length === 0 && (
                       <motion.li
@@ -355,9 +323,7 @@ export default function SearchModal({
                     {filtered.map((item, i) => (
                       <motion.li
                         key={item.url}
-                        className={`${styles.result} ${
-                          i === selected ? styles.active : ""
-                        }`}
+                        className={`${styles.result} ${i === selected ? styles.active : ""}`}
                         onMouseEnter={() => setSelected(i)}
                         onClick={() => handleGo(item)}
                         role="option"
@@ -367,23 +333,13 @@ export default function SearchModal({
                         transition={{ delay: i * 0.05 }}
                         whileHover={{ scale: 1.01 }}
                       >
-                        <div className={styles.resultIcon}>
-                          {iconFor(item.icon)}
-                        </div>
+                        <div className={styles.resultIcon}>{iconFor(item.icon)}</div>
                         <div className={styles.resultContent}>
                           <div className={styles.resultHeader}>
-                            <h4 className={styles.title}>
-                              {highlight(item.title, query)}
-                            </h4>
-                            <span className={styles.badge}>
-                              {item.category}
-                            </span>
+                            <h4 className={styles.title}>{highlight(item.title, query)}</h4>
+                            <span className={styles.badge}>{item.category}</span>
                           </div>
-                          {item.description && (
-                            <p className={styles.desc}>
-                              {highlight(item.description, query)}
-                            </p>
-                          )}
+                          {item.description && <p className={styles.desc}>{highlight(item.description, query)}</p>}
                         </div>
                         <ChevronRight size={20} className={styles.chev} />
                       </motion.li>
@@ -396,5 +352,5 @@ export default function SearchModal({
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }

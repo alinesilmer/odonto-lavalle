@@ -1,0 +1,58 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding-bottom: 1.15rem; 
+}
+
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  line-height: 1.2;
+}
+
+.required {
+  color: var(--color-error);
+  margin-left: 0.25rem;
+}
+
+.control {
+  position: relative;
+  width: 100%;
+}
+
+.leftIcon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-silver);
+  pointer-events: none;
+}
+
+.input {
+  @include m.input-base;
+  width: 100%;
+}
+
+.withIcon {
+  padding-left: 2.5rem;
+}
+
+.error {
+  border-color: var(--color-error);
+  outline-color: var(--color-error);
+}
+
+.errorText {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 2px);
+  display: block;
+  color: var(--color-error);
+  font-size: 0.875rem;
+  line-height: 1.1;
+  font-weight: 500;
+}

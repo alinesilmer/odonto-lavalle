@@ -20,7 +20,7 @@ const Services = () => {
     { id: "todos", label: "TODOS", icon: "🦷" },
     { id: "estetica", label: "ESTÉTICA", icon: "🌸" },
     { id: "cirugia", label: "CIRUGÍA", icon: "💉" },
-    { id: "ortodoncia", label: "ORTODONCIA", icon: "😁" },
+    { id: "tratamiento de conducto", label: "ENDODONCIA", icon: "😁" },
     { id: "otros", label: "OTROS", icon: "💎" },
   ];
 

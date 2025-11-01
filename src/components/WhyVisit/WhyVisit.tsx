@@ -30,7 +30,7 @@ const WhyVisit = () => {
             <p className={styles.description}>
               ¿No sabes cada cuánto hacer tu consulta odontológica para mantener
               una salud bucal óptima? Acá te contamos tres razones por las
-              cuales una visita al mes puede ser tu mejor opción.
+              cuales una visita cada seis meses puede ser tu mejor opción.
             </p>
           </div>
           <motion.div

@@ -5,14 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Check,
-  Calendar,
   Award,
   Shield,
   Sparkles,
-  ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceInfoModal.module.scss";
+import Button from "../UI/Button/Button";
 
 interface ServiceInfoModalProps {
   isOpen: boolean;
@@ -188,11 +187,9 @@ const ServiceInfoModal = ({
                   transition={{ delay: 0.9 }}
                 >
                   <Link to="/turno">
-                    <button className={styles.bookButton}>
-                      <Calendar size={20} />
+                    <Button variant="primary" size="medium">
                       <span>Reservar Consulta</span>
-                      <ArrowRight size={20} className={styles.arrowIcon} />
-                    </button>
+                    </Button>
                   </Link>
                   <p className={styles.bookingNote}>
                     Agendá tu consulta y recibí atención personalizada

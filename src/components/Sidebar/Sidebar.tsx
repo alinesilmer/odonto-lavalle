@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom"
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Home,
   Calendar,
@@ -11,28 +12,34 @@ import {
   BarChart3,
   Bell,
   DollarSign,
-} from "lucide-react"
-import styles from "./Sidebar.module.scss"
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+import Logo from "../../assets/images/Logo.png";
+import styles from "./Sidebar.module.scss";
 
 interface SidebarProps {
-  userType: "patient" | "admin"
-  userName: string
-  userRole: string
-  userAvatar?: string
+  userType: "patient" | "admin";
+  userName: string;
+  userRole: string;
+  userAvatar?: string;
 }
 
-const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => {
-  const location = useLocation()
+type MenuItem = { path: string; label: string; icon: React.ComponentType<{ size?: number }> };
 
-  const patientMenuItems = [
+const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => {
+  const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
+
+  const patientMenuItems: MenuItem[] = [
     { path: "/dashboard/paciente", label: "Inicio", icon: Home },
     { path: "/dashboard/paciente/turnos", label: "Mis Turnos", icon: Calendar },
     { path: "/dashboard/paciente/tratamiento", label: "Mi Tratamiento Actual", icon: FileText },
     { path: "/dashboard/paciente/historia", label: "Mi Historia Clínica", icon: FileText },
     { path: "/dashboard/paciente/mensajes", label: "Mensajes", icon: MessageSquare },
-  ]
+  ];
 
-  const adminMenuItems = [
+  const adminMenuItems: MenuItem[] = [
     { path: "/dashboard/admin", label: "Home", icon: Home },
     { path: "/dashboard/admin/turnos", label: "Turnos", icon: Calendar },
     { path: "/dashboard/admin/pacientes", label: "Lista de Pacientes", icon: Users },
@@ -41,63 +48,81 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
     { path: "/dashboard/admin/recordatorios", label: "Recordatorios", icon: Bell },
     { path: "/dashboard/admin/mensajes", label: "Mensajes", icon: MessageSquare },
     { path: "/dashboard/admin/pagos", label: "Pagos", icon: DollarSign },
-  ]
+  ];
 
-  const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems
+  const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems;
 
-  const isActive = (path: string) => location.pathname === path
+  const isActive = (path: string) => {
+    const current = location.pathname.replace(/\/+$/, "");
+    const target = path.replace(/\/+$/, "");
+    return current === target || current.startsWith(target + "/");
+  };
 
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>
-          <svg viewBox="0 0 50 50" fill="none">
-            <circle cx="25" cy="25" r="23" stroke="currentColor" strokeWidth="2" />
-            <path d="M15 25 Q20 30, 25 25 T35 25" stroke="currentColor" strokeWidth="2" fill="none" />
-          </svg>
+    <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`} aria-label="Sidebar navegación">
+      <div className={styles.inner}>
+        <div className={styles.logo}>
+          <div className={styles.logoLeft}>
+            <div className={styles.logoIcon}>
+              <img src={Logo} alt="Logo" />
+            </div>
+            <div className={styles.logoText}>
+              <span className={styles.logoName}>LAVALLE</span>
+              <span className={styles.logoSubtitle}>ODONTOLOGÍA</span>
+            </div>
+          </div>
+          <button
+            className={styles.collapseBtn}
+            onClick={() => setCollapsed((v) => !v)}
+            aria-label={collapsed ? "Expandir" : "Colapsar"}
+            type="button"
+          >
+            {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+          </button>
         </div>
-        <div className={styles.logoText}>
-          <span className={styles.logoName}>LAVALLE</span>
-          <span className={styles.logoSubtitle}>ODONTOLOGÍA</span>
-        </div>
-      </div>
 
-      <nav className={styles.nav}>
-        {menuItems.map((item) => {
-          const Icon = item.icon
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`${styles.navItem} ${isActive(item.path) ? styles.active : ""}`}
-            >
-              <Icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          )
-        })}
-      </nav>
+        <nav className={styles.nav}>
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`${styles.navItem} ${active ? styles.active : ""}`}
+                aria-current={active ? "page" : undefined}
+                title={collapsed ? item.label : undefined}
+              >
+                <Icon size={20} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
 
-      <div className={styles.footer}>
-        <button className={styles.navItem}>
-          <Settings size={20} />
-          <span>Configuración</span>
-        </button>
-        <button className={styles.navItem}>
-          <LogOut size={20} />
-          <span>Soporte</span>
-        </button>
+        <div className={styles.footer}>
+          <button className={styles.navItem} type="button" title={collapsed ? "Configuración" : undefined}>
+            <Settings size={20} />
+            <span>Configuración</span>
+          </button>
+          <button className={styles.navItem} type="button" title={collapsed ? "Soporte" : undefined}>
+            <LogOut size={20} />
+            <span>Soporte</span>
+          </button>
 
-        <div className={styles.user}>
-          <img src={userAvatar || "/placeholder.svg?height=40&width=40"} alt={userName} className={styles.avatar} />
-          <div className={styles.userInfo}>
-            <span className={styles.userName}>{userName}</span>
-            <span className={styles.userRole}>{userRole}</span>
+          <div className={styles.user}>
+            <img src={userAvatar || "https://imgs.search.brave.com/MOJNZZ7jZEobQ9JitvnpUAhqvxpu5zwiYbbnQxtiNQg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlmLzRj/L2YwLzlmNGNmMGYy/NGIzNzYwNzdhMmZj/ZGFiMmU4NWMzNTg0/LmpwZw"} alt={userName} className={styles.avatar} />
+            <div className={styles.userInfo}>
+              <span className={styles.userName}>{userName}</span>
+              <span className={styles.userRole}>{userRole}</span>
+            </div>
           </div>
         </div>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
+
+ 

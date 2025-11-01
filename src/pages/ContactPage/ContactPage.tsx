@@ -4,9 +4,9 @@ import { useState } from "react";
 import PageHero from "../../components/PageHero/PageHero";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import Input from "../../components/Input/Input";
-import Textarea from "../../components/Textarea/Textarea";
-import Button from "../../components/Button/Button";
+import Input from "../../components/UI/Input/Input";
+import Textarea from "../../components/UI/Textarea/Textarea";
+import Button from "../../components/UI/Button/Button";
 import Accordion from "../../components/Accordion/Accordion";
 import { useForm } from "../../hooks/useForm";
 import { validateEmail, validateRequired } from "../../utils/validation";
@@ -18,6 +18,8 @@ import decor2 from "./../../assets/images/dentalDecor2.png";
 import decor from "./../../assets/images/dentalDecor.png";
 import hero from "./../../assets/images/contactHero.png";
 import styles from "./ContactPage.module.scss";
+import { Link } from "react-router-dom";
+// import { goToBooking } from "../../utils/session";
 
 type ContactFormKeys = "name" | "reason" | "email" | "phone" | "message";
 type ContactFormData = Record<ContactFormKeys, string>;
@@ -109,7 +111,7 @@ const ContactPage = () => {
               <p>NO se reciben visitas sin horario previamente acordado.</p>
               <p>
                 Las consultas con ingreso al consultorio son un servicio y deben
-                ser abonadas previamente.
+                ser abonadas.
               </p>
             </div>
           </motion.div>
@@ -242,7 +244,12 @@ const ContactPage = () => {
                 consulta; los tratamientos perfectos para vos se planifican
                 luego.
               </p>
+               {/*<Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
+  Reservar Turno
+</Button> */}
+              <Link to="/turno">
               <Button variant="primary">RESERVAR</Button>
+              </Link>
             </div>
           </motion.div>
 

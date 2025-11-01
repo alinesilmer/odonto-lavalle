@@ -20,7 +20,7 @@ export const detailedServices: DetailedService[] = [
     title: "ALINEADORES",
     description: "Alineación dental con férulas transparentes",
     image: "https://i.pinimg.com/736x/4d/e4/1b/4de41bfe84a332805bc0a19b330e0cbc.jpg",
-    category: "ortodoncia",
+    category: "otros",
   },
   {
     id: "4",
@@ -55,6 +55,20 @@ export const detailedServices: DetailedService[] = [
     title: "TRATAMIENTO DE CONDUCTO",
     description: "Desinfección y sellado de conductos dentales",
     image: "https://i.pinimg.com/1200x/f8/10/8d/f8108d93d23ce7190e87bb230efe19ef.jpg",
+    category: "tratamiento de conducto",
+  },
+  {
+    id: "9",
+    title: "BLANQUEAMIENTO",
+    description: "Mejora la apariencia, realzando la sonrisa natural",
+    image: "https://i.pinimg.com/736x/d8/64/e6/d864e65c3d5a32a5f8753479c2feae83.jpg",
+    category: "estetica",
+  },
+  {
+    id: "10",
+    title: "ORTODONCIA TRADICIONAL",
+    description: "Alineá tus dientes con la mejor atención",
+    image: "https://i.pinimg.com/736x/df/41/38/df4138cd5ead262c3655c50900ec4265.jpg",
     category: "otros",
   },
 ]

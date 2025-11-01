@@ -121,10 +121,7 @@ const WhyChoose = () => {
                   ))}
                 </div>
 
-                <div className={styles.hoverCTA}>
-                  <span>Conocer más</span>
-                  <ArrowRight size={16} className={styles.arrowIcon} />
-                </div>
+                
               </figcaption>
 
               <div className={styles.shineEffect}></div>

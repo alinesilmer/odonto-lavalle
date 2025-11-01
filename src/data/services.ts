@@ -12,8 +12,8 @@ export const services: Service[] = [
   },
   {
     id: "2",
-    title: "MÁS QUE TRATAMIENTOS",
-    description: "No es necesario tener un plan de tratamiento para cuidar tu salud bucal.",
+    title: "PREVENCIÓN",
+    description: "No es necesario tener un plan de tratamiento para cuidar tu salud bucal: la prevención es tu mejor aliado.",
     image: reason2,
   },
   {

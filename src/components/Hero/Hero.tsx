@@ -2,11 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../UI/Button/Button";
+// import { goToBooking } from "../../utils/session";
 import styles from "./Hero.module.scss";
+
 
 const Hero = () => {
   const navigate = useNavigate();
+
 
   return (
     <section className={styles.hero}>
@@ -22,10 +25,14 @@ const Hero = () => {
           </h1>
           <p className={styles.subtitle}>Odontología para la familia</p>
           <div className={styles.actions}>
+           {/* // CÓDIGO PARA CUANDO ESTE EL AUTH !!!
+//  <Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
+//               RESERVAR TURNO
+//             </Button>*/}
             <Button
               variant="primary"
               size="large"
-              onClick={() => navigate("/contacto")}
+              onClick={() => navigate("/turnos")}
             >
               RESERVAR TURNO
             </Button>

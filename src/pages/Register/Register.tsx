@@ -1,229 +1,417 @@
-// "use client"
+"use client";
 
-// import { useState } from "react"
-// import { Link } from "react-router-dom"
-// import { Eye, EyeOff, Instagram } from "lucide-react"
-// import { motion } from "framer-motion"
-// import Input from "../../components/Input/Input"
-// import Select from "../../components/Select/Select"
-// import Button from "../../components/Button/Button"
-// import { useForm } from "../../hooks/useForm"
-// import { validateEmail, validateRequired, validatePhone, validateDNI } from "../../utils/validation"
-// import type { RegisterFormData } from "../../types"
-// import styles from "./Register.module.scss"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Eye,
+  EyeOff,
+  Instagram,
+  CheckCircle,
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Shield,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Input from "@/components/UI/Input/Input";
+import Select from "../../components/Select/Select";
+import Button from "@/components/UI/Button/Button";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  registerSchema,
+  type RegisterFormData,
+  getPasswordStrength,
+} from "../../schemas/auth";
+import styles from "./Register.module.scss";
 
-// const Register = () => {
-//   const [showPassword, setShowPassword] = useState(false)
-//   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
-//   const { values, errors, handleChange, handleSubmit, setFieldValue } = useForm<RegisterFormData>(
-//     {
-//       fullName: "",
-//       dni: "",
-//       gender: "",
-//       email: "",
-//       phone: "",
-//       birthDate: "",
-//       password: "",
-//       confirmPassword: "",
-//       insurance: "",
-//     },
-//     {
-//       fullName: [validateRequired],
-//       dni: [validateRequired, validateDNI],
-//       gender: [validateRequired],
-//       email: [validateRequired, validateEmail],
-//       phone: [validateRequired, validatePhone],
-//       birthDate: [validateRequired],
-//       password: [validateRequired],
-//       confirmPassword: [validateRequired],
-//       insurance: [validateRequired],
-//     },
-//     (data) => {
-//       console.log("Register:", data)
-//     },
-//   )
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+    defaultValues: {
+      fullName: "",
+      dni: "",
+      email: "",
+      phone: "",
+      birthDate: "",
+      password: "",
+      confirmPassword: "",
+      gender: "",
+      insurance: "",
+    },
+  });
 
-//   const genderOptions = [
-//     { value: "masculino", label: "Masculino" },
-//     { value: "femenino", label: "Femenino" },
-//     { value: "otro", label: "Otro" },
-//   ]
+  const password = watch("password");
+  const passwordStrength = password ? getPasswordStrength(password) : null;
 
-//   const insuranceOptions = [
-//     { value: "osde", label: "OSDE" },
-//     { value: "swiss", label: "Swiss Medical" },
-//     { value: "ioscor", label: "IOSCor" },
-//     { value: "sancor", label: "SanCor Salud" },
-//     { value: "pami", label: "PAMI" },
-//     { value: "galeno", label: "Galeno" },
-//     { value: "ninguna", label: "Ninguna" },
-//   ]
+  const onSubmit = async (data: RegisterFormData) => {
+    // TODO: POST a tu backend /auth/register y manejar estados 400/409
+    await new Promise((r) => setTimeout(r, 800));
+    console.log("Register:", data);
+    setShowSuccess(true);
+  };
 
-//   return (
-//     <div className={styles.registerPage}>
-//       <div className={styles.container}>
-//         <motion.div
-//           className={styles.leftPanel}
-//           initial={{ opacity: 0, x: -50 }}
-//           animate={{ opacity: 1, x: 0 }}
-//           transition={{ duration: 0.6 }}
-//         >
-//           <h1 className={styles.welcome}>¡BIENVENIDO!</h1>
-//           <p className={styles.description}>
-//             Registrate ahora y accedé a una nueva forma de vivir tu experiencia en servicios odontológicos
-//           </p>
-//           <div className={styles.socialIcons}>
-//             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-//               <Instagram />
-//             </a>
-//             <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-//               <svg viewBox="0 0 24 24" fill="currentColor">
-//                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-//               </svg>
-//             </a>
-//           </div>
-//         </motion.div>
+  return (
+    <div className={styles.registerPage}>
+      <motion.div
+        className={styles.container}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div
+          className={styles.leftPanel}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className={styles.logoContainer}>
+            <div className={styles.logo}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+            </div>
+          </div>
+          <h1 className={styles.welcome}>¡Unite a nosotros!</h1>
+          <p className={styles.description}>
+            Creá tu cuenta y comenzá a disfrutar de una experiencia odontológica moderna y personalizada
+          </p>
+          <div className={styles.socialIcons}>
+            <a
+              href="https://www.instagram.com/lavalle.odontologia/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialIcon}
+              aria-label="Instagram"
+            >
+              <Instagram />
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialIcon}
+              aria-label="TikTok"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+              </svg>
+            </a>
+          </div>
+        </motion.div>
 
-//         <motion.div
-//           className={styles.rightPanel}
-//           initial={{ opacity: 0, x: 50 }}
-//           animate={{ opacity: 1, x: 0 }}
-//           transition={{ duration: 0.6 }}
-//         >
-//           <h2 className={styles.title}>CREÁ TU CUENTA</h2>
-//           <form onSubmit={handleSubmit} className={styles.form}>
-//             <div className={styles.row}>
-//               <Input
-//                 label="Nombre Completo"
-//                 type="text"
-//                 name="fullName"
-//                 value={values.fullName}
-//                 onChange={handleChange}
-//                 error={errors.fullName}
-//                 placeholder="Juan Pérez"
-//                 required
-//               />
-//               <Input
-//                 label="DNI (sin puntos)"
-//                 type="text"
-//                 name="dni"
-//                 value={values.dni}
-//                 onChange={handleChange}
-//                 error={errors.dni}
-//                 placeholder="43747511"
-//                 required
-//               />
-//             </div>
+        <motion.div
+          className={styles.rightPanel}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className={styles.formHeader}>
+            <h2 className={styles.title}>Crear Cuenta</h2>
+            <p className={styles.subtitle}>Completá tus datos para registrarte</p>
+          </div>
 
-//             <div className={styles.row}>
-//               <Select
-//                 label="Género"
-//                 name="gender"
-//                 value={values.gender}
-//                 onChange={(value) => setFieldValue("gender", value)}
-//                 options={genderOptions}
-//                 error={errors.gender}
-//                 required
-//               />
-//             </div>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <Controller
+                  name="fullName"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      label="Nombre Completo"
+                      placeholder="Juan Pérez"
+                      leftIcon={<User size={20} />}
+                      error={fieldState.error?.message}
+                      required
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
 
-//             <div className={styles.row}>
-//               <Input
-//                 label="Correo Electrónico"
-//                 type="email"
-//                 name="email"
-//                 value={values.email}
-//                 onChange={handleChange}
-//                 error={errors.email}
-//                 placeholder="tucorreo@gmail.com"
-//                 required
-//               />
-//               <Input
-//                 label="Teléfono"
-//                 type="tel"
-//                 name="phone"
-//                 value={values.phone}
-//                 onChange={handleChange}
-//                 error={errors.phone}
-//                 placeholder="3794532535"
-//                 required
-//               />
-//             </div>
+              <div className={styles.field}>
+                <Controller
+                  name="dni"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      label="DNI"
+                      placeholder="43747511"
+                      leftIcon={<Shield size={20} />}
+                      error={fieldState.error?.message}
+                      required
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </div>
 
-//             <div className={styles.row}>
-//               <Input
-//                 label="Fecha de nacimiento"
-//                 type="date"
-//                 name="birthDate"
-//                 value={values.birthDate}
-//                 onChange={handleChange}
-//                 error={errors.birthDate}
-//                 required
-//               />
-//             </div>
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      label="Correo Electrónico"
+                      type="email"
+                      placeholder="tucorreo@ejemplo.com"
+                      leftIcon={<Mail size={20} />}
+                      error={fieldState.error?.message}
+                      required
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
 
-//             <div className={styles.row}>
-//               <div className={styles.passwordField}>
-//                 <Input
-//                   label="Contraseña"
-//                   type={showPassword ? "text" : "password"}
-//                   name="password"
-//                   value={values.password}
-//                   onChange={handleChange}
-//                   error={errors.password}
-//                   placeholder="••••••••"
-//                   required
-//                 />
-//                 <button type="button" className={styles.eyeButton} onClick={() => setShowPassword(!showPassword)}>
-//                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-//                 </button>
-//               </div>
-//               <div className={styles.passwordField}>
-//                 <Input
-//                   label="Confirmar Contraseña"
-//                   type={showConfirmPassword ? "text" : "password"}
-//                   name="confirmPassword"
-//                   value={values.confirmPassword}
-//                   onChange={handleChange}
-//                   error={errors.confirmPassword}
-//                   placeholder="••••••••"
-//                   required
-//                 />
-//                 <button
-//                   type="button"
-//                   className={styles.eyeButton}
-//                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-//                 >
-//                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-//                 </button>
-//               </div>
-//             </div>
+              <div className={styles.field}>
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      label="Teléfono"
+                      type="tel"
+                      placeholder="3794532535"
+                      leftIcon={<Phone size={20} />}
+                      error={fieldState.error?.message}
+                      required
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </div>
 
-//             <div className={styles.row}>
-//               <Select
-//                 label="Obra Social"
-//                 name="insurance"
-//                 value={values.insurance}
-//                 onChange={(value) => setFieldValue("insurance", value)}
-//                 options={insuranceOptions}
-//                 error={errors.insurance}
-//                 required
-//               />
-//             </div>
+            {/* Birthdate solo, una columna */}
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <Controller
+                  name="birthDate"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Input
+                      label="Fecha de Nacimiento"
+                      type="date"
+                      leftIcon={<Calendar size={20} />}
+                      error={fieldState.error?.message}
+                      required
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </div>
 
-//             <Button type="submit" variant="primary" fullWidth>
-//               REGISTRARME
-//             </Button>
+            {/* Selects debajo de birthDate, lado a lado */}
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Select
+                      label="Género"
+                      name={field.name}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      options={[
+                        { value: "masculino", label: "Masculino" },
+                        { value: "femenino", label: "Femenino" },
+                        { value: "otro", label: "Otro" },
+                      ]}
+                      error={fieldState.error?.message}
+                      required
+                    />
+                  )}
+                />
+              </div>
 
-//             <p className={styles.loginLink}>
-//               ¿Ya tenés una cuenta? <Link to="/login">Iniciá sesión aquí</Link>
-//             </p>
-//           </form>
-//         </motion.div>
-//       </div>
-//     </div>
-//   )
-// }
+              <div className={styles.field}>
+                <Controller
+                  name="insurance"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <Select
+                      label="Obra Social"
+                      name={field.name}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      options={[
+                        { value: "osde", label: "OSDE" },
+                        { value: "swiss", label: "Swiss Medical" },
+                        { value: "ioscor", label: "IOSCor" },
+                        { value: "sancor", label: "SanCor Salud" },
+                        { value: "pami", label: "PAMI" },
+                        { value: "galeno", label: "Galeno" },
+                        { value: "ninguna", label: "Ninguna" },
+                      ]}
+                      error={fieldState.error?.message}
+                      required
+                    />
+                  )}
+                />
+              </div>
+            </div>
 
-// export default Register
+            {/* Password y Confirm Password en la misma línea */}
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <div className={styles.passwordField}>
+                  <Controller
+                    name="password"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <div className={styles.inputWrapper}>
+                        <Input
+                          label="Contraseña"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          error={fieldState.error?.message}
+                          required
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className={styles.eyeButton}
+                          onClick={() => setShowPassword((v) => !v)}
+                          aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        >
+                          {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                        </button>
+                      </div>
+                    )}
+                  />
+                </div>
+
+                {passwordStrength && (
+                  <div className={styles.passwordStrength}>
+                    <div className={styles.strengthBar}>
+                      <div
+                        className={styles.strengthFill}
+                        style={{
+                          width: `${(passwordStrength.strength / 3) * 100}%`,
+                          backgroundColor: passwordStrength.color,
+                        }}
+                      />
+                    </div>
+                    <span
+                      className={styles.strengthLabel}
+                      style={{ color: passwordStrength.color }}
+                    >
+                      {passwordStrength.label}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.field}>
+                <div className={styles.passwordField}>
+                  <Controller
+                    name="confirmPassword"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <div className={styles.inputWrapper}>
+                        <Input
+                          label="Confirmar Contraseña"
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          error={fieldState.error?.message}
+                          required
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className={styles.eyeButton}
+                          onClick={() => setShowConfirmPassword((v) => !v)}
+                          aria-label={
+                            showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                          }
+                        >
+                          {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                        </button>
+                      </div>
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Button variant="primary" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <span className={styles.loadingText}>
+                  <span className={styles.spinner}></span>
+                  Registrando...
+                </span>
+              ) : (
+                "Crear Cuenta"
+              )}
+            </Button>
+
+            <p className={styles.loginLink}>
+              ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión aquí</Link>
+            </p>
+          </form>
+        </motion.div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showSuccess && (
+          <>
+            <motion.div
+              className={styles.modalOverlay}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSuccess(false)}
+            />
+            <motion.div
+              className={styles.modal}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ type: "spring", duration: 0.5 }}
+            >
+              <div className={styles.modalIcon}>
+                <CheckCircle size={32} />
+              </div>
+              <h3 id="modal-title" className={styles.modalTitle}>
+                ¡Registro Exitoso!
+              </h3>
+              <p className={styles.modalBody}>
+                Tu cuenta ha sido creada correctamente. Ya podés iniciar sesión y comenzar a gestionar tus turnos.
+              </p>
+              <div className={styles.modalActions}>
+                <Link to="/login">
+                  <Button variant="primary">Ir a Iniciar Sesión</Button>
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default Register;

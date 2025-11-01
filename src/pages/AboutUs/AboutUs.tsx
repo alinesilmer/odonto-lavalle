@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Award, Heart, Users, Target, CheckCircle, Star } from "lucide-react";
-import Button from "../../components/Button/Button";
+import Button from "../../components/UI/Button/Button";
 import reason from "../../assets/images/reasons.png";
+// import { goToBooking } from "../../utils/session";
 import styles from "./AboutUs.module.scss";
 
 const AboutUs = () => {
@@ -220,6 +221,9 @@ const AboutUs = () => {
           <h2>¿Listo para transformar tu sonrisa?</h2>
           <p>Agenda tu consulta hoy y descubre la diferencia Lavalle</p>
           <div className={styles.ctaButtons}>
+            {/*<Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
+  Reservar Turno
+</Button> */}
             <Button variant="primary" size="large">
               Reservar Turno
             </Button>

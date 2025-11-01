@@ -14,7 +14,7 @@ import {
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import StatsCard from "../../components/StatsCard/StatsCard";
 import DataTable from "../../components/DataTable/DataTable";
-import Button from "../../components/Button/Button";
+import Button from "../../components/UI/Button/Button";
 import ClinicHistory from "../../components/ClinicHistory/ClinicHistory";
 import {
   patientAppointments,

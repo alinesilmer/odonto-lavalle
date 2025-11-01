@@ -1,89 +1,65 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import styles from "./DataTable.module.scss";
+import type { ReactNode } from "react"
+import styles from "./DataTable.module.scss"
 
-interface Column<Row = unknown> {
-  key: string;
-  label: string;
-  width?: string;
-  render?: (value: unknown, row: Row) => ReactNode;
+interface Column {
+  key: string
+  label: string
 }
 
-interface Action<Row = unknown> {
-  icon: ReactNode;
-  label: string;
-  onClick: (row: Row) => void;
+interface Action {
+  icon: ReactNode
+  label: string
+  onClick: (row: any) => void
 }
 
-interface DataTableProps<Row = unknown> {
-  columns: Column<Row>[];
-  data: Row[];
-  actions?: Action<Row>[];
+interface DataTableProps {
+  columns: Column[]
+  data: any[]
+  actions?: Action[]
 }
 
-const DataTable = <
-  Row extends { id?: string | number } = { id?: string | number }
->({
-  columns,
-  data,
-  actions = [],
-}: DataTableProps<Row>) => {
+const DataTable = ({ columns, data, actions }: DataTableProps) => {
   return (
     <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           <tr>
-            {columns.map((column) => (
-              <th key={column.key} style={{ width: column.width }}>
-                {column.label}
-              </th>
+            {columns.map((col) => (
+              <th key={col.key}>{col.label}</th>
             ))}
-            {actions.length > 0 && <th style={{ width: "120px" }}>Acciones</th>}
+            {actions && actions.length > 0 && <th className={styles.actionsHeader}>Acciones</th>}
           </tr>
         </thead>
         <tbody>
-          {data.map((row, idx) => {
-            const key = (row as unknown as { id?: string | number }).id ?? idx;
-            return (
-              <tr key={key}>
-                {columns.map((column) => {
-                  const value = (row as unknown as Record<string, unknown>)[
-                    column.key
-                  ];
-                  return (
-                    <td key={column.key}>
-                      {column.render
-                        ? column.render(value, row)
-                        : (value as ReactNode)}
-                    </td>
-                  );
-                })}
-                {actions.length > 0 && (
-                  <td>
-                    <div className={styles.actions}>
-                      {actions.map((action) => (
-                        <button
-                          key={action.label}
-                          className={styles.actionBtn}
-                          onClick={() => action.onClick(row)}
-                          aria-label={action.label}
-                          title={action.label}
-                          type="button"
-                        >
-                          {action.icon}
-                        </button>
-                      ))}
-                    </div>
-                  </td>
-                )}
-              </tr>
-            );
-          })}
+          {data.map((row, idx) => (
+            <tr key={idx}>
+              {columns.map((col) => (
+                <td key={col.key}>{row[col.key]}</td>
+              ))}
+              {actions && actions.length > 0 && (
+                <td className={styles.actionsCell}>
+                  <div className={styles.actions}>
+                    {actions.map((action, actionIdx) => (
+                      <button
+                        key={actionIdx}
+                        className={styles.actionButton}
+                        onClick={() => action.onClick(row)}
+                        title={action.label}
+                      >
+                        {action.icon}
+                      </button>
+                    ))}
+                  </div>
+                </td>
+              )}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default DataTable;
+export default DataTable
