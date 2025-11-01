@@ -6,6 +6,7 @@ import Button from "../../components/UI/Button/Button";
 import reason from "../../assets/images/reasons.png";
 // import { goToBooking } from "../../utils/session";
 import styles from "./AboutUs.module.scss";
+import pfp from "../../assets/images/profile.png";
 
 const AboutUs = () => {
   const values = [
@@ -33,28 +34,16 @@ const AboutUs = () => {
 
   const team = [
     {
-      name: "Dra. María Lavalle",
+      name: "Od. Paula Cavaglia",
       role: "Directora y Odontóloga General",
-      image: "https://i.pravatar.cc/300?img=47",
+      image: "https://i.pravatar.cc/300?img=20",
       specialties: ["Estética Dental", "Rehabilitación Oral"],
     },
     {
-      name: "Dr. Carlos Mendoza",
-      role: "Ortodoncista",
-      image: "https://i.pravatar.cc/300?img=12",
+      name: "Od. Florencia",
+      role: "Directora y Ortodoncista",
+      image: "https://i.pravatar.cc/300?img=21",
       specialties: ["Ortodoncia", "Alineadores Invisibles"],
-    },
-    {
-      name: "Dra. Ana Rodríguez",
-      role: "Endodoncista",
-      image: "https://i.pravatar.cc/300?img=45",
-      specialties: ["Endodoncia", "Tratamiento de Conducto"],
-    },
-    {
-      name: "Dr. Luis Fernández",
-      role: "Cirujano Maxilofacial",
-      image: "https://i.pravatar.cc/300?img=33",
-      specialties: ["Implantes", "Cirugía Oral"],
     },
   ];
 
