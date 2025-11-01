@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Input from "@/components/UI/Input/Input";
-import Select from "../../components/Select/Select";
+import Select from "../../components/UI/Select/Select";
 import Button from "@/components/UI/Button/Button";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,7 +35,7 @@ const Register = () => {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: "onBlur",
@@ -255,12 +255,15 @@ const Register = () => {
                       value={field.value ?? ""}
                       onChange={field.onChange}
                       options={[
-                        { value: "osde", label: "OSDE" },
+                        { value: "jersal", label: "Jerárquicos Salud" },
                         { value: "swiss", label: "Swiss Medical" },
-                        { value: "ioscor", label: "IOSCor" },
+                        { value: "medife", label: "Medifé" },
                         { value: "sancor", label: "SanCor Salud" },
-                        { value: "pami", label: "PAMI" },
+                        { value: "ospim", label: "OSPIM" },
                         { value: "galeno", label: "Galeno" },
+                        { value: "issunne", label: "ISSUNNE" },
+                        { value: "ospjn", label: "OSPJN" },
+                         { value: "otro", label: "Otro" },
                         { value: "ninguna", label: "Ninguna" },
                       ]}
                       error={fieldState.error?.message}

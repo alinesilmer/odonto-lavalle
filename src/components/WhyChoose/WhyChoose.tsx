@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
+import { Sparkles, CheckCircle2 } from "lucide-react";
 import styles from "./WhyChoose.module.scss";
 import whyus from "../../assets/images/whyUs.jpg";
 import whyus2 from "../../assets/images/whyUs2.jpg";

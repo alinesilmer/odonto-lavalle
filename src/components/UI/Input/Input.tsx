@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./Input.module.scss";
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  type?: "text" | "email" | "tel" | "password" | "date";
+  type?: "text" | "email" | "tel" | "password" | "date" | "time";
   label?: string;
   name: string;
   value?: string;

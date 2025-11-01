@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Home,
@@ -52,11 +52,15 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
 
   const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems;
 
-  const isActive = (path: string) => {
-    const current = location.pathname.replace(/\/+$/, "");
-    const target = path.replace(/\/+$/, "");
-    return current === target || current.startsWith(target + "/");
-  };
+  const norm = (p: string) => p.replace(/\/+$/, "");
+  const activePath = useMemo(() => {
+    const current = norm(location.pathname);
+    const candidate = menuItems
+      .map(i => norm(i.path))
+      .filter(p => current === p || current.startsWith(p + "/"))
+      .sort((a, b) => b.length - a.length)[0];
+    return candidate ?? current;
+  }, [location.pathname, menuItems]);
 
   return (
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`} aria-label="Sidebar navegación">
@@ -73,7 +77,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
           </div>
           <button
             className={styles.collapseBtn}
-            onClick={() => setCollapsed((v) => !v)}
+            onClick={() => setCollapsed(v => !v)}
             aria-label={collapsed ? "Expandir" : "Colapsar"}
             type="button"
           >
@@ -82,9 +86,9 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
         </div>
 
         <nav className={styles.nav}>
-          {menuItems.map((item) => {
+          {menuItems.map(item => {
             const Icon = item.icon;
-            const active = isActive(item.path);
+            const active = norm(item.path) === activePath;
             return (
               <Link
                 key={item.path}
@@ -111,7 +115,14 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
           </button>
 
           <div className={styles.user}>
-            <img src={userAvatar || "https://imgs.search.brave.com/MOJNZZ7jZEobQ9JitvnpUAhqvxpu5zwiYbbnQxtiNQg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlmLzRj/L2YwLzlmNGNmMGYy/NGIzNzYwNzdhMmZj/ZGFiMmU4NWMzNTg0/LmpwZw"} alt={userName} className={styles.avatar} />
+            <img
+              src={
+                userAvatar ||
+                "https://imgs.search.brave.com/MOJNZZ7jZEobQ9JitvnpUAhqvxpu5zwiYbbnQxtiNQg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlmLzRj/L2YwLzlmNGNmMGYy/NGIzNzYwNzdhMmZj/ZGFiMmU4NWMzNTg0/LmpwZw"
+              }
+              alt={userName}
+              className={styles.avatar}
+            />
             <div className={styles.userInfo}>
               <span className={styles.userName}>{userName}</span>
               <span className={styles.userRole}>{userRole}</span>
@@ -124,5 +135,3 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
 };
 
 export default Sidebar;
-
- 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Maximize2 } from "lucide-react";
-import PageHero from "../../components/PageHero/PageHero";
+import PageHero from "../../components/UI/PageHero/PageHero";
 import ServiceInfoModal from "./../../components/ServiceInfoModal/ServiceInfoModal";
 import { detailedServices } from "../../data/detailedServices";
 import type { DetailedService } from "../../types";

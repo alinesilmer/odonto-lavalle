@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Bell, Upload } from "lucide-react";
-import PageHero from "../../components/PageHero/PageHero";
+import PageHero from "../../components/UI/PageHero/PageHero";
 import Button from "../../components/UI/Button/Button";
 import hero from "./../../assets/images/appointmentBG.jpg";
 import styles from "./Appointment.module.scss";

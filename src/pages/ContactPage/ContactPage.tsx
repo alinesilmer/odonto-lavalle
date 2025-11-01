@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PageHero from "../../components/PageHero/PageHero";
+import PageHero from "../../components/UI/PageHero/PageHero";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import Input from "../../components/UI/Input/Input";

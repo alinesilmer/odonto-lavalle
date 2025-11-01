@@ -6,7 +6,7 @@ import Button from "../../components/UI/Button/Button";
 import image1 from "../../assets/images/imagen1.jpg";
 // import { goToBooking } from "../../utils/session";
 import styles from "./AboutUs.module.scss";
-import PageHero from "@/components/PageHero/PageHero";
+import PageHero from "@/components/UI/PageHero/PageHero";
 import hero from "../../assets/images/aboutUs.png";
 
 const AboutUs = () => {
@@ -48,12 +48,7 @@ const AboutUs = () => {
     },
   ];
 
-  const achievements = [
-    { number: "15+", label: "Años de Experiencia" },
-    { number: "5000+", label: "Pacientes Satisfechos" },
-    { number: "98%", label: "Tasa de Éxito" },
-    { number: "24/7", label: "Atención de Emergencias" },
-  ];
+ 
 
   return (
     <div className={styles.aboutUs}>
@@ -182,7 +177,7 @@ const AboutUs = () => {
           viewport={{ once: true }}
         >
           <h2>¿Listo para transformar tu sonrisa?</h2>
-          <p>Agenda tu consulta hoy y descubre la diferencia Lavalle</p>
+          <p>Agendá tu consulta hoy y descubrí la diferencia Lavalle</p>
           <div className={styles.ctaButtons}>
             {/*<Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
   Reservar Turno

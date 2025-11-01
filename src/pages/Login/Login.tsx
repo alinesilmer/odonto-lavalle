@@ -17,8 +17,8 @@ const Login = () => {
   const {
     control,
     handleSubmit,
-    setError, // para manejar errores del backend
-    formState: { errors, isSubmitting, isSubmitted },
+    // setError, // para manejar errores del backend
+    formState: { isSubmitting, isSubmitted },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onBlur",

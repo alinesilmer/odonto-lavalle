@@ -12,7 +12,6 @@ const colorByIcon: Record<string, "primary" | "info" | "success" | "danger"> = {
 const AdminStatsSection = () => {
   return (
     <section id="stats" className={styles.section}>
-      <h2>TABLERO GENERAL</h2>
       <div className={styles.grid}>
         {adminStats.map((s, i) => (
           <StatsCard
