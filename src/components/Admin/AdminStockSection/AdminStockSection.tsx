@@ -18,6 +18,7 @@ type StockRow = {
 const AdminStockSection = () => {
   const [stock, setStock] = useState<StockRow[]>(initialStock)
   const [selectedRows, setSelectedRows] = useState<StockRow[]>([])
+  const [query, setQuery] = useState("")
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -83,6 +84,14 @@ const AdminStockSection = () => {
   return (
     <section id="stock" className={styles.section}>
       <div className={styles.headerRow}>
+           <div className={styles.searchWrap}>
+          <input
+            className={styles.searchInput}
+            placeholder="Buscar stock..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
         <Button variant="primary" onClick={openAdd}>
           <Plus size={18} />
           Añadir Stock

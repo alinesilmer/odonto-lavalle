@@ -1,68 +1,114 @@
 "use client";
 
-import { useState } from "react";
-import DashboardLayout from "@/components/DashboardLayout/DashboardLayout";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, Send } from "lucide-react";
 import Button from "@/components/UI/Button/Button";
-import { Send } from "lucide-react";
-import { patientMessages, patientTreatment } from "../../../data/dashboardData";
+import DashboardLayout from "@/components/DashboardLayout/DashboardLayout";
+import { patientMessagesSecond as seed } from "../../../data/dashboardData";
 import styles from "./PatientMessagesSection.module.scss";
 
-const PatientMessages = () => {
-  const [selected, setSelected] = useState(patientMessages[0]);
-  const [text, setText] = useState("");
+type Msg = {
+  id: string;
+  sender: string;
+  avatar?: string;
+  text: string;
+  timestamp: string;
+  isOwn?: boolean;
+  to?: string;
+};
 
-  const list = patientMessages.map(m => ({
-    id: m.id,
-    sender: m.sender,
-    preview: m.text.length > 50 ? `${m.text.slice(0,50)}…` : m.text,
-    timestamp: m.timestamp,
-    isOwn: m.isOwn,
-    text: m.text,
-    avatar: m.avatar,
-  }));
+const CLINIC_SENDER = "Equipo Lavalle";
+const timeNow = () =>
+  new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+const PatientMessagesSection = () => {
+  const [messages, setMessages] = useState<Msg[]>(
+    (seed as Msg[]).map((m) =>
+      m.isOwn
+        ? { ...m, sender: "Tú", to: CLINIC_SENDER }
+        : { ...m, sender: CLINIC_SENDER }
+    )
+  );
+  const [query, setQuery] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const timelineRef = useRef<HTMLDivElement | null>(null);
+
+  const thread = useMemo(
+    () => messages.filter((m) => m.isOwn || m.sender === CLINIC_SENDER),
+    [messages]
+  );
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return thread;
+    return thread.filter((m) => m.text.toLowerCase().includes(q));
+  }, [thread, query]);
+
+  useEffect(() => {
+    if (timelineRef.current) {
+      timelineRef.current.scrollTop = timelineRef.current.scrollHeight;
+    }
+  }, [filtered.length]);
 
   const send = () => {
-    if (!text.trim()) return;
-    console.log("Send", text);
-    setText("");
+    if (!messageText.trim()) return;
+    const newMsg: Msg = {
+      id: String(Date.now()),
+      sender: "Tú",
+      text: messageText.trim(),
+      timestamp: timeNow(),
+      isOwn: true,
+      to: CLINIC_SENDER,
+    };
+    setMessages((prev) => [...prev, newMsg]);
+    setMessageText("");
   };
 
   return (
-    <DashboardLayout userType="patient" userRole="patient" userName={patientTreatment.patientName ?? "Usuario"}>
-      <div className={styles.wrap}>
-        <section className={styles.section}>
-          <h2>MENSAJES</h2>
-          <div className={styles.container}>
-            <div className={styles.list}>
-              {list.map(m => (
-                <button key={m.id} className={`${styles.item} ${selected.id === m.id ? styles.active : ""}`} onClick={() => setSelected(m)} type="button">
-                  <div className={styles.avatar}>{m.sender?.[0] ?? "?"}</div>
-                  <div className={styles.preview}>
-                    <h4>{m.sender}</h4>
-                    <p>{m.preview}</p>
-                  </div>
-                  <span className={styles.time}>{m.timestamp}</span>
-                </button>
-              ))}
-            </div>
-            <div className={styles.thread}>
-              <div className={styles.threadHeader}><h3>{selected.sender}</h3></div>
-              <div className={styles.messages}>
-                <div className={`${styles.message} ${selected.isOwn ? styles.own : ""}`}>
-                  <p>{selected.text}</p>
-                  <span className={styles.timestamp}>{selected.timestamp}</span>
-                </div>
-              </div>
-              <div className={styles.inputRow}>
-                <input value={text} onChange={(e)=>setText(e.target.value)} onKeyDown={(e)=>e.key==="Enter"&&send()} placeholder="Escribe un mensaje..." />
-                <Button onClick={send} type="button"><Send size={18} /></Button>
-              </div>
-            </div>
+    <DashboardLayout userType="patient" userRole="patient" userName="Usuario">
+      <section id="messages" className={styles.section}>
+        <div className={styles.header}>
+          <div className={styles.search}>
+            <Search size={16} />
+            <input
+              placeholder="Buscar mensaje…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
-        </section>
-      </div>
+        </div>
+
+        <div className={styles.chatCard}>
+          <div className={styles.chatHeader}>
+            <div className={styles.avatarLg}>{CLINIC_SENDER[0]}</div>
+            <span className={styles.chatName}>Administrador</span>
+          </div>
+
+          <div className={styles.timeline} ref={timelineRef}>
+            <div className={styles.dayChip}>Hoy</div>
+            {filtered.map((m) => (
+              <div key={m.id} className={`${styles.bubble} ${m.isOwn ? styles.own : ""}`}>
+                <p>{m.text}</p>
+                <span className={styles.stamp}>{m.timestamp}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.inputRow}>
+            <input
+              placeholder={`Escribe un mensaje a ${CLINIC_SENDER}`}
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && send()}
+            />
+            <Button type="button" size="small" onClick={send}>
+              <Send size={17} />
+            </Button>
+          </div>
+        </div>
+      </section>
     </DashboardLayout>
   );
 };
 
-export default PatientMessages;
+export default PatientMessagesSection;

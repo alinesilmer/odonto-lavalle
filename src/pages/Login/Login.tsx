@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Instagram, Mail, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import Input from "@/components/UI/Input/Input";
@@ -11,13 +11,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "../../schemas/auth";
 import styles from "./Login.module.scss";
 
+const ADMIN_DASHBOARD_ROUTE = "/dashboard/admin";
+const PATIENT_DASHBOARD_ROUTE = "/dashboard/paciente";
+
+const HARDCODED_USERS = [
+  { email: "admin@lavalle.com", password: "Admin123!", role: "admin", name: "Admin Demo" },
+  { email: "paciente@lavalle.com", password: "Paciente123!", role: "patient", name: "Paciente Demo" },
+] as const;
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     control,
     handleSubmit,
-    // setError, // para manejar errores del backend
+    setError,
     formState: { isSubmitting, isSubmitted },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -26,13 +35,33 @@ const Login = () => {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    // TODO: POST a tu backend /auth/login
     await new Promise((r) => setTimeout(r, 800));
-    console.log("Login:", data);
 
-    // Ejemplo (cuando backend responde 401/403):
-    // setError("email", { type: "manual", message: "Email o contraseña inválidos" });
-    // setError("password", { type: "manual", message: "Email o contraseña inválidos" });
+    const found = HARDCODED_USERS.find(
+      (u) => u.email === data.email && u.password === data.password
+    );
+
+    if (!found) {
+      setError("email", { type: "manual", message: "Email o contraseña inválidos" });
+      setError("password", { type: "manual", message: "Email o contraseña inválidos" });
+      return;
+    }
+
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        token: "demo-token",
+        role: found.role,
+        email: found.email,
+        name: found.name,
+      })
+    );
+
+    if (found.role === "admin") {
+      navigate(ADMIN_DASHBOARD_ROUTE, { replace: true });
+    } else {
+      navigate(PATIENT_DASHBOARD_ROUTE, { replace: true });
+    }
   };
 
   return (

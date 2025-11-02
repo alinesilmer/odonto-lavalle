@@ -25,12 +25,7 @@ const AdminStatsSection = () => {
           <h3 className={styles.hello}>¡HOLA, USUARIO!</h3>
           <p className={styles.subtitle}>¿Qué vamos a hacer hoy?</p>
         </div>
-        <ul className={styles.quickList}>
-          <li><CalendarDays className={styles.icn} /><span>Revisar Calendario</span></li>
-          <li><AlarmClock className={styles.icn} /><span>Gestionar Turnos</span></li>
-          <li><UserRound className={styles.icn} /><span>Gestionar Pacientes</span></li>
-          <li><Boxes className={styles.icn} /><span>Gestionar Stock</span></li>
-        </ul>
+       
       </div>
       <div className={styles.mascot}>
         <img

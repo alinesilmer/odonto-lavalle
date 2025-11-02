@@ -25,7 +25,6 @@ const DashboardLayout = ({ children, userType, userName, userRole, userAvatar }:
         estadisticas: "Estadísticas",
         recordatorios: "Recordatorios",
         mensajes: "Mensajes",
-        pagos: "Pagos",
         "": "Tablero General",
       };
       return map[seg] ?? "Tablero General";

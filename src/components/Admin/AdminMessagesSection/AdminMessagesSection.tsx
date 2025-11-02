@@ -159,7 +159,7 @@ const AdminMessagesSection = () => {
 
           <div className={styles.inputRow}>
             <input
-              placeholder={`Escribe un mensaje a ${selected.sender}`}
+              placeholder={`Escribí un mensaje a ${selected.sender}`}
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}

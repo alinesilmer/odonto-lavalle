@@ -3,6 +3,7 @@ import WhyVisit from "../../components/WhyVisit/WhyVisit"
 import Testimonials from "../../components/Testimonials/Testimonials"
 import WhyChoose from "../../components/WhyChoose/WhyChoose"
 import InsurancePayment from "../../components/InsurancePayment/InsurancePayment"
+import DentalGame from "@/components/DentalGame/DentalGame"
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Testimonials />
       <WhyChoose />
       <InsurancePayment />
+      <DentalGame/>
     </>
   )
 }

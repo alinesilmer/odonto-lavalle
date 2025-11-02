@@ -61,6 +61,28 @@ const patientMessages: Message[] = [
   },
 ];
 
+
+const patientMessagesSecond: Message[] = [
+    {
+    id: "1",
+    sender: "Tú",
+    avatar: "/placeholder.svg?height=40&width=40",
+    text: 
+    "Buenas tardes, quisiera consultar por el servicio de ortodoncia. ¿Qué sistemas utilizan y cuáles son los precios? Desde ya, muchas gracias.",
+    timestamp: "14:35",
+    isOwn: true,
+  },
+  {
+    id: "2",
+    sender: "Administrador",
+    avatar: "/placeholder.svg?height=40&width=40",
+     text:
+      "¡Hola, Mariel! En Lavalle Odontología Integral utilizamos una variedad de sistemas, dependiendo del caso. Para poder darte una respuesta más precisa, recomendamos generar una consulta. Cualquier duda, estamos a disposición",
+   timestamp: "14:30",
+    isOwn: false,
+  },
+];
+
 const patientTreatment: Treatment = {
   patientName: "Francisco Santillán",
   dni: "35/1/2025",
@@ -188,5 +210,6 @@ export {
   adminReminders,
   patientAppointments,
   patientMessages,
+  patientMessagesSecond,
   patientTreatment,
 };

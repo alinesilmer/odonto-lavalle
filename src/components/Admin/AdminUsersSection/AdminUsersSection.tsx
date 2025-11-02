@@ -1,7 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Eye, Edit, Trash2, User } from "lucide-react"
+import { Eye, Edit, Trash2, User, X } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import Button from "@/components/UI/Button/Button"
 import DataTable from "../../DataTable/DataTable"
 import { adminPatients as basePatients } from "../../../data/dashboardData"
@@ -10,6 +11,7 @@ import styles from "./AdminUsersSection.module.scss"
 type Patient = typeof basePatients[number]
 
 const AdminUsersSection = () => {
+  const navigate = useNavigate()
   const [patients, setPatients] = useState<Patient[]>(basePatients)
   const [query, setQuery] = useState("")
   const [viewUser, setViewUser] = useState<Patient | null>(null)
@@ -50,17 +52,31 @@ const AdminUsersSection = () => {
         phone: p.phone,
         insurance: p.insurance,
         treatment: (
-          <button type="button" className={styles.linkCell}>
+          <button
+            type="button"
+            className={styles.linkCell}
+            onClick={(e) => {
+              e.stopPropagation()
+              navigate(`/dashboard/admin/pacientes/${p.id}/tratamiento`, { state: { mode: "admin" } })
+            }}
+          >
             IR A TRATAMIENTO ACTUAL
           </button>
         ),
         history: (
-          <button type="button" className={styles.linkCell}>
+          <button
+            type="button"
+            className={styles.linkCell}
+            onClick={(e) => {
+              e.stopPropagation()
+              navigate(`/dashboard/admin/pacientes/${p.id}/historia`, { state: { mode: "admin" } })
+            }}
+          >
             IR A HISTORIA CLÍNICA
           </button>
         ),
       })),
-    [filtered]
+    [filtered, navigate]
   )
 
   const actions = [
@@ -93,7 +109,7 @@ const AdminUsersSection = () => {
   const saveEdit = () => {
     if (!editUser) return
     setPatients((prev) =>
-      prev.map((p) => (p.id === editUser.id ? { ...p, ...editDraft } as Patient : p))
+      prev.map((p) => (p.id === editUser.id ? ({ ...p, ...editDraft } as Patient) : p))
     )
     setEditUser(null)
   }
@@ -108,6 +124,11 @@ const AdminUsersSection = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
+          {query && (
+            <button className={styles.clearSearch} onClick={() => setQuery("")} aria-label="Limpiar">
+              <X size={14} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -127,30 +148,12 @@ const AdminUsersSection = () => {
               <button className={styles.closeX} onClick={() => setViewUser(null)}>×</button>
             </div>
             <div className={styles.modalBody}>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>Nombre</span>
-                <span>{viewUser.name}</span>
-              </div>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>DNI</span>
-                <span>{viewUser.dni}</span>
-              </div>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>Teléfono</span>
-                <span>{viewUser.phone}</span>
-              </div>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>Email</span>
-                <span>{viewUser.email}</span>
-              </div>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>Obra Social</span>
-                <span>{viewUser.insurance}</span>
-              </div>
-              <div className={styles.viewRow}>
-                <span className={styles.viewLabel}>Última Visita</span>
-                <span>{viewUser.lastVisit}</span>
-              </div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>Nombre</span><span>{viewUser.name}</span></div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>DNI</span><span>{viewUser.dni}</span></div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>Teléfono</span><span>{viewUser.phone}</span></div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>Email</span><span>{viewUser.email}</span></div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>Obra Social</span><span>{viewUser.insurance}</span></div>
+              <div className={styles.viewRow}><span className={styles.viewLabel}>Última Visita</span><span>{viewUser.lastVisit}</span></div>
             </div>
             <div className={styles.modalActions}>
               <Button variant="secondary" onClick={() => setViewUser(null)}>Cerrar</Button>
@@ -169,48 +172,12 @@ const AdminUsersSection = () => {
             </div>
             <div className={styles.modalBody}>
               <div className={styles.formGrid}>
-                <label className={styles.field}>
-                  <span>Nombre</span>
-                  <input
-                    value={editDraft.name ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, name: e.target.value }))}
-                  />
-                </label>
-                <label className={styles.field}>
-                  <span>DNI</span>
-                  <input
-                    value={editDraft.dni ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, dni: e.target.value }))}
-                  />
-                </label>
-                <label className={styles.field}>
-                  <span>Teléfono</span>
-                  <input
-                    value={editDraft.phone ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, phone: e.target.value }))}
-                  />
-                </label>
-                <label className={styles.field}>
-                  <span>Email</span>
-                  <input
-                    value={editDraft.email ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, email: e.target.value }))}
-                  />
-                </label>
-                <label className={styles.field}>
-                  <span>Obra Social</span>
-                  <input
-                    value={editDraft.insurance ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, insurance: e.target.value }))}
-                  />
-                </label>
-                <label className={styles.field}>
-                  <span>Última Visita</span>
-                  <input
-                    value={editDraft.lastVisit ?? ""}
-                    onChange={(e) => setEditDraft((d) => ({ ...d, lastVisit: e.target.value }))}
-                  />
-                </label>
+                <label className={styles.field}><span>Nombre</span><input value={editDraft.name ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, name: e.target.value }))} /></label>
+                <label className={styles.field}><span>DNI</span><input value={editDraft.dni ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, dni: e.target.value }))} /></label>
+                <label className={styles.field}><span>Teléfono</span><input value={editDraft.phone ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, phone: e.target.value }))} /></label>
+                <label className={styles.field}><span>Email</span><input value={editDraft.email ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, email: e.target.value }))} /></label>
+                <label className={styles.field}><span>Obra Social</span><input value={editDraft.insurance ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, insurance: e.target.value }))} /></label>
+                <label className={styles.field}><span>Última Visita</span><input value={editDraft.lastVisit ?? ""} onChange={(e) => setEditDraft((d) => ({ ...d, lastVisit: e.target.value }))} /></label>
               </div>
             </div>
             <div className={styles.modalActions}>

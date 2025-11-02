@@ -11,7 +11,6 @@ import {
   Package,
   BarChart3,
   Bell,
-  DollarSign,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
@@ -40,15 +39,15 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
   ];
 
   const adminMenuItems: MenuItem[] = [
-    { path: "/dashboard/admin", label: "Home", icon: Home },
+    { path: "/dashboard/admin", label: "Inicio", icon: Home },
     { path: "/dashboard/admin/turnos", label: "Turnos", icon: Calendar },
     { path: "/dashboard/admin/pacientes", label: "Lista de Pacientes", icon: Users },
     { path: "/dashboard/admin/stock", label: "Gestión de Stock", icon: Package },
     { path: "/dashboard/admin/estadisticas", label: "Estadísticas", icon: BarChart3 },
     { path: "/dashboard/admin/recordatorios", label: "Recordatorios", icon: Bell },
     { path: "/dashboard/admin/mensajes", label: "Mensajes", icon: MessageSquare },
-    // { path: "/dashboard/admin/pagos", label: "Pagos", icon: DollarSign },
   ];
+
 
   const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems;
 
@@ -61,6 +60,8 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
       .sort((a, b) => b.length - a.length)[0];
     return candidate ?? current;
   }, [location.pathname, menuItems]);
+
+  const supportPath = userType === "patient" ? "/dashboard/paciente/soporte" : "/dashboard/admin/soporte";
 
   return (
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`} aria-label="Sidebar navegación">
@@ -109,10 +110,11 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
             <Settings size={20} />
             <span>Configuración</span>
           </button>
-          <button className={styles.navItem} type="button" title={collapsed ? "Soporte" : undefined}>
-            <MessageCircleQuestionMark size={20} />
-            <span>Soporte</span>
-          </button>
+
+  <Link to={supportPath} className={styles.navItem} title={collapsed ? "Soporte" : undefined}>
+    <MessageCircleQuestionMark size={20} />
+    <span>Soporte</span>
+  </Link>
 
           <div className={styles.user}>
             <img

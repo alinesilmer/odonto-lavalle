@@ -40,7 +40,7 @@ const PatientHome = () => (
             <div className={styles.notification}>
               <div className={styles.notifIcon}>💬</div>
               <div>
-                <p className={styles.notifTitle}>Tienes un mensaje nuevo</p>
+                <p className={styles.notifTitle}>Tenés un mensaje nuevo</p>
                 <p className={styles.notifDate}>Hace 2 horas</p>
               </div>
             </div>

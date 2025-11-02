@@ -41,10 +41,10 @@ const AboutUs = () => {
       specialties: ["Estética Dental", "Rehabilitación Oral"],
     },
     {
-      name: "Od. Florencia",
-      role: "Directora y Ortodoncista",
+      name: "Od. Florencia Hernández",
+      role: "Directora y Endodoncista",
       image: "https://i.pravatar.cc/300?img=21",
-      specialties: ["Ortodoncia", "Alineadores Invisibles"],
+      specialties: ["Tratamientos de Conducto", "Ortodoncia"],
     },
   ];
 
