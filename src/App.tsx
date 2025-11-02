@@ -26,6 +26,7 @@ const PatientHome = lazy(() => import("./components/Patient/PatientHome/PatientH
 const PatientAppointments = lazy(() => import("./components/Patient/PatientAppointmentSection/PatientAppointmentSection"))
 const PatientMessages = lazy(() => import("./components/Patient/PatientMessagesSection/PatientMessagesSection"))
 const PatientTreatment = lazy(() => import("./components/Patient/PatientTreatmentSection/PatientTreatmentSection"))
+const PatientConfig = lazy(() => import("./components/Patient/PatientConfig/PatientConfig"))
 
 type PatientHistoryProps = {
   isAdmin?: boolean
@@ -54,6 +55,7 @@ const AdminChartsSection = lazy(() => import("./components/Admin/AdminChartsSect
 const AdminRemindersSection = lazy(() => import("./components/Admin/AdminRemindersSection/AdminRemindersSection"))
 const AdminMessagesSection = lazy(() => import("./components/Admin/AdminMessagesSection/AdminMessagesSection"))
 const AdminSupport = lazy(() => import("./components/Admin/AdminSupport/AdminSupport"))
+const AdminConfig = lazy(() => import("./components/Admin/AdminConfig/AdminConfig"))
 
 import { patientTreatment } from "./data/dashboardData"
 import ScrollToHash from "./utils/ScrollToHash"
@@ -123,6 +125,7 @@ function App() {
                 <Route path="pacientes/:id/historia" element={<AdminPatientHistory />} />
                 <Route path="pacientes/:id/tratamiento" element={<AdminPatientTreatment />} />
                 <Route path="soporte" element={<AdminSupport />} />
+                <Route path="configuracion" element={<AdminConfig />} />
                 <Route path="*" element={<Navigate to="." replace />} />
               </Route>
 
@@ -131,6 +134,7 @@ function App() {
               <Route path="/dashboard/paciente/turnos" element={<PatientAppointments />} />
               <Route path="/dashboard/paciente/mensajes" element={<PatientMessages />} />
               <Route path="/dashboard/paciente/tratamiento" element={<PatientTreatment />} />
+              <Route path="/dashboard/paciente/configuracion" element={<PatientConfig />} />
               <Route
                 path="/dashboard/paciente/historia"
                 element={

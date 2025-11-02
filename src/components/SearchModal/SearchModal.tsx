@@ -251,8 +251,8 @@ export default function SearchModal({ open, onClose, data = DEFAULT_DATA }: Prop
                   <div className={styles.emptyIcon}>
                     <Sparkles size={40} strokeWidth={1.5} />
                   </div>
-                  <h3>Descubre nuestros servicios</h3>
-                  <p>Encuentra tratamientos, agenda turnos y accede a toda la información que necesitas</p>
+                  <h3>Descubrí nuestros servicios</h3>
+                  <p>Encontrá tratamientos, agendá turnos y accedé a toda la información que necesitás</p>
 
                   <div className={styles.suggestions}>
                     <div className={styles.sectionHeader}>

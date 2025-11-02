@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { Eye, Edit, Trash2, Calendar as CalIcon, Clock, Filter, Lock, Plus } from "lucide-react"
 import DataTable from "@/components/DataTable/DataTable"
 import Button from "@/components/UI/Button/Button"
-import Modal from "@/components/Modal/Modal"
+import Modal from "@/components/UI/Modal/Modal"
 import Input from "@/components/UI/Input/Input"
 import Select from "@/components/UI/Select/Select"
 import { adminAppointments } from "../../../data/dashboardData"
@@ -230,9 +230,11 @@ const AdminAppointmentsSection = () => {
             { value: "", label: "Seleccionar" },
             { value: "Medifé", label: "Medifé" },
             { value: "Swiss", label: "Swiss Medical" },
-            { value: "IOSCor", label: "IOSCor" },
-            { value: "PAMI", label: "PAMI" },
+            { value: "OSPJN", label: "OSPJN" },
+            { value: "Jerárquicos Salud", label: "Jerárquicos Salud" },
+            { value: "OSPIM", label: "Ospim" },
             { value: "Galeno", label: "Galeno" },
+             { value: "Otro", label: "Otro" },
             { value: "Ninguna", label: "Ninguna" },
           ]}
           required

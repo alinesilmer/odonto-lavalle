@@ -198,7 +198,6 @@ const adminReminders: Notification[] = [
   },
 ];
 
-// If you want admin appointments to be a separate list, replace this with its own array.
 const adminAppointments: Appointment[] = patientAppointments;
 
 // ---------------- Exports ----------------

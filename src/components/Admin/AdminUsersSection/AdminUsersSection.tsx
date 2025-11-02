@@ -124,11 +124,6 @@ const AdminUsersSection = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          {query && (
-            <button className={styles.clearSearch} onClick={() => setQuery("")} aria-label="Limpiar">
-              <X size={14} />
-            </button>
-          )}
         </div>
       </div>
 

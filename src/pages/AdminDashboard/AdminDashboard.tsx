@@ -13,6 +13,7 @@ import AdminMessagesSection from "@/components/Admin/AdminMessagesSection/AdminM
 import AdminSupport from "@/components/Admin/AdminSupport/AdminSupport"
 import AdminPatientHistory from "@/components/Admin/AdminPatientHistory"
 import AdminPatientTreatment from "@/components/Admin/AdminPatientTreatment"
+import AdminConfig from "@/components/Admin/AdminConfig/AdminConfig"
 
 import pfp from "../../assets/images/profile.png"
 import styles from "./AdminDashboard.module.scss"
@@ -36,6 +37,7 @@ const AdminDashboard = () => {
             <Route path="recordatorios" element={<AdminRemindersSection />} />
             <Route path="mensajes" element={<AdminMessagesSection />} />
             <Route path="soporte" element={<AdminSupport />} />
+            <Route path="configuracion" element={<AdminConfig />} />
 
             <Route path="*" element={<Navigate to="." replace />} />
           </Routes>

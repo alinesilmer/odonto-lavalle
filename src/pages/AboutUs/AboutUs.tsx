@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Heart, Users, Target, CheckCircle, Star } from "lucide-react";
+import { Award, Heart, Users, Target, CheckCircle } from "lucide-react";
 import Button from "../../components/UI/Button/Button";
 import image1 from "../../assets/images/imagen1.jpg";
 // import { goToBooking } from "../../utils/session";
@@ -127,12 +127,6 @@ const AboutUs = () => {
 
       <section className={styles.team}>
         <h2>Nuestro Equipo</h2>
-        <p className={styles.teamIntro}>
-         En Lavalle Odontología, creemos que una sonrisa saludable es la
-          puerta a una vida plena. Nuestro equipo de profesionales altamente
-          capacitados se dedica a brindar atención dental de excelencia con
-          calidez humana y tecnología de vanguardia.
-        </p>
         <div className={styles.teamGrid}>
           {team.map((member, idx) => (
             <motion.div
@@ -149,9 +143,6 @@ const AboutUs = () => {
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
                 />
-                <div className={styles.teamOverlay}>
-                  <Star className={styles.starIcon} />
-                </div>
               </div>
               <div className={styles.teamInfo}>
                 <h3>{member.name}</h3>

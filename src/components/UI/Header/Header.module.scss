@@ -86,7 +86,6 @@
   align-items: center;
   gap: 1rem;
 
-  /* En mobile ocultamos sólo el botón de búsqueda, NO el de usuario */
   @media (max-width: 768px) {
     .searchButton {
       display: none;
@@ -103,7 +102,7 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  text-decoration: none; /* para el Link */
+  text-decoration: none; 
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);

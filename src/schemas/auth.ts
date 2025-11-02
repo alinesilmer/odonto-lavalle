@@ -54,9 +54,9 @@ export const registerSchema = z
           const birthDate = new Date(date)
           const today = new Date()
           const age = today.getFullYear() - birthDate.getFullYear()
-          return age >= 13 && age <= 120
+          return age >= 18 && age <= 90
         },
-        { message: "Debés tener al menos 13 años para registrarte" },
+        { message: "Debés tener al menos 18 años para registrarte" },
       ),
     password: z
       .string()

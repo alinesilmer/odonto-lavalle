@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Input from "../../components/UI/Input/Input";
 import Textarea from "../../components/UI/Textarea/Textarea";
 import Button from "../../components/UI/Button/Button";
-import Accordion from "../../components/Accordion/Accordion";
+import Accordion from "../../components/UI/Accordion/Accordion";
 import { useForm } from "../../hooks/useForm";
 import { validateEmail, validateRequired } from "../../utils/validation";
 import { contactInfo } from "../../data/contactInfo";
@@ -38,7 +38,7 @@ const ContactPage = () => {
     useForm<ContactFormData>(
       { name: "", reason: "", email: "", phone: "", message: "" },
       validationRules,
-      async (data) => {
+      async () => {
         setShowSuccess(true);
       }
     );

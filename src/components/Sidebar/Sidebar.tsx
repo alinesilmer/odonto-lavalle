@@ -1,5 +1,7 @@
-import { useState, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+"use client"
+
+import { useState, useMemo } from "react"
+import { Link, useLocation } from "react-router-dom"
 import {
   Home,
   Calendar,
@@ -13,22 +15,22 @@ import {
   Bell,
   ChevronsLeft,
   ChevronsRight,
-} from "lucide-react";
-import Logo from "../../assets/images/Logo.png";
-import styles from "./Sidebar.module.scss";
+} from "lucide-react"
+import Logo from "../../assets/images/Logo.png"
+import styles from "./Sidebar.module.scss"
 
 interface SidebarProps {
-  userType: "patient" | "admin";
-  userName: string;
-  userRole: string;
-  userAvatar?: string;
+  userType: "patient" | "admin"
+  userName: string
+  userRole: string
+  userAvatar?: string
 }
 
-type MenuItem = { path: string; label: string; icon: React.ComponentType<{ size?: number }> };
+type MenuItem = { path: string; label: string; icon: React.ComponentType<{ size?: number }> }
 
 const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => {
-  const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation()
+  const [collapsed, setCollapsed] = useState(false)
 
   const patientMenuItems: MenuItem[] = [
     { path: "/dashboard/paciente", label: "Inicio", icon: Home },
@@ -36,7 +38,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
     { path: "/dashboard/paciente/tratamiento", label: "Mi Tratamiento Actual", icon: FileText },
     { path: "/dashboard/paciente/historia", label: "Mi Historia Clínica", icon: FileText },
     { path: "/dashboard/paciente/mensajes", label: "Mensajes", icon: MessageSquare },
-  ];
+  ]
 
   const adminMenuItems: MenuItem[] = [
     { path: "/dashboard/admin", label: "Inicio", icon: Home },
@@ -46,22 +48,28 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
     { path: "/dashboard/admin/estadisticas", label: "Estadísticas", icon: BarChart3 },
     { path: "/dashboard/admin/recordatorios", label: "Recordatorios", icon: Bell },
     { path: "/dashboard/admin/mensajes", label: "Mensajes", icon: MessageSquare },
-  ];
+  ]
 
+  const configPath = userType === "patient" ? "/dashboard/paciente/configuracion" : "/dashboard/admin/configuracion"
+  const supportPath = userType === "patient" ? "/dashboard/paciente/soporte" : "/dashboard/admin/soporte"
 
-  const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems;
+  const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems
 
-  const norm = (p: string) => p.replace(/\/+$/, "");
+  const norm = (p: string) => p.replace(/\/+$/, "")
+  const isActive = (p: string) => {
+    const current = norm(location.pathname)
+    const base = norm(p)
+    return current === base || current.startsWith(base + "/")
+  }
+
   const activePath = useMemo(() => {
-    const current = norm(location.pathname);
+    const current = norm(location.pathname)
     const candidate = menuItems
       .map(i => norm(i.path))
       .filter(p => current === p || current.startsWith(p + "/"))
-      .sort((a, b) => b.length - a.length)[0];
-    return candidate ?? current;
-  }, [location.pathname, menuItems]);
-
-  const supportPath = userType === "patient" ? "/dashboard/paciente/soporte" : "/dashboard/admin/soporte";
+      .sort((a, b) => b.length - a.length)[0]
+    return candidate ?? current
+  }, [location.pathname, menuItems])
 
   return (
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`} aria-label="Sidebar navegación">
@@ -88,8 +96,8 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
 
         <nav className={styles.nav}>
           {menuItems.map(item => {
-            const Icon = item.icon;
-            const active = norm(item.path) === activePath;
+            const Icon = item.icon
+            const active = norm(item.path) === activePath
             return (
               <Link
                 key={item.path}
@@ -101,20 +109,28 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
                 <Icon size={20} />
                 <span>{item.label}</span>
               </Link>
-            );
+            )
           })}
         </nav>
 
         <div className={styles.footer}>
-          <button className={styles.navItem} type="button" title={collapsed ? "Configuración" : undefined}>
+          <Link
+            to={configPath}
+            className={`${styles.navItem} ${isActive(configPath) ? styles.active : ""}`}
+            title={collapsed ? "Configuración" : undefined}
+          >
             <Settings size={20} />
             <span>Configuración</span>
-          </button>
+          </Link>
 
-  <Link to={supportPath} className={styles.navItem} title={collapsed ? "Soporte" : undefined}>
-    <MessageCircleQuestionMark size={20} />
-    <span>Soporte</span>
-  </Link>
+          <Link
+            to={supportPath}
+            className={`${styles.navItem} ${isActive(supportPath) ? styles.active : ""}`}
+            title={collapsed ? "Soporte" : undefined}
+          >
+            <MessageCircleQuestionMark size={20} />
+            <span>Soporte</span>
+          </Link>
 
           <div className={styles.user}>
             <img
@@ -133,7 +149,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
         </div>
       </div>
     </aside>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
