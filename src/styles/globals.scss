@@ -26,6 +26,11 @@
   --border-radius: 12px;
   --border-radius-sm: 8px;
   --border-radius-lg: 30px;
+
+  :root{
+  --sidebar-w: 280px;   
+  --header-h: 64px;    
+}
 }
 
 * {
@@ -87,6 +92,18 @@ img {
 
 .section {
   padding: 4rem 0;
+}
+
+.appShell {
+  padding-left: var(--sidebar-w);
+  padding-top: var(--header-h, 0px);
+  min-width: 0; 
+}
+
+@media (max-width: 1024px){
+  .appShell {
+    padding-left: 0; 
+  }
 }
 
 @media (max-width: 768px) {

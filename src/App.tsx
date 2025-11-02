@@ -22,7 +22,6 @@ const ContactPage = lazy(() => import("./pages/ContactPage/ContactPage"))
 const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs"))
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"))
 
-const PatientDashboard = lazy(() => import("./pages/PatientDashboard/PatientDashboard"))
 const PatientHome = lazy(() => import("./components/Patient/PatientHome/PatientHome"))
 const PatientAppointments = lazy(() => import("./components/Patient/PatientAppointmentSection/PatientAppointmentSection"))
 const PatientMessages = lazy(() => import("./components/Patient/PatientMessagesSection/PatientMessagesSection"))

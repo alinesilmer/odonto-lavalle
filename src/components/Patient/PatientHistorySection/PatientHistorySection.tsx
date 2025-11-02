@@ -201,11 +201,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           fecha: r.date ?? "-",
           hora: r.time ?? "-",
           titulo: r.title ?? r.condition ?? "Consulta",
-          descripcion: r.diagnosis
-            ? `Diagnóstico: ${r.diagnosis}`
-            : r.medication
-            ? `Medicación: ${r.medication}`
-            : "Consulta",
+          descripcion: r.diagnosis ? `Diagnóstico: ${r.diagnosis}` : r.medication ? `Medicación: ${r.medication}` : "Consulta",
           notas: r.notes,
         })),
       },
@@ -235,9 +231,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
         </div>
         {isAdmin && (
           <div className={styles.headerActions}>
-            <button className={styles.addBtn} onClick={() => setShowTutorModal(true)}>
-              + Agregar Historia Clínica TUTOR
-            </button>
+            <button className={styles.addBtn} onClick={() => setShowTutorModal(true)}>+ Agregar Historia Clínica TUTOR</button>
           </div>
         )}
       </div>
@@ -282,6 +276,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={styles.searchInput}
+            inputMode="search"
           />
         </div>
         <div className={styles.filters}>
@@ -301,9 +296,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Tratamientos</h2>
           {isAdmin && (
-            <button className={styles.addBtn} onClick={() => setShowAddTratamientoModal(true)}>
-              + Nuevo Tratamiento
-            </button>
+            <button className={styles.addBtn} onClick={() => setShowAddTratamientoModal(true)}>+ Nuevo Tratamiento</button>
           )}
         </div>
 
@@ -311,6 +304,10 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div key={tratamiento.id} className={styles.tratamientoCard}>
             <div
               className={styles.tratamientoHeader}
+              role="button"
+              tabIndex={0}
+              aria-expanded={expandedTratamiento === tratamiento.id}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setExpandedTratamiento(expandedTratamiento === tratamiento.id ? null : tratamiento.id)}
               onClick={() => setExpandedTratamiento(expandedTratamiento === tratamiento.id ? null : tratamiento.id)}
             >
               <div className={styles.tratamientoTitle}>
@@ -324,19 +321,8 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                 <div className={styles.progressIndicator}>
                   <div className={styles.progressCircle}>
                     <svg viewBox="0 0 36 36">
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#e2e8f0"
-                        strokeWidth="3"
-                      />
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#667eea"
-                        strokeWidth="3"
-                        strokeDasharray={`${tratamiento.progreso}, 100`}
-                      />
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e2e8f0" strokeWidth="3" />
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#667eea" strokeWidth="3" strokeDasharray={`${tratamiento.progreso}, 100`} />
                     </svg>
                     <span>{tratamiento.progreso}%</span>
                   </div>
@@ -368,9 +354,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                   <div className={styles.archivosSectionHeader}>
                     <h4>Archivos</h4>
                     {isAdmin && (
-                      <button className={styles.addSmallBtn} onClick={() => setShowAddArchivoModal(true)}>
-                        + Nuevo Archivo
-                      </button>
+                      <button className={styles.addSmallBtn} onClick={() => setShowAddArchivoModal(true)}>+ Nuevo Archivo</button>
                     )}
                   </div>
 
@@ -378,13 +362,16 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                     <div key={archivo.id} className={styles.archivoCard}>
                       <div
                         className={styles.archivoHeader}
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={expandedArchivo === archivo.id}
+                        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setExpandedArchivo(expandedArchivo === archivo.id ? null : archivo.id)}
                         onClick={() => setExpandedArchivo(expandedArchivo === archivo.id ? null : archivo.id)}
                       >
                         <div>
                           <h5>{archivo.nombre}</h5>
                           <span className={styles.archivoMeta}>
-                            {archivo.fechaInicio} {archivo.fechaFin && `- ${archivo.fechaFin}`} •{" "}
-                            {archivo.entradas.length} entradas
+                            {archivo.fechaInicio} {archivo.fechaFin && `- ${archivo.fechaFin}`} • {archivo.entradas.length} entradas
                           </span>
                         </div>
                         <span className={styles.expandIconSmall}>{expandedArchivo === archivo.id ? "▼" : "▶"}</span>
@@ -393,22 +380,16 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                       {expandedArchivo === archivo.id && (
                         <div className={styles.entradasList}>
                           {isAdmin && (
-                            <button className={styles.addEntryBtn} onClick={() => setShowAddEntradaModal(true)}>
-                              + Agregar Entrada
-                            </button>
+                            <button className={styles.addEntryBtn} onClick={() => setShowAddEntradaModal(true)}>+ Agregar Entrada</button>
                           )}
                           {archivo.entradas.map((entrada) => (
                             <div key={entrada.id} className={styles.entradaCard}>
                               <div className={styles.entradaHeader}>
                                 <div>
                                   <h6>{entrada.titulo}</h6>
-                                  <span className={styles.entradaFecha}>
-                                    {entrada.fecha} • {entrada.hora}
-                                  </span>
+                                  <span className={styles.entradaFecha}>{entrada.fecha} • {entrada.hora}</span>
                                 </div>
-                                {isAdmin && entrada.odontograma && (
-                                  <span className={styles.odontogramaBadge}>🦷 Odontograma</span>
-                                )}
+                                {isAdmin && entrada.odontograma && <span className={styles.odontogramaBadge}>🦷 Odontograma</span>}
                               </div>
                               <p className={styles.entradaDescripcion}>{entrada.descripcion}</p>
                               {entrada.notas && (
@@ -420,9 +401,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                                 <div className={styles.entradaAdjuntos}>
                                   <strong>Adjuntos:</strong>
                                   {entrada.adjuntos.map((adj, i) => (
-                                    <span key={i} className={styles.adjuntoTag}>
-                                      📎 {adj}
-                                    </span>
+                                    <span key={i} className={styles.adjuntoTag}>📎 {adj}</span>
                                   ))}
                                 </div>
                               )}
@@ -445,6 +424,10 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div key={archivo.id} className={styles.archivoCard}>
             <div
               className={styles.archivoHeader}
+              role="button"
+              tabIndex={0}
+              aria-expanded={expandedArchivo === archivo.id}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setExpandedArchivo(expandedArchivo === archivo.id ? null : archivo.id)}
               onClick={() => setExpandedArchivo(expandedArchivo === archivo.id ? null : archivo.id)}
             >
               <div>
@@ -461,9 +444,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
                     <div className={styles.entradaHeader}>
                       <div>
                         <h6>{entrada.titulo}</h6>
-                        <span className={styles.entradaFecha}>
-                          {entrada.fecha} • {entrada.hora}
-                        </span>
+                        <span className={styles.entradaFecha}>{entrada.fecha} • {entrada.hora}</span>
                       </div>
                     </div>
                     <p className={styles.entradaDescripcion}>{entrada.descripcion}</p>
@@ -485,9 +466,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>Nuevo Tratamiento</h2>
-              <button className={styles.closeBtn} onClick={() => setShowAddTratamientoModal(false)}>
-                ✕
-              </button>
+              <button className={styles.closeBtn} onClick={() => setShowAddTratamientoModal(false)}>✕</button>
             </div>
             <div className={styles.modalBody}>
               <div className={styles.formGroup}>
@@ -508,12 +487,8 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
               </div>
             </div>
             <div className={styles.modalFooter}>
-              <button className={styles.cancelBtn} onClick={() => setShowAddTratamientoModal(false)}>
-                Cancelar
-              </button>
-              <button className={styles.saveBtn} onClick={() => setShowAddTratamientoModal(false)}>
-                Crear Tratamiento
-              </button>
+              <button className={styles.cancelBtn} onClick={() => setShowAddTratamientoModal(false)}>Cancelar</button>
+              <button className={styles.saveBtn} onClick={() => setShowAddTratamientoModal(false)}>Crear Tratamiento</button>
             </div>
           </div>
         </div>
@@ -524,9 +499,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>Nuevo Archivo</h2>
-              <button className={styles.closeBtn} onClick={() => setShowAddArchivoModal(false)}>
-                ✕
-              </button>
+              <button className={styles.closeBtn} onClick={() => setShowAddArchivoModal(false)}>✕</button>
             </div>
             <div className={styles.modalBody}>
               <div className={styles.formGroup}>
@@ -552,12 +525,8 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
               </div>
             </div>
             <div className={styles.modalFooter}>
-              <button className={styles.cancelBtn} onClick={() => setShowAddArchivoModal(false)}>
-                Cancelar
-              </button>
-              <button className={styles.saveBtn} onClick={() => setShowAddArchivoModal(false)}>
-                Crear Archivo
-              </button>
+              <button className={styles.cancelBtn} onClick={() => setShowAddArchivoModal(false)}>Cancelar</button>
+              <button className={styles.saveBtn} onClick={() => setShowAddArchivoModal(false)}>Crear Archivo</button>
             </div>
           </div>
         </div>
@@ -568,9 +537,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>Nueva Entrada</h2>
-              <button className={styles.closeBtn} onClick={() => setShowAddEntradaModal(false)}>
-                ✕
-              </button>
+              <button className={styles.closeBtn} onClick={() => setShowAddEntradaModal(false)}>✕</button>
             </div>
             <div className={styles.modalBody}>
               <div className={styles.formGroup}>
@@ -612,12 +579,8 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
               )}
             </div>
             <div className={styles.modalFooter}>
-              <button className={styles.cancelBtn} onClick={() => setShowAddEntradaModal(false)}>
-                Cancelar
-              </button>
-              <button className={styles.saveBtn} onClick={() => setShowAddEntradaModal(false)}>
-                Agregar Entrada
-              </button>
+              <button className={styles.cancelBtn} onClick={() => setShowAddEntradaModal(false)}>Cancelar</button>
+              <button className={styles.saveBtn} onClick={() => setShowAddEntradaModal(false)}>Agregar Entrada</button>
             </div>
           </div>
         </div>
@@ -628,9 +591,7 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h2>Nueva Historia Clínica TUTOR</h2>
-              <button className={styles.closeBtn} onClick={() => setShowTutorModal(false)}>
-                ✕
-              </button>
+              <button className={styles.closeBtn} onClick={() => setShowTutorModal(false)}>✕</button>
             </div>
             <div className={styles.modalBody}>
               <p className={styles.modalDescription}>Crea una historia clínica para un tutelado (hijo, familiar a cargo, etc.)</p>
@@ -663,12 +624,8 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
               </div>
             </div>
             <div className={styles.modalFooter}>
-              <button className={styles.cancelBtn} onClick={() => setShowTutorModal(false)}>
-                Cancelar
-              </button>
-              <button className={styles.saveBtn} onClick={() => setShowTutorModal(false)}>
-                Crear Historia Clínica TUTOR
-              </button>
+              <button className={styles.cancelBtn} onClick={() => setShowTutorModal(false)}>Cancelar</button>
+              <button className={styles.saveBtn} onClick={() => setShowTutorModal(false)}>Crear Historia Clínica TUTOR</button>
             </div>
           </div>
         </div>
@@ -677,4 +634,4 @@ const PatientHistorySection = ({ isAdmin = false, patientName = "Paciente", reco
   )
 }
 
-export default PatientHistorySection;
+export default PatientHistorySection

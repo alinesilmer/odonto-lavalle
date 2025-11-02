@@ -26,7 +26,29 @@ interface DataTableProps {
 const DataTable = ({ columns, data, actions, selectable = false, onSelectionChange }: DataTableProps) => {
   const [selected, setSelected] = useState<Set<number>>(new Set())
   const [page, setPage] = useState(1)
-  const pageSize = 5
+  const [pageSize, setPageSize] = useState(8)
+
+  useEffect(() => {
+    const q1 = window.matchMedia("(max-width: 380px)")
+    const q2 = window.matchMedia("(max-width: 640px)")
+    const q3 = window.matchMedia("(max-width: 768px)")
+    const update = () => {
+      if (q1.matches) setPageSize(4)
+      else if (q2.matches) setPageSize(4)
+      else if (q3.matches) setPageSize(5)
+      else setPageSize(8)
+    }
+    update()
+    q1.addEventListener("change", update)
+    q2.addEventListener("change", update)
+    q3.addEventListener("change", update)
+    return () => {
+      q1.removeEventListener("change", update)
+      q2.removeEventListener("change", update)
+      q3.removeEventListener("change", update)
+    }
+  }, [])
+
   const totalPages = Math.max(1, Math.ceil(data.length / pageSize))
   const startIndex = (page - 1) * pageSize
   const pageData = useMemo(() => data.slice(startIndex, startIndex + pageSize), [data, startIndex, pageSize])
@@ -40,11 +62,8 @@ const DataTable = ({ columns, data, actions, selectable = false, onSelectionChan
 
   const toggleAll = () => {
     const next = new Set(selected)
-    if (allSelected) {
-      pageIndices.forEach(i => next.delete(i))
-    } else {
-      pageIndices.forEach(i => next.add(i))
-    }
+    if (allSelected) pageIndices.forEach(i => next.delete(i))
+    else pageIndices.forEach(i => next.add(i))
     setSelected(next)
     onSelectionChange?.(Array.from(next).map(i => data[i]).filter(Boolean))
   }
@@ -72,6 +91,7 @@ const DataTable = ({ columns, data, actions, selectable = false, onSelectionChan
                       if (el) el.indeterminate = someSelected
                     }}
                     onChange={toggleAll}
+                    aria-label="Seleccionar página"
                   />
                   <span />
                 </label>
@@ -95,6 +115,7 @@ const DataTable = ({ columns, data, actions, selectable = false, onSelectionChan
                         type="checkbox"
                         checked={selected.has(idxGlobal)}
                         onChange={() => toggleOne(idxGlobal)}
+                        aria-label="Seleccionar fila"
                       />
                       <span />
                     </label>

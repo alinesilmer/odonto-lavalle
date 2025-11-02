@@ -8,7 +8,7 @@ interface TextareaProps {
   name: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLTextAreaElement>) => void; // ← fix tipo
+  onBlur?: (e: FocusEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   error?: string;
   touched?: boolean;

@@ -1,41 +1,34 @@
 .section {
-  padding: 5rem 0;
+  padding-block: clamp(2.5rem, 5vw, 5rem);
   background-color: var(--color-white);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-inline: clamp(1rem, 3.5vw, 1.5rem);
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
   color: var(--color-secondary);
   text-align: center;
-  margin-bottom: 1rem;
-  
-  @media (max-width: 768px) {
-    font-size: 1.75rem;
-  }
+  margin-bottom: .75rem;
 }
 
 .subtitle {
   text-align: center;
   color: var(--color-silver);
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  max-width: 70ch;
+  margin-inline: auto;
+  font-size: clamp(.95rem, 2.6vw, 1rem);
+  line-height: 1.6;
 }
 
 .carouselWrapper {
   position: relative;
-  padding: 0 3rem;
-  
-  @media (max-width: 768px) {
-    padding: 0;
-  }
+  padding-inline: clamp(.25rem, 3vw, 3rem);
 }
 
 .carousel {
@@ -45,35 +38,38 @@
 .testimonialGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: clamp(1rem, 3vw, 2rem);
 }
 
 .testimonialCard {
   background: var(--color-white);
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
   position: relative;
   transition: var(--transition);
-  flex: 0 1 calc(33.333% - 1.334rem);
-  max-width: calc(33.333% - 1.334rem);
-  
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
+  flex: 0 1 calc(33.333% - var(--gap-adjust, 1.334rem));
+  max-width: calc(33.333% - var(--gap-adjust, 1.334rem));
+}
+
+.testimonialCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 1024px) {
   .testimonialCard {
-    flex: 0 1 calc(50% - 1rem);
-    max-width: calc(50% - 1rem);
+    flex-basis: calc(50% - var(--gap-adjust, 1rem));
+    max-width: calc(50% - var(--gap-adjust, 1rem));
   }
 }
 
 @media (max-width: 640px) {
+  .testimonialGrid {
+    gap: 1rem;
+  }
   .testimonialCard {
-    flex: 0 1 100%;
+    flex-basis: 100%;
     max-width: 100%;
   }
 }
@@ -81,26 +77,26 @@
 .quoteIcon {
   color: var(--color-primary);
   opacity: 0.3;
-  margin-bottom: 1rem;
+  margin-bottom: .75rem;
 }
 
 .testimonialText {
-  font-size: 0.95rem;
+  font-size: clamp(.95rem, 2.6vw, 1rem);
   line-height: 1.6;
   color: var(--color-dark);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   min-height: 80px;
 }
 
 .testimonialAuthor {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .9rem;
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
+  width: clamp(42px, 5.6vw, 50px);
+  height: clamp(42px, 5.6vw, 50px);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-primary);
@@ -108,13 +104,13 @@
 
 .authorName {
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: .95rem;
   color: var(--color-dark);
-  margin-bottom: 0.25rem;
+  margin-bottom: .15rem;
 }
 
 .authorDate {
-  font-size: 0.8rem;
+  font-size: .85rem;
   color: var(--color-silver);
 }
 
@@ -122,8 +118,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: clamp(36px, 6vw, 44px);
+  height: clamp(36px, 6vw, 44px);
   border-radius: 50%;
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -132,39 +128,26 @@
   justify-content: center;
   transition: var(--transition);
   z-index: 10;
-  
-  &:hover {
-    background-color: var(--color-hover);
-    transform: translateY(-50%) scale(1.1);
-  }
-  
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-  }
 }
 
-.navButtonLeft {
-  left: 0;
-  
-  @media (max-width: 768px) {
-    left: -10px;
-  }
+.navButton:hover {
+  background-color: var(--color-hover);
+  transform: translateY(-50%) scale(1.08);
 }
 
-.navButtonRight {
-  right: 0;
-  
-  @media (max-width: 768px) {
-    right: -10px;
-  }
+.navButtonLeft { left: clamp(-6px, 2vw, 0.1px); }
+.navButtonRight { right: clamp(-6px, 2vw,  0.1px); }
+
+@media (max-width: 640px) {
+  .navButtonLeft  { display: none }
+  .navButtonRight { display: none }
 }
 
 .dots {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  gap: .6rem;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
 }
 
 .dot {
@@ -173,11 +156,9 @@
   border-radius: 50%;
   background-color: var(--color-gray);
   transition: var(--transition);
-  
-  &:hover {
-    background-color: var(--color-primary);
-  }
 }
+
+.dot:hover { background-color: var(--color-primary); }
 
 .dotActive {
   background-color: var(--color-primary);

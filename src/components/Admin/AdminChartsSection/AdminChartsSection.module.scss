@@ -207,7 +207,7 @@
   inset: 0;
   margin: auto;
   z-index: 1001;
-  max-height: 230px;
+  min-height: 230px;
   width: min(520px, 92vw);
   background: #fff;
   border-radius: 14px;
@@ -286,6 +286,7 @@
   .filterPanel { flex-basis: 100%; }
 }
 @media (max-width: 540px) {
+  .modal{height: 330px};
   .metricsRow { gap: .9rem; }
   .mcValue { font-size: 1.7rem; }
   .groups { gap: .9rem; }

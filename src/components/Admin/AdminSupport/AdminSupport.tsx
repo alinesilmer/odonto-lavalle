@@ -9,7 +9,6 @@ import {
   BarChart3,
   Bell,
   MessageSquare,
-  DollarSign,
   Settings,
   LifeBuoy,
   X,

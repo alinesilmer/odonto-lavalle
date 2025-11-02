@@ -39,7 +39,7 @@ const Input: React.FC<InputProps> = ({
   const showError = Boolean(error && (touched ?? true));
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={[styles.inputWrapper, showError ? styles.hasError : ""].join(" ")}>
       {label && (
         <label htmlFor={inputId} className={styles.label}>
           {label}

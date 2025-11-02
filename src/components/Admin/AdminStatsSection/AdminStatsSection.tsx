@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, CalendarDays, AlarmClock, UserRound, Boxes } from "lucide-react";
+import { Bell } from "lucide-react";
 import StatsCard from "@/components/StatsCard/StatsCard";
 import { adminStats, adminReminders } from "../../../data/dashboardData";
 import tooth from "../../../assets/images/tooth.png";

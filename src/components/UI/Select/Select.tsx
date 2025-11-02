@@ -35,6 +35,8 @@ const Select = ({ label, name, value, onChange, options, error, required }: Sele
           type="button"
           className={`${styles.select} ${error ? styles.error : ""} ${isOpen ? styles.open : ""}`}
           onClick={() => setIsOpen(!isOpen)}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
         >
           <span className={value ? styles.selected : styles.placeholder}>
             {selectedOption ? selectedOption.label : "Seleccionar"}
@@ -42,12 +44,14 @@ const Select = ({ label, name, value, onChange, options, error, required }: Sele
           <ChevronDown className={styles.icon} />
         </button>
         {isOpen && (
-          <ul className={styles.dropdown}>
+          <ul className={styles.dropdown} role="listbox">
             {options.map((option) => (
               <li
                 key={option.value}
                 className={`${styles.option} ${value === option.value ? styles.active : ""}`}
                 onClick={() => handleSelect(option.value)}
+                role="option"
+                aria-selected={value === option.value}
               >
                 {option.label}
               </li>

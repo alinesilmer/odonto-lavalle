@@ -19,7 +19,6 @@ import decor from "./../../assets/images/dentalDecor.png";
 import hero from "./../../assets/images/contactHero.png";
 import styles from "./ContactPage.module.scss";
 import { Link } from "react-router-dom";
-// import { goToBooking } from "../../utils/session";
 
 type ContactFormKeys = "name" | "reason" | "email" | "phone" | "message";
 type ContactFormData = Record<ContactFormKeys, string>;
@@ -27,32 +26,22 @@ type ContactFormData = Record<ContactFormKeys, string>;
 const ContactPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const validationRules: Partial<
-    Record<ContactFormKeys, ((v: string) => boolean)[]>
-  > = {
+  const validationRules: Partial<Record<ContactFormKeys, ((v: string) => boolean)[]>> = {
     name: [validateRequired],
     reason: [validateRequired],
     email: [validateRequired, validateEmail],
-    phone: [], // opcional
+    phone: [],
     message: [validateRequired],
   };
 
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useForm<ContactFormData>(
-    { name: "", reason: "", email: "", phone: "", message: "" },
-    validationRules,
-    async (data) => {
-      console.log("Contact form:", data);
-      setShowSuccess(true);
-    }
-  );
+  const { values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit } =
+    useForm<ContactFormData>(
+      { name: "", reason: "", email: "", phone: "", message: "" },
+      validationRules,
+      async (data) => {
+        setShowSuccess(true);
+      }
+    );
 
   return (
     <div className={styles.contactPage}>
@@ -73,26 +62,19 @@ const ContactPage = () => {
           >
             <h2 className={styles.title}>VENÍ A CONOCERNOS</h2>
             <p className={styles.description}>
-              ¿Tenés alguna consulta que quieras resolver personalmente?
-              Avisanos de tu visita por cualquiera de las siguientes plataformas
+              ¿Tenés alguna consulta que quieras resolver personalmente? Avisanos de tu visita por cualquiera de las siguientes plataformas
               y te recibiremos con gusto.
             </p>
 
             <div className={styles.contactInfo}>
-              <a
-                href={`https://wa.me/${contactInfo.phone}`}
-                className={styles.contactItem}
-              >
+              <a href={`https://wa.me/${contactInfo.phone}`} className={styles.contactItem}>
                 <div className={styles.iconWrapper}>
                   <Phone size={24} />
                 </div>
                 <span>{contactInfo.phone}</span>
               </a>
 
-              <a
-                href={`mailto:${contactInfo.email}`}
-                className={styles.contactItem}
-              >
+              <a href={`mailto:${contactInfo.email}`} className={styles.contactItem}>
                 <div className={styles.iconWrapper}>
                   <Mail size={24} />
                 </div>
@@ -109,10 +91,7 @@ const ContactPage = () => {
 
             <div className={styles.notes}>
               <p>NO se reciben visitas sin horario previamente acordado.</p>
-              <p>
-                Las consultas con ingreso al consultorio son un servicio y deben
-                ser abonadas.
-              </p>
+              <p>Las consultas con ingreso al consultorio son un servicio y deben ser abonadas.</p>
             </div>
           </motion.div>
 
@@ -198,12 +177,8 @@ const ContactPage = () => {
                   label="Mensaje"
                   name="message"
                   value={values.message}
-                  onChange={
-                    handleChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>
-                  }
-                  onBlur={
-                    handleBlur as unknown as React.FocusEventHandler<HTMLTextAreaElement>
-                  }
+                  onChange={handleChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>}
+                  onBlur={handleBlur as unknown as React.FocusEventHandler<HTMLTextAreaElement>}
                   error={errors.message}
                   touched={touched.message}
                   placeholder="Escribí acá tu mensaje..."
@@ -230,25 +205,15 @@ const ContactPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <img
-              src={decor}
-              alt="Consulta dental"
-              className={styles.consultImage}
-            />
+            <img src={decor} alt="Consulta dental" className={styles.consultImage} />
             <div className={styles.consultContent}>
               <h2 className={styles.consultTitle}>AGENDÁ TU CONSULTA</h2>
               <p className={styles.consultText}>
-                Para cuidarte bien, primero te vemos. En la consulta revisamos
-                tu boca, despejamos dudas y, si hace falta, pedimos estudios.
-                Así definimos el tratamiento ideal para vos. Por eso se agenda
-                consulta; los tratamientos perfectos para vos se planifican
-                luego.
+                Para cuidarte bien, primero te vemos. En la consulta revisamos tu boca, despejamos dudas y, si hace falta, pedimos estudios.
+                Así definimos el tratamiento ideal para vos. Por eso se agenda consulta; los tratamientos perfectos para vos se planifican luego.
               </p>
-               {/*<Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
-  Reservar Turno
-</Button> */}
               <Link to="/turno">
-              <Button variant="primary">RESERVAR</Button>
+                <Button variant="primary">RESERVAR</Button>
               </Link>
             </div>
           </motion.div>
@@ -263,18 +228,10 @@ const ContactPage = () => {
             <h2 className={styles.faqTitle}>PREGUNTAS FRECUENTES</h2>
             <div className={styles.faqList}>
               {faqs.map((faq) => (
-                <Accordion
-                  key={faq.id}
-                  question={faq.question}
-                  answer={faq.answer}
-                />
+                <Accordion key={faq.id} question={faq.question} answer={faq.answer} />
               ))}
             </div>
-            <img
-              src={decor2}
-              alt="Herramientas dentales"
-              className={styles.faqImage}
-            />
+            <img src={decor2} alt="Herramientas dentales" className={styles.faqImage} />
           </motion.div>
         </div>
       </section>

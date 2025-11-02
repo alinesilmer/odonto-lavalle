@@ -28,9 +28,7 @@ const WhyVisit = () => {
               ¿POR QUÉ VISITAR A TU ODONTÓLOGO CADA 6 MESES?
             </motion.h2>
             <p className={styles.description}>
-              ¿No sabes cada cuánto hacer tu consulta odontológica para mantener
-              una salud bucal óptima? Acá te contamos tres razones por las
-              cuales una visita cada seis meses puede ser tu mejor opción.
+              ¿No sabes cada cuánto hacer tu consulta odontológica para mantener una salud bucal óptima? Acá te contamos tres razones por las cuales una visita cada seis meses puede ser tu mejor opción.
             </p>
           </div>
           <motion.div
@@ -56,10 +54,7 @@ const WhyVisit = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className={styles.cardImage}>
-                  <img
-                    src={service.image || "/placeholder.svg"}
-                    alt={service.title}
-                  />
+                  <img src={service.image || "/placeholder.svg"} alt={service.title} />
                 </div>
                 <div className={styles.cardOverlay} />
                 <button
@@ -72,21 +67,15 @@ const WhyVisit = () => {
                 </button>
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{service.title}</h3>
-                  <p className={styles.cardDescription}>
-                    {service.description}
-                  </p>
+                  <p className={styles.cardDescription}>{service.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
       </div>
-      {/* Modal */}
-      <MoreInfoModal
-        open={!!selectedService}
-        service={selectedService}
-        onClose={() => setSelectedService(null)}
-      />
+
+      <MoreInfoModal open={!!selectedService} service={selectedService} onClose={() => setSelectedService(null)} />
     </section>
   );
 };

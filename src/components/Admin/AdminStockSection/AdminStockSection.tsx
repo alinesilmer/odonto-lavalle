@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Edit, Trash2, Plus, X } from "lucide-react"
 import DataTable from "@/components/DataTable/DataTable"
 import Button from "@/components/UI/Button/Button"
@@ -17,7 +17,6 @@ type StockRow = {
 
 const AdminStockSection = () => {
   const [stock, setStock] = useState<StockRow[]>(initialStock)
-  const [selectedRows, setSelectedRows] = useState<StockRow[]>([])
   const [query, setQuery] = useState("")
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -81,10 +80,23 @@ const AdminStockSection = () => {
     setStock((prev) => prev.filter((_, i) => i !== idx))
   }
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return stock
+    return stock.filter(
+      (r) =>
+        r.product.toLowerCase().includes(q) ||
+        r.category.toLowerCase().includes(q) ||
+        String(r.quantity).includes(q) ||
+        r.unit.toLowerCase().includes(q) ||
+        String(r.price).includes(q)
+    )
+  }, [stock, query])
+
   return (
     <section id="stock" className={styles.section}>
       <div className={styles.headerRow}>
-           <div className={styles.searchWrap}>
+        <div className={styles.searchWrap}>
           <input
             className={styles.searchInput}
             placeholder="Buscar stock..."
@@ -100,9 +112,9 @@ const AdminStockSection = () => {
 
       <DataTable
         columns={stockColumns}
-        data={stock}
+        data={filtered}
         selectable
-        onSelectionChange={(rows) => setSelectedRows(rows as StockRow[])}
+        onSelectionChange={() => {}}
         actions={[
           { icon: <Edit />, label: "Editar", onClick: (row) => openEdit(row as StockRow) },
           { icon: <Trash2 />, label: "Eliminar", onClick: (row) => removeRow(row as StockRow) },

@@ -86,6 +86,7 @@ const PatientAppointments = () => {
   const openCancelSingle = (id: string) => setShowCancel({ open: true, ids: [id] });
 
   const confirmCancel = (reason: string) => {
+    void reason;
     setRows(prev => prev.map(r => (showCancel.ids.includes(r.id) ? { ...r, status: "Cancelado" } : r)));
     setSelectedIds([]);
     setShowCancel({ open: false, ids: [] });
@@ -117,8 +118,6 @@ const PatientAppointments = () => {
       <div className={styles.page}>
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <Calendar size={18} />
-            <h1>MIS TURNOS</h1>
           </div>
           <div className={styles.headerRight}>
             <button
@@ -174,8 +173,8 @@ const PatientAppointments = () => {
             selectable
             onSelectionChange={(ids: string[]) => setSelectedIds(ids)}
             actions={[
-              { icon: <Eye />, label: "Ver", onClick: (row: Row) => {} },
-              { icon: <Download />, label: "Descargar", onClick: (row: Row) => {} },
+              { icon: <Eye />, label: "Ver", onClick: (row: Row) => { void row; } },
+              { icon: <Download />, label: "Descargar", onClick: (row: Row) => { void row; } },
               { icon: <X />, label: "Cancelar", onClick: (row: Row) => openCancelSingle(row.id) },
             ]}
           />
@@ -221,7 +220,7 @@ const PatientAppointments = () => {
                 <div className={styles.field}>
                   <label>Obra Social</label>
                   <input
-                    placeholder="OSDE, PAMI, Particular…"
+                    placeholder="Galeno, Medifé, Particular…"
                     value={filters.obra}
                     onChange={e => setFilters(prev => ({ ...prev, obra: e.target.value }))}
                   />

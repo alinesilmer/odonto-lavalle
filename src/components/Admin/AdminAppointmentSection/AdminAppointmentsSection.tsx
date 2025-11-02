@@ -36,10 +36,9 @@ const AdminAppointmentsSection = () => {
   const [filtersOpen, setFiltersOpen] = useState(false)
 
   const [blockOpen, setBlockOpen] = useState(false)
-const [blockDate, setBlockDate] = useState("")
-const [blockStartTime, setBlockStartTime] = useState("")
-const [blockEndTime, setBlockEndTime] = useState("")
-
+  const [blockDate, setBlockDate] = useState("")
+  const [blockStartTime, setBlockStartTime] = useState("")
+  const [blockEndTime, setBlockEndTime] = useState("")
 
   const [addOpen, setAddOpen] = useState(false)
   const [newDate, setNewDate] = useState("")
@@ -51,7 +50,7 @@ const [blockEndTime, setBlockEndTime] = useState("")
 
   const [viewRow, setViewRow] = useState<any | null>(null)
   const [editRow, setEditRow] = useState<any | null>(null)
-  const [selectedRows, setSelectedRows] = useState<any[]>([])
+  const [, setSelectedRows] = useState<any[]>([])
 
   const appointmentColumns = [
     { key: "date", label: "Fecha" },
@@ -94,7 +93,6 @@ const [blockEndTime, setBlockEndTime] = useState("")
 
   return (
     <section id="appointments" className={styles.section}>
-
       <div className={styles.toolbar}>
         <div className={styles.filterCards}>
           <button className={styles.card} type="button" onClick={() => { setFilterTab("month"); setFiltersOpen(true) }}>
@@ -138,7 +136,7 @@ const [blockEndTime, setBlockEndTime] = useState("")
         actions={[
           { icon: <Eye />, label: "Ver", onClick: (row) => setViewRow(row) },
           { icon: <Edit />, label: "Editar", onClick: (row) => setEditRow(row) },
-          { icon: <Trash2 />, label: "Eliminar", onClick: (row) => {} },
+          { icon: <Trash2 />, label: "Eliminar", onClick: () => {} },
         ]}
       />
 
@@ -189,22 +187,22 @@ const [blockEndTime, setBlockEndTime] = useState("")
       </Modal>
 
       <Modal
-  open={blockOpen}
-  onClose={() => setBlockOpen(false)}
-  title="Bloquear Horario"
-  footer={
-    <>
-      <Button variant="secondary" onClick={() => setBlockOpen(false)}>Cancelar</Button>
-      <Button variant="primary" onClick={() => setBlockOpen(false)}>Guardar</Button>
-    </>
-  }
->
-  <div className={styles.grid3}>
-    <Input type="date" name="blockDate" value={blockDate} onChange={(e) => setBlockDate(e.target.value)} placeholder="" />
-    <Input type="time" name="blockStartTime" value={blockStartTime} onChange={(e) => setBlockStartTime(e.target.value)} placeholder="" />
-    <Input type="time" name="blockEndTime" value={blockEndTime} onChange={(e) => setBlockEndTime(e.target.value)} placeholder="" />
-  </div>
-</Modal>
+        open={blockOpen}
+        onClose={() => setBlockOpen(false)}
+        title="Bloquear Horario"
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setBlockOpen(false)}>Cancelar</Button>
+            <Button variant="primary" onClick={() => setBlockOpen(false)}>Guardar</Button>
+          </>
+        }
+      >
+        <div className={styles.grid3}>
+          <Input type="date" name="blockDate" value={blockDate} onChange={(e) => setBlockDate(e.target.value)} placeholder="" />
+          <Input type="time" name="blockStartTime" value={blockStartTime} onChange={(e) => setBlockStartTime(e.target.value)} placeholder="" />
+          <Input type="time" name="blockEndTime" value={blockEndTime} onChange={(e) => setBlockEndTime(e.target.value)} placeholder="" />
+        </div>
+      </Modal>
 
       <Modal
         open={addOpen}
@@ -230,7 +228,7 @@ const [blockEndTime, setBlockEndTime] = useState("")
           onChange={(v: string) => setNewInsurance(v)}
           options={[
             { value: "", label: "Seleccionar" },
-            { value: "OSDE", label: "OSDE" },
+            { value: "Medifé", label: "Medifé" },
             { value: "Swiss", label: "Swiss Medical" },
             { value: "IOSCor", label: "IOSCor" },
             { value: "PAMI", label: "PAMI" },
@@ -279,12 +277,16 @@ const [blockEndTime, setBlockEndTime] = useState("")
           value={editRow?.insurance || ""}
           onChange={() => {}}
           options={[
-            { value: "OSDE", label: "OSDE" },
-            { value: "Swiss", label: "Swiss Medical" },
-            { value: "IOSCor", label: "IOSCor" },
-            { value: "PAMI", label: "PAMI" },
-            { value: "Galeno", label: "Galeno" },
-            { value: "Ninguna", label: "Ninguna" },
+             { value: "jersal", label: "Jerárquicos Salud" },
+                        { value: "swiss", label: "Swiss Medical" },
+                        { value: "medife", label: "Medifé" },
+                        { value: "sancor", label: "SanCor Salud" },
+                        { value: "ospim", label: "OSPIM" },
+                        { value: "galeno", label: "Galeno" },
+                        { value: "issunne", label: "ISSUNNE" },
+                        { value: "ospjn", label: "OSPJN" },
+                         { value: "otro", label: "Otro" },
+                        { value: "ninguna", label: "Ninguna" },
           ]}
           required
         />

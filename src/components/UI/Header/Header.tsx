@@ -70,7 +70,7 @@ const Header = () => {
 
         <div className={styles.actions}>
           <button
-            className={styles.iconButton}
+            className={`${styles.iconButton} ${styles.searchButton}`}
             aria-label="Buscar"
             onClick={() => setIsSearchOpen(true)}
             type="button"
@@ -78,14 +78,12 @@ const Header = () => {
             <Search size={20} />
           </button>
 
-          <Link to="/login" className={styles.appointmentButton}>
-            <button
-              className={styles.iconButton}
-              aria-label="Usuario"
-              type="button"
-            >
-              <User size={20} />
-            </button>
+          <Link
+            to="/login"
+            className={`${styles.iconButton} ${styles.loginButton}`}
+            aria-label="Ingresar"
+          >
+            <User size={20} />
           </Link>
 
           <button
