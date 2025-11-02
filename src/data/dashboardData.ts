@@ -43,10 +43,10 @@ const patientAppointments: Appointment[] = [
 const patientMessages: Message[] = [
   {
     id: "1",
-    sender: "Dra. Lavalle",
+    sender: "Simón Pérez",
     avatar: "/placeholder.svg?height=40&width=40",
     text:
-      "Buenas tardes, querría consultar por el servicio de ortodoncia. ¿Qué sistemas utilizan y cuáles son los precios? Desde ya, muchas gracias.",
+      "Buenas tardes, quisiera consultar por el servicio de ortodoncia. ¿Qué sistemas utilizan y cuáles son los precios? Desde ya, muchas gracias.",
     timestamp: "14:30",
     isOwn: false,
   },
@@ -163,15 +163,15 @@ const adminReminders: Notification[] = [
   {
     id: "2",
     type: "message",
-    title: "Dra. Lavalle te envió un mensaje",
-    description: "Recordatorio de tratamiento",
+    title: "Simón Pérez te envió un mensaje",
+    description: "Consulta sobre tratamiento",
     time: "5h",
   },
   {
     id: "3",
     type: "reminder",
-    title: "Es momento de tu limpieza semestral",
-    description: "Agenda tu próxima cita",
+    title: "Se acerca el Black Friday",
+    description: "Crear promociones para Black Friday",
     time: "1d",
   },
 ];

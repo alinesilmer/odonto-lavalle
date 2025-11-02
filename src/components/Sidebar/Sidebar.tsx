@@ -6,7 +6,7 @@ import {
   FileText,
   MessageSquare,
   Settings,
-  LogOut,
+  MessageCircleQuestionMark,
   Users,
   Package,
   BarChart3,
@@ -47,7 +47,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
     { path: "/dashboard/admin/estadisticas", label: "Estadísticas", icon: BarChart3 },
     { path: "/dashboard/admin/recordatorios", label: "Recordatorios", icon: Bell },
     { path: "/dashboard/admin/mensajes", label: "Mensajes", icon: MessageSquare },
-    { path: "/dashboard/admin/pagos", label: "Pagos", icon: DollarSign },
+    // { path: "/dashboard/admin/pagos", label: "Pagos", icon: DollarSign },
   ];
 
   const menuItems = userType === "patient" ? patientMenuItems : adminMenuItems;
@@ -110,7 +110,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
             <span>Configuración</span>
           </button>
           <button className={styles.navItem} type="button" title={collapsed ? "Soporte" : undefined}>
-            <LogOut size={20} />
+            <MessageCircleQuestionMark size={20} />
             <span>Soporte</span>
           </button>
 

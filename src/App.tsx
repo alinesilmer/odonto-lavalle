@@ -14,7 +14,18 @@ import Register from "./pages/Register/Register";
 const Services = lazy(() => import("./pages/Services/Services"));
 const Appointment = lazy(() => import("./pages/Appointment/Appointment"));
 const ContactPage = lazy(() => import("./pages/ContactPage/ContactPage"));
+const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+
+{/*PATIENT ROUTES */}
 const PatientDashboard = lazy(() => import("./pages/PatientDashboard/PatientDashboard"));
+import PatientHome from "./components/Patient/PatientHome/PatientHome";
+import PatientAppointments from "./components/Patient/PatientAppointmentSection/PatientAppointmentSection";
+import PatientMessages from "./components/Patient/PatientMessagesSection/PatientMessagesSection";
+import PatientTreatment from "./components/Patient/PatientTreatmentSection/PatientTreatmentSection";
+import PatientHistory from "./components/Patient/PatientHistorySection/PatientHistorySection";
+
+{/*ADMIN ROUTES */}
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard/AdminDashboard"));
 import AdminStatsSection from "./components/Admin/AdminStatsSection/AdminStatsSection";
 import AdminAppointmentsSection from "./components/Admin/AdminAppointmentSection/AdminAppointmentsSection";
@@ -22,8 +33,9 @@ import AdminUsersSection from "./components/Admin/AdminUsersSection/AdminUsersSe
 import AdminStockSection from "./components/Admin/AdminStockSection/AdminStockSection";
 import AdminChartsSection from "./components/Admin/AdminChartsSection/AdminChartsSection";
 import AdminRemindersSection from "./components/Admin/AdminRemindersSection/AdminRemindersSection";
-const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs"));
-const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+import AdminMessagesSection from "./components/Admin/AdminMessagesSection/AdminMessagesSection";
+
+
 import ScrollToHash from "./utils/ScrollToHash";
 import "./styles/globals.scss";
 
@@ -77,10 +89,18 @@ function App() {
         <Route path="stock" element={<AdminStockSection />} />
         <Route path="estadisticas" element={<AdminChartsSection />} />
         <Route path="recordatorios" element={<AdminRemindersSection />} />
-        <Route path="mensajes" element={<div>Mensajes</div>} />
+        <Route path="mensajes" element={<AdminMessagesSection/>} />
         <Route path="pagos" element={<div>Pagos</div>} />
         <Route path="*" element={<Navigate to="." replace />} />
       </Route>
+
+ {/* PATIENT */}
+       <Route path="/dashboard/paciente" element={<Navigate to="/dashboard/paciente/inicio" replace />} />
+  <Route path="/dashboard/paciente/inicio" element={<PatientHome />} />
+  <Route path="/dashboard/paciente/turnos" element={<PatientAppointments />} />
+  <Route path="/dashboard/paciente/mensajes" element={<PatientMessages />} />
+  <Route path="/dashboard/paciente/tratamiento" element={<PatientTreatment />} />
+  <Route path="/dashboard/paciente/historia" element={<PatientHistory />} />
             </Routes>
           </Suspense>
         </main>

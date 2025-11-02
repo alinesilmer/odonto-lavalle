@@ -9,6 +9,7 @@ import AdminUsersSection from "@/components/Admin/AdminUsersSection/AdminUsersSe
 import AdminStockSection from "@/components/Admin/AdminStockSection/AdminStockSection"
 import AdminChartsSection from "@/components/Admin/AdminChartsSection/AdminChartsSection"
 import AdminRemindersSection from "@/components/Admin/AdminRemindersSection/AdminRemindersSection"
+import AdminMessagesSection from "@/components/Admin/AdminMessagesSection/AdminMessagesSection"
 import pfp from "../../assets/images/profile.png";
 import styles from "./AdminDashboard.module.scss"
 
@@ -26,8 +27,8 @@ const AdminDashboard = () => {
             <Route path="estadisticas" element={<AdminChartsSection />} />
             <Route path="recordatorios" element={<AdminRemindersSection />} />
 
-            <Route path="mensajes" element={<div>Mensajes (WIP)</div>} />
-            <Route path="pagos" element={<div>Pagos (WIP)</div>} />
+            <Route path="mensajes" element={<AdminMessagesSection/>} />
+            {/* <Route path="pagos" element={<div>Pagos (WIP)</div>} /> */}
 
             <Route path="*" element={<Navigate to="." replace />} />
           </Routes>

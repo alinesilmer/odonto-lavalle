@@ -1,0 +1,17 @@
+.wrap { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+.section { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.section h2 { font-family: var(--font-heading); font-size: 1.75rem; color: var(--color-secondary); margin-bottom: 1.5rem; letter-spacing: 1px; text-transform: uppercase; }
+.card { display: flex; flex-direction: column; gap: 2rem; }
+.patientInfo { display: flex; gap: 1.5rem; align-items: center; }
+.patientInfo img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+.patientInfo h3 { font-size: 1.5rem; margin-bottom: .5rem; }
+.patientInfo p { color: var(--color-silver); font-size: .9rem; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 1.5rem; }
+.metric { text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; }
+.metric h4 { font-size: 2rem; color: var(--color-secondary); margin-bottom: .5rem; }
+.metric p { color: var(--color-silver); font-size: .9rem; }
+.detailsGrid { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 2rem; }
+.detailsGrid h4 { font-size: 1.1rem; color: var(--color-secondary); margin-bottom: 1rem; }
+.detailsGrid ul { list-style: none; padding: 0; }
+.detailsGrid li { padding: .5rem 0; border-bottom: 1px solid #e9ecef; }
+.detailsGrid li:last-child { border-bottom: 0; }

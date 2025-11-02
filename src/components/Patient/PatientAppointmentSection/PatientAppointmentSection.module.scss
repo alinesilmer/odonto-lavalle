@@ -1,0 +1,4 @@
+.wrap { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+.section { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.section h2 { font-family: var(--font-heading); font-size: 1.75rem; color: var(--color-secondary); margin-bottom: 1.5rem; letter-spacing: 1px; text-transform: uppercase; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1.5rem; margin-bottom: 2rem; }
