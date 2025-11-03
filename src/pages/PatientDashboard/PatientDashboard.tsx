@@ -8,7 +8,7 @@ import PatientAppointments from "../../components/Patient/PatientAppointmentSect
 import PatientMessages from "../../components/Patient/PatientMessagesSection/PatientMessagesSection"
 import PatientTreatment from "../../components/Patient/PatientTreatmentSection/PatientTreatmentSection"
 import PatientConfig from "../../components/Patient/PatientConfig/PatientConfig"
-import AdminSupport from "../../components/Admin/AdminSupport/AdminSupport"
+import PatientSupport from "../../components/Patient/PatientSupport/PatientSupport"
 
 import type { ComponentType } from "react"
 import { lazy } from "react"
@@ -46,7 +46,7 @@ const PatientDashboard = () => {
           }
         />
         <Route path="configuracion" element={<PatientConfig />} />
-        <Route path="soporte" element={<AdminSupport />} />
+        <Route path="soporte" element={<PatientSupport />} />
         <Route path="*" element={<Navigate to="." replace />} />
       </Routes>
     </DashboardLayout>

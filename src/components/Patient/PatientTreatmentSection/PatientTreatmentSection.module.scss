@@ -1,4 +1,4 @@
-/* PatientTreatmentSection.module.scss */
+
 .wrap {
   --blue: var(--color-primary, #0ea5e9);
   --blue-600: color-mix(in srgb, var(--blue) 88%, #000);
@@ -15,11 +15,9 @@
   min-height: 100vh;
 }
 
-/* ...everything you had stays the same below... */
-/* Only additions/adjustments are focus-visible + roles on clickable tiles */
 
-.patientHeader { /* unchanged */ 
-  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-700) 100%);
+.patientHeader { 
+  background: var(--color-secondary);
   border-radius: 20px;
   padding: 2.5rem;
   margin-bottom: 2rem;
@@ -42,10 +40,10 @@
   }
 }
 
-.patientDetails { /* unchanged */ 
+.patientDetails {  
   color: #fff;
   .nameRow { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;
-    h1 { font-size: 2rem; margin: 0; font-weight: 700; }
+    h1 { font-size: 2rem; margin: 0; font-weight: 500; }
   }
   .statusBadge { background: rgba(255,255,255,.2); backdrop-filter: blur(10px);
     padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; font-weight: 600;
@@ -57,7 +55,7 @@
 }
 
 .quickStats { display: flex; gap: 1rem; flex-wrap: wrap; }
-.statCard { /* unchanged */ 
+.statCard { 
   background: rgba(255,255,255,.15); backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 1.25rem 1.5rem;
   display: flex; align-items: center; gap: 1rem; min-width: 140px; transition: all .25s ease;
@@ -69,21 +67,21 @@
   }
 }
 
-.tabNav { /* unchanged */ 
+.tabNav { 
   display: flex; gap: .5rem; margin-bottom: 2rem; background: var(--surface);
   padding: .5rem; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.06);
 }
-.tab { /* unchanged */ 
+.tab { 
   flex: 1; padding: 1rem 1.5rem; border: none; background: transparent; border-radius: 12px;
   font-size: 1rem; font-weight: 600; color: #64748b; cursor: pointer; transition: all .2s ease;
   &:hover { background: color-mix(in srgb, var(--blue) 10%, #f1f5f9); color: #475569; }
   &:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-  &.active { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-600) 100%); color: #fff;
+  &.active { background-color: var(--color-secondary); color: #fff;
     box-shadow: 0 4px 12px color-mix(in srgb, var(--blue) 35%, transparent);
   }
 }
 
-.section { /* unchanged */ 
+.section { 
   background: var(--surface); border-radius: 20px; padding: 2rem; margin-bottom: 2rem;
   box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: box-shadow .2s ease;
   &:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); }
@@ -92,7 +90,7 @@
   }
 }
 
-.dentalChart { /* unchanged legend */ 
+.dentalChart { 
   .chartLegend { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
   .legendItem { display: flex; align-items: center; gap: .5rem; font-size: .9rem; color: #64748b; }
   .legendDot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor;
@@ -122,7 +120,7 @@
   .toothNumber { font-size: .75rem; font-weight: 700; }
 }
 
-.toothDetails { /* unchanged */ 
+.toothDetails { 
   background: var(--surface-muted); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--blue);
   h4 { margin: 0 0 .5rem 0; color: #1e293b; font-size: 1.1rem; }
   p { margin: 0; color: #64748b; text-transform: capitalize; }
@@ -195,7 +193,7 @@
   h3 { margin: 0 0 .5rem 0; font-size: 1.2rem; color: #1e293b; }
   p { margin: .25rem 0; color: #64748b; font-size: .9rem; }
 }
-.appointmentAction { /* retained utility button */
+.appointmentAction { 
   padding: .75rem 1.5rem; background: #fff; border: 2px solid var(--blue); color: var(--blue);
   border-radius: 10px; font-weight: 600; cursor: pointer; transition: all .2s ease;
   &:hover { background: var(--blue); color: #fff; transform: translateY(-2px);

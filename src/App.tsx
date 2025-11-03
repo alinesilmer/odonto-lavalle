@@ -27,6 +27,7 @@ const PatientAppointments = lazy(() => import("./components/Patient/PatientAppoi
 const PatientMessages = lazy(() => import("./components/Patient/PatientMessagesSection/PatientMessagesSection"))
 const PatientTreatment = lazy(() => import("./components/Patient/PatientTreatmentSection/PatientTreatmentSection"))
 const PatientConfig = lazy(() => import("./components/Patient/PatientConfig/PatientConfig"))
+const PatientSupport = lazy(() => import("./components/Patient/PatientSupport/PatientSupport"))
 
 type PatientHistoryProps = {
   isAdmin?: boolean
@@ -47,7 +48,7 @@ const PatientHistorySection = lazy<ComponentType<PatientHistoryProps>>(
 )
 
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard/AdminDashboard"))
-const AdminStatsSection = lazy(() => import("./components/Admin/AdminStatsSection/AdminStatsSection"))
+const AdminStatsSection = lazy(() => import("./components/Admin/AdminHome/AdminHome"))
 const AdminAppointmentsSection = lazy(() => import("./components/Admin/AdminAppointmentSection/AdminAppointmentsSection"))
 const AdminUsersSection = lazy(() => import("./components/Admin/AdminUsersSection/AdminUsersSection"))
 const AdminStockSection = lazy(() => import("./components/Admin/AdminStockSection/AdminStockSection"))
@@ -82,7 +83,7 @@ function App() {
       import("./pages/Services/Services")
       import("./pages/ContactPage/ContactPage")
       import("./pages/AboutUs/AboutUs")
-      import("./components/Admin/AdminStatsSection/AdminStatsSection")
+      import("./components/Admin/AdminHome/AdminHome")
       import("./components/Admin/AdminAppointmentSection/AdminAppointmentsSection")
       import("./components/Patient/PatientAppointmentSection/PatientAppointmentSection")
     })
@@ -135,16 +136,17 @@ function App() {
               <Route path="/dashboard/paciente/mensajes" element={<PatientMessages />} />
               <Route path="/dashboard/paciente/tratamiento" element={<PatientTreatment />} />
               <Route path="/dashboard/paciente/configuracion" element={<PatientConfig />} />
+              <Route path="/dashboard/paciente/soporte" element={<PatientSupport />} />
               <Route
-                path="/dashboard/paciente/historia"
-                element={
-                  <PatientHistorySection
-                    records={historyRecords}
-                    patientName={patientTreatment.patientName ?? "Paciente"}
-                  />
-                }
-              />
-              <Route path="/dashboard/paciente/soporte" element={<AdminSupport />} />
+  path="/dashboard/paciente/historia"
+  element={
+    <PatientHistorySection
+      records={historyRecords}
+      patientName={patientTreatment.patientName ?? "Paciente"}
+    />
+  }
+/>
+              
 
               <Route path="/not-found" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />

@@ -3,7 +3,7 @@
 import { Routes, Route, Navigate } from "react-router-dom"
 
 import DashboardLayout from "../../components/DashboardLayout/DashboardLayout"
-import AdminStatsSection from "@/components/Admin/AdminStatsSection/AdminStatsSection"
+import AdminStatsSection from "@/components/Admin/AdminHome/AdminHome"
 import AdminAppointmentsSection from "@/components/Admin/AdminAppointmentSection/AdminAppointmentsSection"
 import AdminUsersSection from "@/components/Admin/AdminUsersSection/AdminUsersSection"
 import AdminStockSection from "@/components/Admin/AdminStockSection/AdminStockSection"

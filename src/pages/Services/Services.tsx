@@ -45,7 +45,7 @@ const Services = () => {
     <div className={styles.servicesPage}>
       <PageHero
         title="NUESTROS SERVICIOS"
-        subtitle="Estamos a tu disposición para resolver cualquier duda"
+        subtitle="Todo lo que necesitás en un solo lugar"
         backgroundImage={hero}
       />
 

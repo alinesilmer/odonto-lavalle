@@ -205,7 +205,7 @@ const ContactPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <img src={decor} alt="Consulta dental" className={styles.consultImage} />
+            <img src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1762121785/us-pic2_ewpzjv.jpg" alt="Consulta dental" className={styles.consultImage} />
             <div className={styles.consultContent}>
               <h2 className={styles.consultTitle}>AGENDÁ TU CONSULTA</h2>
               <p className={styles.consultText}>

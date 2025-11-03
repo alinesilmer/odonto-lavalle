@@ -37,7 +37,7 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
     { path: "/dashboard/paciente/turnos", label: "Mis Turnos", icon: Calendar },
     { path: "/dashboard/paciente/tratamiento", label: "Mi Tratamiento Actual", icon: FileText },
     { path: "/dashboard/paciente/historia", label: "Mi Historia Clínica", icon: FileText },
-    { path: "/dashboard/paciente/mensajes", label: "Mensajes", icon: MessageSquare },
+    { path: "/dashboard/paciente/mensajes", label: "Mis Mensajes", icon: MessageSquare },
   ]
 
   const adminMenuItems: MenuItem[] = [
@@ -143,7 +143,6 @@ const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => 
             />
             <div className={styles.userInfo}>
               <span className={styles.userName}>{userName}</span>
-              <span className={styles.userRole}>{userRole}</span>
             </div>
           </div>
         </div>

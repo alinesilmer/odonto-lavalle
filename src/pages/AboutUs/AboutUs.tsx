@@ -43,7 +43,7 @@ const AboutUs = () => {
     {
       name: "Od. Florencia Hernández",
       role: "Directora y Endodoncista",
-      image: "https://i.pravatar.cc/300?img=21",
+      image: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1762121116/pfp-flor_poctqy.jpg",
       specialties: ["Tratamientos de Conducto", "Ortodoncia"],
     },
   ];
@@ -53,7 +53,7 @@ const AboutUs = () => {
   return (
     <div className={styles.aboutUs}>
        <PageHero
-        title="CONTÁCTANOS"
+        title="Nosotros"
         subtitle="Transformando sonrisas, cambiando vidas desde 2010"
         backgroundImage={hero}
       />
@@ -100,7 +100,7 @@ const AboutUs = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src={image1} alt="Dental consultation" />
+            <img src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1762121303/us-pic_dnusam.jpg" alt="Dental consultation" />
           </motion.div>
         </div>
       </section>

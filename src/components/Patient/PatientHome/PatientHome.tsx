@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import {Link} from "react-router-dom";
-import { Calendar, MessageSquare, FileText } from "lucide-react";
-import DashboardLayout from "@/components/DashboardLayout/DashboardLayout";
-import { patientTreatment } from "../../../data/dashboardData";
-import styles from "./PatientHome.module.scss";
-import tooth from "../../../assets/images/tooth.png";
+import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
+import { Calendar, MessageSquare, FileText } from "lucide-react"
+import DashboardLayout from "@/components/DashboardLayout/DashboardLayout"
+import { patientTreatment } from "../../../data/dashboardData"
+import styles from "./PatientHome.module.scss"
+import tooth from "../../../assets/images/tooth.png"
 
 const PatientHome = () => (
   <DashboardLayout userType="patient" userRole="patient" userName={patientTreatment.patientName ?? "Usuario"}>
@@ -17,9 +17,18 @@ const PatientHome = () => (
             <h1>¡HOLA, {patientTreatment.patientName ?? "USUARIO"}!</h1>
             <p>¿Qué vamos a hacer hoy?</p>
             <div className={styles.quickActions}>
-              <Link to="/dashboard/paciente/tratamiento"><FileText size={18} />Revisar Tratamiento</Link>
-              <Link to="/dashboard/paciente/turnos"><Calendar size={18} />Ver Turnos</Link>
-              <Link to="/dashboard/paciente/mensajes"><MessageSquare size={18} />Enviar Mensaje</Link>
+              <Link to="/dashboard/paciente/tratamiento">
+                <FileText size={18} />
+                Revisar Tratamiento
+              </Link>
+              <Link to="/dashboard/paciente/turnos">
+                <Calendar size={18} />
+                Ver Turnos
+              </Link>
+              <Link to="/dashboard/paciente/mensajes">
+                <MessageSquare size={18} />
+                Enviar Mensaje
+              </Link>
             </div>
           </div>
           <div className={styles.mascot}>
@@ -49,6 +58,6 @@ const PatientHome = () => (
       </section>
     </div>
   </DashboardLayout>
-);
+)
 
-export default PatientHome;
+export default PatientHome
