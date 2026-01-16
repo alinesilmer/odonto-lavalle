@@ -1,30 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import type React from "react";
+import { useRef, useState } from "react";
 import PageHero from "../../components/UI/PageHero/PageHero";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import Input from "../../components/UI/Input/Input";
 import Textarea from "../../components/UI/Textarea/Textarea";
 import Button from "../../components/UI/Button/Button";
-import Accordion from "../../components/UI/Accordion/Accordion";
 import { useForm } from "../../hooks/useForm";
 import { validateEmail, validateRequired } from "../../utils/validation";
 import { contactInfo } from "../../data/contactInfo";
-import { faqs } from "../../data/faqs";
 import SuccessModal from "../../components/SuccessModal/SuccessModal";
 import checkAnimation from "../../assets/animations/success.json";
-import decor2 from "./../../assets/images/dentalDecor2.png";
-import decor from "./../../assets/images/dentalDecor.png";
 import hero from "./../../assets/images/contactHero.png";
 import styles from "./ContactPage.module.scss";
-import { Link } from "react-router-dom";
 
 type ContactFormKeys = "name" | "reason" | "email" | "phone" | "message";
 type ContactFormData = Record<ContactFormKeys, string>;
 
+function normalizeWhatsappNumber(raw: string): string {
+  // WhatsApp wa.me requires digits only, including country code
+  // e.g. Argentina mobile often looks like 549 + area + number
+  return (raw || "").replace(/\D/g, "");
+}
+
+function buildWhatsappMessage(data: ContactFormData): string {
+  return [
+    "📩 *Nueva consulta desde la web*",
+    "",
+    `*Nombre:* ${data.name.trim()}`,
+    `*Motivo:* ${data.reason.trim()}`,
+    `*Email:* ${data.email.trim()}`,
+    `*Teléfono:* ${data.phone.trim() ? data.phone.trim() : "(no ingresado)"}`,
+    "",
+    "*Mensaje:*",
+    data.message.trim(),
+  ].join("\n");
+}
+
+function openInNewTab(url: string) {
+  // More reliable than window.open + "noopener,noreferrer" returning null in some browsers
+  const a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
 const ContactPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Guard to prevent double-open on double click / double submit
+  const openingRef = useRef(false);
 
   const validationRules: Partial<Record<ContactFormKeys, ((v: string) => boolean)[]>> = {
     name: [validateRequired],
@@ -39,9 +69,28 @@ const ContactPage = () => {
       { name: "", reason: "", email: "", phone: "", message: "" },
       validationRules,
       async () => {
+        // Prevent accidental double open
+        if (openingRef.current) return;
+        openingRef.current = true;
+
+        const WA_NUMBER = normalizeWhatsappNumber(contactInfo.phone || "5493794001708");
+
+        const text = buildWhatsappMessage(values);
+        const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+        // ✅ Open only ONCE, always in a new tab/window (no same-window fallback)
+        openInNewTab(url);
+
         setShowSuccess(true);
+
+        // Release guard after a short delay
+        setTimeout(() => {
+          openingRef.current = false;
+        }, 1200);
       }
     );
+
+  const waNumber = normalizeWhatsappNumber(contactInfo.phone);
 
   return (
     <div className={styles.contactPage}>
@@ -62,12 +111,12 @@ const ContactPage = () => {
           >
             <h2 className={styles.title}>VENÍ A CONOCERNOS</h2>
             <p className={styles.description}>
-              ¿Tenés alguna consulta que quieras resolver personalmente? Avisanos de tu visita por cualquiera de las siguientes plataformas
-              y te recibiremos con gusto.
+              ¿Tenés alguna consulta que quieras resolver personalmente? Avisanos de tu visita por cualquiera de
+              las siguientes plataformas y te recibiremos con gusto.
             </p>
 
             <div className={styles.contactInfo}>
-              <a href={`https://wa.me/${contactInfo.phone}`} className={styles.contactItem}>
+              <a href={`https://wa.me/${waNumber}`} className={styles.contactItem} target="_blank" rel="noreferrer">
                 <div className={styles.iconWrapper}>
                   <Phone size={24} />
                 </div>
@@ -196,51 +245,12 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <section className={styles.consultSection}>
-        <div className={styles.consultContainer}>
-          <motion.div
-            className={styles.consultLeft}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <img src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1762121785/us-pic2_ewpzjv.jpg" alt="Consulta dental" className={styles.consultImage} />
-            <div className={styles.consultContent}>
-              <h2 className={styles.consultTitle}>AGENDÁ TU CONSULTA</h2>
-              <p className={styles.consultText}>
-                Para cuidarte bien, primero te vemos. En la consulta revisamos tu boca, despejamos dudas y, si hace falta, pedimos estudios.
-                Así definimos el tratamiento ideal para vos. Por eso se agenda consulta; los tratamientos perfectos para vos se planifican luego.
-              </p>
-              <Link to="/turno">
-                <Button variant="primary">RESERVAR</Button>
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className={styles.consultRight}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h2 className={styles.faqTitle}>PREGUNTAS FRECUENTES</h2>
-            <div className={styles.faqList}>
-              {faqs.map((faq) => (
-                <Accordion key={faq.id} question={faq.question} answer={faq.answer} />
-              ))}
-            </div>
-            <img src={decor2} alt="Herramientas dentales" className={styles.faqImage} />
-          </motion.div>
-        </div>
-      </section>
 
       <SuccessModal
         open={showSuccess}
         onClose={() => setShowSuccess(false)}
-        title="¡Consulta enviada!"
-        message="Gracias por escribirnos. Te responderemos a la brevedad."
+        title="¡Consulta enviada por WhatsApp!"
+        message="Se abrió WhatsApp con tu mensaje. Solo falta presionar Enviar."
         animationData={checkAnimation}
       />
     </div>

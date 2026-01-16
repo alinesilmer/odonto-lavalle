@@ -4,15 +4,17 @@ import Testimonials from "../../components/Testimonials/Testimonials"
 import WhyChoose from "../../components/WhyChoose/WhyChoose"
 import InsurancePayment from "../../components/InsurancePayment/InsurancePayment"
 import DentalGame from "@/components/DentalGame/DentalGame"
+import ContactInfoHome from "@/components/ContactInfoHome/ContactInfoHome"
 
 const Home = () => {
   return (
     <>
       <Hero />
+      <ContactInfoHome/>
+      <InsurancePayment />
       <WhyVisit />
       <Testimonials />
       <WhyChoose />
-      <InsurancePayment />
       <DentalGame/>
     </>
   )

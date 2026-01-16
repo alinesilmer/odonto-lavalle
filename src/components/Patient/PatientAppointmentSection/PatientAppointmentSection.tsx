@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Eye, X, Pencil, Ban, CheckCircle2, Clock3, XCircle, Filter as FilterIcon } from "lucide-react"
+import { Eye, X, Pencil, Ban, CheckCircle2, Clock3, XCircle } from "lucide-react"
 import DashboardLayout from "@/components/DashboardLayout/DashboardLayout"
 import DataTable from "@/components/DataTable/DataTable"
 import { patientAppointments as seed, patientTreatment } from "../../../data/dashboardData"
@@ -35,10 +35,9 @@ const columns = [
 
 const PatientAppointments = () => {
   const [rows, setRows] = useState<Row[]>((seed as any[]).map((r, i) => ({ id: r.id ?? String(i + 1), ...r })))
-  const [filters, setFilters] = useState<Filters>({ q: "", estado: "", pago: "" })
+  const [filters] = useState<Filters>({ q: "", estado: "", pago: "" })
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [showCancel, setShowCancel] = useState<{ open: boolean; ids: string[] }>({ open: false, ids: [] })
-  const [showFilters, setShowFilters] = useState(false)
 
   const [viewRow, setViewRow] = useState<Row | null>(null)
   const [editRow, setEditRow] = useState<Row | null>(null)

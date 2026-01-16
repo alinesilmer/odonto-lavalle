@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Award, Heart, Users, Target, CheckCircle } from "lucide-react";
 import Button from "../../components/UI/Button/Button";
-import image1 from "../../assets/images/imagen1.jpg";
 // import { goToBooking } from "../../utils/session";
 import styles from "./AboutUs.module.scss";
 import PageHero from "@/components/UI/PageHero/PageHero";
@@ -37,7 +36,7 @@ const AboutUs = () => {
     {
       name: "Od. Paula Cavaglia",
       role: "Directora y Odontóloga General",
-      image: "https://i.pravatar.cc/300?img=20",
+      image: "https://res.cloudinary.com/dcfkgepmp/image/upload/v1762384448/Pauimg_wxi5nt.jpg",
       specialties: ["Estética Dental", "Rehabilitación Oral"],
     },
     {

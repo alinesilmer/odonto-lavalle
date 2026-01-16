@@ -2,19 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { Calendar, Users, FileText, Settings, TrendingUp, MessageSquare } from "lucide-react"
-import DashboardLayout from "@/components/DashboardLayout/DashboardLayout"
-import StatsCard from "@/components/StatsCard/StatsCard"
-import { adminStats } from "../../../data/dashboardData"
+import { Calendar, Users, Settings, MessageSquare } from "lucide-react"
 import styles from "./AdminHome.module.scss"
 import tooth from "../../../assets/images/tooth.png"
 
-const colorByIcon: Record<string, "primary" | "info" | "success" | "danger"> = {
-  users: "primary",
-  calendar: "info",
-  dollar: "success",
-  x: "danger",
-}
 
 const AdminHome = () => (
     <div className={styles.wrap}>

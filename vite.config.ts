@@ -1,17 +1,24 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config'   
+import react from '@vitejs/plugin-react'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: { "@": path.resolve(__dirname, "./src") },
+   test: {
+    environment: 'jsdom',
   },
- css: {
-  preprocessorOptions: {
-    scss: {
-      additionalData: `@use "@/styles/mixins" as m;`,
+  resolve: {
+    alias: { '@': path.resolve(__dirname, './src') },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/mixins" as m;`,
+      },
     },
   },
-},
-});
+})

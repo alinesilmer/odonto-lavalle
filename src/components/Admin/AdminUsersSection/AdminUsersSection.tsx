@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Eye, Edit, Trash2, User, X } from "lucide-react"
+import { Eye, Edit, Trash2, User} from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Button from "@/components/UI/Button/Button"
 import DataTable from "../../DataTable/DataTable"

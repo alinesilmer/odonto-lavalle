@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Input from "@/components/UI/Input/Input"
-import Select from "@/components/UI/Select/Select"
 import Button from "@/components/UI/Button/Button"
 import styles from "./AdminConfig.module.scss"
 

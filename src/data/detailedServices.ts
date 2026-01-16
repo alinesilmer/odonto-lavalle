@@ -4,7 +4,7 @@ export const detailedServices: DetailedService[] = [
   {
     id: "1",
     title: "CONSULTA",
-    description: "Evaluación integral y plan de tratamiento",
+    description: "Evaluación integral y plan de tratamiento.",
     image: "https://i.pinimg.com/1200x/e0/47/d7/e047d74c749650954954158b2634d8ee.jpg",
     category: "otros",
   },

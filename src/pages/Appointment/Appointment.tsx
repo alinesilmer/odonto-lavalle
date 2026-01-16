@@ -1,58 +1,93 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Bell, Upload } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "../../components/UI/PageHero/PageHero";
 import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
 import hero from "./../../assets/images/appointmentBG.jpg";
 import styles from "./Appointment.module.scss";
+import { contactInfo } from "../../data/contactInfo";
+
+function normalizeWhatsappNumber(raw: string): string {
+  // digits only, include country code (e.g. 549379xxxxxxx)
+  return (raw || "").replace(/\D/g, "");
+}
+
+function openInNewTab(url: string) {
+  // reliable "open once in new tab"
+  const a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function pad2(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+function formatDateAR(d: Date) {
+  // dd/mm/yyyy
+  return `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
 
 const Appointment = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2020, 9, 15));
-  const [selectedTime, setSelectedTime] = useState<string>("14:20");
-  const [notification, setNotification] = useState(true);
-  const [file, setFile] = useState<File | null>(null);
+  // Default: today
+  const [monthCursor, setMonthCursor] = useState<Date>(() => new Date());
+  const [selectedDay, setSelectedDay] = useState<Date>(() => new Date());
+  const [patientName, setPatientName] = useState<string>("");
 
-  const times = ["09:30", "13:45", "14:20", "15:00", "17:00"];
+  // prevents double open on double click
+  const openingRef = useRef(false);
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
+    // Make Monday = 0 (Lu) … Sunday = 6 (Do)
+    const jsFirstDay = new Date(year, month, 1).getDay(); // 0=Sun..6=Sat
+    const firstDay = (jsFirstDay + 6) % 7; // 0=Mon..6=Sun
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
     return { firstDay, daysInMonth };
   };
 
-  const { firstDay, daysInMonth } = getDaysInMonth(selectedDate);
+  const { firstDay, daysInMonth } = useMemo(() => getDaysInMonth(monthCursor), [monthCursor]);
 
   const handlePrevMonth = () => {
-    setSelectedDate(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, 1)
-    );
+    setMonthCursor(new Date(monthCursor.getFullYear(), monthCursor.getMonth() - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setSelectedDate(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1)
-    );
+    setMonthCursor(new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
+  const handlePickDay = (day: number) => {
+    const d = new Date(monthCursor.getFullYear(), monthCursor.getMonth(), day);
+    setSelectedDay(d);
   };
 
   const handleSubmit = () => {
-    console.log("Appointment:", {
-      selectedDate,
-      selectedTime,
-      notification,
-      file,
-    });
+    if (openingRef.current) return;
+    openingRef.current = true;
+
+    const WA_NUMBER = normalizeWhatsappNumber(contactInfo.phone || "549379401708");
+
+    const text = [
+      "🗓️ *Solicitud de turno (consulta)*",
+      `*Nombre:* ${patientName.trim() || "(no ingresado)"}`,
+      `*Día elegido:* ${formatDateAR(selectedDay)}`,
+      "",
+      "¿Está disponible este día para agendar la consulta?",
+    ].join("\n");
+
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    openInNewTab(url);
+
+    setTimeout(() => {
+      openingRef.current = false;
+    }, 1200);
   };
 
   const monthNames = [
@@ -72,6 +107,10 @@ const Appointment = () => {
 
   const dayNames = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 
+  const isSameMonth =
+    selectedDay.getFullYear() === monthCursor.getFullYear() &&
+    selectedDay.getMonth() === monthCursor.getMonth();
+
   return (
     <div className={styles.appointmentPage}>
       <PageHero
@@ -82,17 +121,38 @@ const Appointment = () => {
 
       <section className={styles.appointmentSection}>
         <div className={styles.container}>
-          <div className={styles.leftPanel}>
+            {/* ✅ INFO MESSAGE*/}
+            <div className={styles.infoBanner}>
+              Hola 😊. Recordamos que los presupuestos se realizan <b>únicamente luego de la consulta clínica.</b>
+              <br />
+              Valor de la consulta: <b>$20.000</b>. ¡Te esperamos! 🦷✨
+            </div>
+
+            {/* ✅ NAME INPUT */}
+            <div className={styles.nameCard}>
+              <h3 className={styles.sectionTitle}>¿A nombre de quién es la consulta?</h3>
+              <Input
+                type="text"
+                name="patientName"
+                value={patientName}
+                onChange={(e: any) => setPatientName(e.target.value)}
+                placeholder="Nombre y apellido"
+                required
+              />
+            </div>
+
+            {/* ✅ CALENDAR (DAY ONLY) */}
             <div className={styles.calendar}>
               <div className={styles.calendarHeader}>
-                <button onClick={handlePrevMonth} className={styles.navButton}>
+                <button onClick={handlePrevMonth} className={styles.navButton} type="button">
                   <ChevronLeft size={20} />
                 </button>
+
                 <h3 className={styles.monthYear}>
-                  {monthNames[selectedDate.getMonth()]}{" "}
-                  {selectedDate.getFullYear()}
+                  {monthNames[monthCursor.getMonth()]} {monthCursor.getFullYear()}
                 </h3>
-                <button onClick={handleNextMonth} className={styles.navButton}>
+
+                <button onClick={handleNextMonth} className={styles.navButton} type="button">
                   <ChevronRight size={20} />
                 </button>
               </div>
@@ -103,27 +163,21 @@ const Appointment = () => {
                     {day}
                   </div>
                 ))}
+
                 {Array.from({ length: firstDay }).map((_, i) => (
                   <div key={`empty-${i}`} className={styles.emptyDay} />
                 ))}
+
                 {Array.from({ length: daysInMonth }).map((_, i) => {
                   const day = i + 1;
-                  const isSelected = day === selectedDate.getDate();
+                  const isSelected = isSameMonth && day === selectedDay.getDate();
+
                   return (
                     <button
                       key={day}
-                      className={`${styles.day} ${
-                        isSelected ? styles.selected : ""
-                      }`}
-                      onClick={() =>
-                        setSelectedDate(
-                          new Date(
-                            selectedDate.getFullYear(),
-                            selectedDate.getMonth(),
-                            day
-                          )
-                        )
-                      }
+                      type="button"
+                      className={`${styles.day} ${isSelected ? styles.selected : ""}`}
+                      onClick={() => handlePickDay(day)}
                     >
                       {day}
                     </button>
@@ -131,74 +185,16 @@ const Appointment = () => {
                 })}
               </div>
             </div>
-
-            <div className={styles.programmingCard}>
-              <h4 className={styles.programmingTitle}>Programación</h4>
-              <div className={styles.appointmentItem}>
-                <div className={styles.appointmentInfo}>
-                  <p className={styles.appointmentDate}>
-                    16.12.2020 9:15 AM - 9:30 AM
-                  </p>
-                  <div className={styles.notificationBadge}>
-                    <Bell size={16} />
-                    <span>Notifícame por: 1 día</span>
-                    <button className={styles.toggleNotification}>
-                      <div
-                        className={`${styles.toggle} ${
-                          notification ? styles.active : ""
-                        }`}
-                        onClick={() => setNotification(!notification)}
-                      >
-                        <div className={styles.toggleCircle} />
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <Button
+                variant="primary"
+                onClick={handleSubmit}
+                disabled={!patientName.trim()}
+              >
+                ENVIAR POR WHATSAPP
+              </Button>
           </div>
 
-          <div className={styles.rightPanel}>
-            <div className={styles.timeSelection}>
-              <h3 className={styles.sectionTitle}>Elegí una hora</h3>
-              <div className={styles.timeList}>
-                {times.map((time) => (
-                  <button
-                    key={time}
-                    className={`${styles.timeButton} ${
-                      selectedTime === time ? styles.selected : ""
-                    }`}
-                    onClick={() => setSelectedTime(time)}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.fileUpload}>
-              <h3 className={styles.sectionTitle}>Adjuntar comprobante</h3>
-              <label className={styles.uploadLabel}>
-                <input
-                  type="file"
-                  accept=".pdf,.jpg,.png"
-                  onChange={handleFileChange}
-                  className={styles.fileInput}
-                />
-                <div className={styles.uploadBox}>
-                  <Upload size={40} />
-                  <p>{file ? file.name : "Subir archivo PDF"}</p>
-                </div>
-              </label>
-            </div>
-
-<div className={styles.bookButton}>
-            <Button variant="primary" onClick={handleSubmit}>
-              AGENDAR
-            </Button>
-            </div>
-          </div>
-        </div>
+          
       </section>
     </div>
   );

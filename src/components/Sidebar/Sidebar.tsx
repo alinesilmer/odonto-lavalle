@@ -28,7 +28,7 @@ interface SidebarProps {
 
 type MenuItem = { path: string; label: string; icon: React.ComponentType<{ size?: number }> }
 
-const Sidebar = ({ userType, userName, userRole, userAvatar }: SidebarProps) => {
+const Sidebar = ({ userType, userName, userAvatar }: SidebarProps) => {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
 
