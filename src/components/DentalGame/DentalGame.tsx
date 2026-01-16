@@ -290,7 +290,7 @@ export default function DentalGame() {
       )}
 
       <div className={styles.tip}>
-        💡 <strong>Consejo:</strong> cepillate los dientes 2 veces por día durante 2 minutos.
+        💡 <strong>Consejo:</strong> cepillate los dientes al menos 3 veces por día durante 2 minutos.
       </div>
     </div>
   );

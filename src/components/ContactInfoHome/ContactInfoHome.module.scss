@@ -28,7 +28,7 @@
 .consultImage {
   width: 100%;
   aspect-ratio: 16/9;
-  height: auto;
+  height: 50vh;
   object-fit: cover;
   border-radius: clamp(1rem, 3vw, 1.5rem);
 }

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Accordion from "../../components/UI/Accordion/Accordion";
 import { faqs } from "../../data/faqs";
 import Button from "../UI/Button/Button";
-import decor2 from "./../../assets/images/dentalDecor2.png";
 import { Link } from "react-router-dom";
 import styles from "./ContactInfoHome.module.scss";
 
@@ -23,7 +22,7 @@ const ContactInfoHome = () => {
             transition={{ duration: 0.6 }}
           >
             <img
-              src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1762121785/us-pic2_ewpzjv.jpg"
+              src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1768581122/WhatsApp_Image_2026-01-16_at_1.16.16_PM_hlukdy.jpg"
               alt="Consulta dental"
               className={styles.consultImage}
             />
@@ -53,7 +52,7 @@ const ContactInfoHome = () => {
                 <Accordion key={faq.id} question={faq.question} answer={faq.answer} />
               ))}
             </div>
-            <img src={decor2} alt="Herramientas dentales" className={styles.faqImage} />
+            <img src="https://res.cloudinary.com/dcfkgepmp/image/upload/v1768581282/WhatsApp_Image_2026-01-16_at_1.25.06_PM_ecq43f.jpg" alt="Herramientas dentales" className={styles.faqImage} />
           </motion.div>
         </div>
       </section>
