@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { services } from "../../data/services";
-import NewsletterForm from "../NewsletterForm/NewsletterForm";
+// import NewsletterForm from "../NewsletterForm/NewsletterForm";
 import MoreInfoModal from "../MoreInfoModal/MoreInfoModal";
 import styles from "./WhyVisit.module.scss";
 import { useState } from "react";
@@ -31,7 +31,7 @@ const WhyVisit = () => {
               ¿No sabes cada cuánto hacer tu consulta odontológica para mantener una salud bucal óptima? Acá te contamos tres razones por las cuales una visita cada seis meses puede ser tu mejor opción.
             </p>
           </div>
-          <motion.div
+          {/* <motion.div
             className={styles.newsletter}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,7 +39,7 @@ const WhyVisit = () => {
             transition={{ duration: 0.6 }}
           >
             <NewsletterForm />
-          </motion.div>
+          </motion.div> */}
         </div>
 
         <div className={styles.content}>

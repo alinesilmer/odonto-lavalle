@@ -7,6 +7,7 @@ import Button from "../../components/UI/Button/Button";
 import styles from "./AboutUs.module.scss";
 import PageHero from "@/components/UI/PageHero/PageHero";
 import hero from "../../assets/images/aboutUs.png";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   const values = [
@@ -169,15 +170,19 @@ const AboutUs = () => {
           <h2>¿Listo para transformar tu sonrisa?</h2>
           <p>Agendá tu consulta hoy y descubrí la diferencia Lavalle</p>
           <div className={styles.ctaButtons}>
-            {/*<Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
-  Reservar Turno
-</Button> */}
-            <Button variant="primary" size="large">
-              Reservar Turno
+             <Link to="/turno">
+            <Button
+              variant="primary"
+              size="large"
+            >
+              RESERVAR TURNO
             </Button>
+            </Link>
+            <Link to="/contacto">
             <Button variant="secondary" size="large">
               Contactar
             </Button>
+            </Link>
           </div>
         </motion.div>
       </section>

@@ -79,7 +79,7 @@ const Header = () => {
           </button>
 
           <Link
-            to="/login"
+            to="/not-found"
             className={`${styles.iconButton} ${styles.loginButton}`}
             aria-label="Ingresar"
           >

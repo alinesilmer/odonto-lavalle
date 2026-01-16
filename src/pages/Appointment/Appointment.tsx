@@ -187,6 +187,7 @@ const Appointment = () => {
             </div>
               <Button
                 variant="primary"
+                size="large"
                 onClick={handleSubmit}
                 disabled={!patientName.trim()}
               >

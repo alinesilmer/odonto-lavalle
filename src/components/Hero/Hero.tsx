@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../UI/Button/Button";
 // import { goToBooking } from "../../utils/session";
 import styles from "./Hero.module.scss";
@@ -29,13 +29,14 @@ const Hero = () => {
 //  <Button variant="primary" size="large" onClick={() => goToBooking(navigate)}>
 //               RESERVAR TURNO
 //             </Button>*/}
+      <Link to="/turno">
             <Button
               variant="primary"
               size="large"
-              onClick={() => navigate("/turnos")}
             >
               RESERVAR TURNO
             </Button>
+            </Link>
             <Button
               variant="outline"
               size="large"
