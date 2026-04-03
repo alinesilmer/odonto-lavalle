@@ -125,7 +125,7 @@ const Appointment = () => {
             <div className={styles.infoBanner}>
               Hola 😊. Recordamos que los presupuestos se realizan <b>únicamente luego de la consulta clínica.</b>
               <br />
-              Valor de la consulta: <b>$20.000</b>. ¡Te esperamos! 🦷✨
+              Valor de la consulta: <b>$30.000</b>. ¡Te esperamos! 🦷✨
             </div>
 
             {/* ✅ NAME INPUT */}
