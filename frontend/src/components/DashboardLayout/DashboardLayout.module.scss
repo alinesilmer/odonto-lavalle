@@ -1,0 +1,50 @@
+.dashboardLayout {
+  display: flex;
+  min-height: calc(100dvh - var(--site-header-h));
+  background: var(--ed-bg);
+  color: var(--ed-ink);
+  font-family: var(--font-sans);
+
+  @include m.respond-to(m.$bp-tablet) {
+    flex-direction: column;
+  }
+}
+
+.mainContent {
+  flex: 1;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 3.5vw, 3rem) var(--space-12);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--ed-line);
+}
+
+.crumb {
+  @include m.ed-eyebrow;
+  color: var(--ed-accent);
+  margin-bottom: var(--space-2);
+}
+
+.pageTitle {
+  @include m.ed-display(clamp(2.25rem, 4vw, 3.25rem));
+  line-height: 1;
+}
+
+.date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--ed-muted);
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}

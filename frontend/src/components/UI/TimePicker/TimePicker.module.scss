@@ -1,0 +1,117 @@
+.group + .group,
+.exact {
+  margin-top: var(--space-4);
+}
+
+.exact {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--ed-line);
+}
+
+.groupLabel {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-muted);
+}
+
+/* ---------------------------------- slots --------------------------------- */
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.slot {
+  padding: 0.55rem 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ed-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--ed-ink);
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+
+  &:hover:not(.chosen) {
+    border-color: var(--ed-accent);
+    color: var(--ed-accent);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.chosen {
+  border-color: var(--ed-accent);
+  background: var(--ed-accent);
+  color: var(--color-white);
+}
+
+/* ------------------------------- exact time ------------------------------- */
+
+.exactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ed-line-strong);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+
+  span {
+    min-width: 2.4ch;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--ed-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  button {
+    width: 32px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    color: var(--ed-muted);
+
+    &:hover {
+      background: var(--ed-surface-alt);
+      color: var(--ed-ink);
+    }
+
+    @include m.focus-ring(var(--ed-accent-rgb));
+  }
+}
+
+.colon {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--ed-muted);
+}
+
+.use {
+  margin-left: auto;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--ed-ink);
+  color: var(--color-white);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+
+  &:hover {
+    background: var(--ed-accent);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}

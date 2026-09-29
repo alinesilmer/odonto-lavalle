@@ -1,0 +1,108 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  color: var(--ed-text);
+  transition: color var(--duration-base) ease;
+
+  &:hover {
+    color: var(--ed-ink);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.text,
+.count {
+  position: relative;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.indicator {
+  position: absolute;
+}
+
+/* ---------------------------------- pill ---------------------------------- */
+
+.pill {
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--ed-line);
+  border-radius: var(--radius-full);
+  background: var(--ed-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  .tab {
+    padding: 0.65rem 1.05rem;
+    border-radius: var(--radius-full);
+    font-size: 0.92rem;
+    font-weight: var(--fw-medium);
+  }
+
+  .selected {
+    color: var(--color-white);
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+
+  .indicator {
+    inset: 0;
+    border-radius: var(--radius-full);
+    background: var(--ed-ink);
+  }
+
+  @include m.respond-to(m.$bp-md) {
+    border-radius: var(--radius-xl);
+  }
+}
+
+/* -------------------------------- underline ------------------------------- */
+
+.underline {
+  flex-wrap: nowrap;
+  gap: var(--space-6);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--ed-line);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex-shrink: 0;
+    padding: var(--space-3) 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ed-muted);
+  }
+
+  .selected {
+    color: var(--ed-ink);
+  }
+
+  .indicator {
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--ed-accent);
+  }
+}

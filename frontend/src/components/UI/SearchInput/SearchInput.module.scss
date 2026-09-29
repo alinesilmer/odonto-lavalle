@@ -1,0 +1,9 @@
+.search {
+  flex: 1 1 16rem;
+  max-width: 26rem;
+
+  /* No label or error below, so drop the field's bottom spacing. */
+  > * {
+    margin-bottom: 0;
+  }
+}

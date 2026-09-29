@@ -1,0 +1,109 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--ed-line);
+}
+
+.searchInputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  input {
+    width: 100%;
+    padding: var(--space-2) 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ed-ink);
+    font-family: var(--font-sans);
+    font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+
+    &::placeholder {
+      color: var(--gray-400);
+    }
+  }
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  color: var(--ed-muted);
+  transition: color var(--duration-fast) ease;
+
+  .searchInputWrapper:focus-within & {
+    color: var(--ed-accent);
+  }
+}
+
+.searchBar kbd,
+.footer kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid var(--ed-line-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--ed-bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ed-text);
+}
+
+.closeBtn {
+  height: 40px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  color: var(--ed-muted);
+  transition: background-color var(--duration-fast) ease;
+
+  &:hover {
+    background: var(--ed-surface-alt);
+    color: var(--ed-ink);
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    kbd {
+      display: none;
+    }
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-4);
+
+  @include m.hide-scrollbar;
+}
+
+.footer {
+  display: flex;
+  gap: var(--space-5);
+  padding: var(--space-3) var(--space-6);
+  border-top: 1px solid var(--ed-line);
+  background: var(--ed-bg);
+  font-size: var(--fs-xs);
+  color: var(--ed-muted);
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    display: none;
+  }
+}

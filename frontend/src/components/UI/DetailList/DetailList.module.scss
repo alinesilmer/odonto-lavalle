@@ -1,0 +1,55 @@
+.list {
+  font-family: var(--font-sans);
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ed-muted);
+  }
+
+  dd {
+    font-weight: var(--fw-medium);
+    color: var(--ed-ink);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.rows {
+  border-top: 1px solid var(--ed-ink);
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--ed-line);
+  }
+
+  dd {
+    text-align: right;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-6);
+
+  @include m.respond-to(m.$bp-sm) {
+    grid-template-columns: 1fr;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--ed-line);
+  }
+}

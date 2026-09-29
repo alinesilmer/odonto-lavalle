@@ -1,0 +1,35 @@
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--radius-2xl);
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-line);
+  color: var(--ed-ink);
+  font-family: var(--font-sans);
+
+  @include m.respond-to(m.$bp-sm) {
+    padding: var(--space-4);
+  }
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+
+.eyebrow {
+  @include m.ed-eyebrow;
+  margin-bottom: var(--space-1);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-2xl);
+  line-height: 1.1;
+}

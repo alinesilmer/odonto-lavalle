@@ -1,0 +1,65 @@
+.list {
+  list-style: none;
+  display: grid;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}
+
+.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include m.respond-to(m.$bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Benefits: light tiles with a filled check. */
+.check {
+  gap: var(--space-2);
+
+  li {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--ed-bg);
+    color: var(--ed-ink);
+  }
+
+  .check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-full);
+    background: var(--ed-accent);
+    color: var(--color-white);
+  }
+}
+
+/* Notes: ruled rows with a small accent dot. */
+.dot {
+  border-top: 1px solid var(--ed-line-strong);
+
+  li {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--ed-line);
+    color: var(--ed-text);
+  }
+
+  .dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.5em;
+    border-radius: var(--radius-full);
+    background: var(--ed-accent);
+  }
+}

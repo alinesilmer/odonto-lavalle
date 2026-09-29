@@ -1,0 +1,36 @@
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ed-radius-media);
+  background: var(--ed-surface-alt);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s var(--ed-ease-out);
+  }
+
+  /* Zooms when the photo itself, or the card or link around it, is hovered. */
+  &:hover img,
+  :is(a, button, article):hover > & img {
+    transform: scale(1.05);
+  }
+
+  figcaption {
+    position: absolute;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    background: var(--ed-glass-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--fs-md);
+    color: var(--ed-ink);
+  }
+}

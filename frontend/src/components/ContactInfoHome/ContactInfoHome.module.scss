@@ -1,0 +1,31 @@
+.section {
+  @include m.ed-shell;
+  padding-block: var(--ed-section-y);
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: var(--space-10) clamp(2rem, 8vw, 8rem);
+  align-items: start;
+
+  @include m.respond-to(m.$bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.heading {
+  position: sticky;
+  top: 120px;
+
+  @include m.respond-to(m.$bp-lg) {
+    position: static;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--ed-ink);
+}
+
+.payments {
+  padding-top: var(--space-6);
+}

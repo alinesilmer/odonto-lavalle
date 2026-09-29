@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "node scripts/build.mjs",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "seed": "tsx scripts/seed.ts",
+    "seed:content": "tsx scripts/seed-content.ts",
+    "cleanup": "tsx scripts/cleanup-firestore.ts",
+    "indexes": "tsx scripts/ensure-indexes.ts"
+  },
+  "dependencies": {
+    "@odonto/shared": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "firebase-admin": "^14.5.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.4",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.2.1",
+    "esbuild": "^0.25.10",
+    "tsx": "^4.20.6",
+    "typescript": "~5.8.3"
+  }
+}

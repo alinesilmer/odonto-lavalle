@@ -1,0 +1,131 @@
+.button {
+  @include m.ed-btn;
+  cursor: pointer;
+
+  .arrow {
+    transition: transform 350ms var(--ed-ease-out);
+  }
+
+  &:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+/* --------------------------------- variants -------------------------------- */
+
+.primary {
+  background: var(--ed-accent);
+  color: var(--color-white);
+
+  &:hover:not(:disabled) {
+    background: var(--ed-ink);
+    color: var(--color-white);
+  }
+}
+
+.secondary {
+  border: 1px solid var(--ed-line-strong);
+  background: var(--ed-surface);
+  color: var(--ed-ink);
+
+  &:hover:not(:disabled) {
+    border-color: var(--ed-accent);
+    color: var(--ed-accent);
+  }
+}
+
+.ink {
+  background: var(--ed-ink);
+  color: var(--ed-bg);
+
+  &:hover:not(:disabled) {
+    background: var(--ed-accent);
+    color: var(--color-white);
+  }
+}
+
+.light {
+  background: var(--ed-bg);
+  color: var(--ed-ink);
+
+  &:hover:not(:disabled) {
+    background: var(--color-white);
+    color: var(--ed-ink);
+  }
+}
+
+.outlineDark {
+  border: 1px solid var(--ed-line-dark);
+  color: var(--ed-on-dark);
+
+  &:hover:not(:disabled) {
+    border-color: var(--ed-on-dark-muted);
+    color: var(--color-white);
+  }
+}
+
+.danger {
+  background: var(--color-error-dark);
+  color: var(--color-white);
+
+  &:hover:not(:disabled) {
+    background: var(--color-error-strong);
+    color: var(--color-white);
+  }
+}
+
+.link {
+  @include m.ed-underline(true);
+  padding: var(--space-1) 0;
+  border-radius: 0;
+  color: var(--ed-ink);
+
+  &:hover:not(:disabled) {
+    transform: none;
+    color: var(--ed-accent);
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    width: auto;
+  }
+}
+
+/* ---------------------------------- sizes ---------------------------------- */
+
+.small {
+  padding: 0.7rem 1.15rem;
+  font-size: var(--fs-sm);
+}
+
+.large {
+  padding: 1.25rem 2rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* --------------------------------- loading --------------------------------- */
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

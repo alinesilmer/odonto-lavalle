@@ -24,3 +24,24 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Environment files — never commit real credentials
+.env
+.env.*
+!.env.example
+env
+
+# Build output
+backend/dist
+frontend/dist
+
+# Windows Explorer folder settings
+desktop.ini
+Thumbs.db
+
+# Service-account keys — these must never enter the repo
+secretApi.json
+*serviceAccount*.json
+*-adminsdk-*.json
+*.pem
+*.p12

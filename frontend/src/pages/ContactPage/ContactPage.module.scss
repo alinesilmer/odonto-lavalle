@@ -1,0 +1,173 @@
+/* ------------------------------ details + form ----------------------------- */
+
+.contactSection {
+  @include m.ed-shell;
+  padding-bottom: var(--ed-section-y);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-12) clamp(2rem, 6vw, 6rem);
+  align-items: start;
+
+  @include m.respond-to(m.$bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.details,
+.detailsBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.detailsBody > a {
+  align-self: flex-start;
+}
+
+.channels {
+  list-style: none;
+  border-top: 1px solid var(--ed-ink);
+
+  li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--ed-line-strong);
+
+    @include m.respond-to(m.$bp-sm) {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+}
+
+.channelLabel {
+  @include m.ed-eyebrow;
+}
+
+.channelValue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.15;
+  color: var(--ed-ink);
+  overflow-wrap: anywhere;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--ed-muted);
+    transition:
+      transform 400ms var(--ed-ease-out),
+      color var(--duration-base) ease;
+  }
+
+  &:hover {
+    color: var(--ed-accent);
+
+    svg {
+      color: var(--ed-accent);
+      transform: translate(3px, -3px);
+    }
+  }
+}
+
+/* Visit rules: a tinted, bordered callout so visitors don't skim past it. */
+.notes {
+  padding: var(--space-6);
+  border-radius: var(--radius-2xl);
+  background: rgba(var(--ed-accent-rgb), 0.07);
+  border: 1px solid rgba(var(--ed-accent-rgb), 0.3);
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.95rem;
+    line-height: var(--lh-normal);
+    color: var(--ed-text);
+  }
+
+  strong {
+    font-weight: var(--fw-semibold);
+    color: var(--ed-ink);
+  }
+}
+
+.notesTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-accent);
+}
+
+.noteIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--ed-accent);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------------------------- form ---------------------------------- */
+
+.formCard {
+  padding: clamp(1.5rem, 3.5vw, 3rem);
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-line);
+  border-radius: var(--ed-radius-block);
+  box-shadow: var(--ed-shadow-lift);
+}
+
+.formTitle {
+  @include m.ed-display(clamp(2rem, 3.2vw, 2.75rem));
+  line-height: 1;
+}
+
+.formLead {
+  margin: var(--space-3) 0 var(--space-8);
+  font-size: 0.95rem;
+  color: var(--ed-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include m.respond-to(m.$bp-md) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.submit {
+  align-self: flex-start;
+  margin-top: var(--space-4);
+}

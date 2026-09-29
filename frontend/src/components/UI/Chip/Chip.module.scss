@@ -1,0 +1,41 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--ed-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--ed-surface);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  color: var(--ed-ink);
+
+  svg {
+    color: var(--ed-accent);
+  }
+}
+
+.small {
+  padding: 0.35rem 0.75rem;
+  font-size: var(--fs-xs);
+}
+
+.medium {
+  padding: 0.5rem 0.95rem;
+  font-size: var(--fs-sm);
+}
+
+.interactive {
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+
+  &:hover {
+    border-color: var(--ed-accent);
+    background: rgba(var(--ed-accent-rgb), 0.06);
+    color: var(--ed-accent);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}

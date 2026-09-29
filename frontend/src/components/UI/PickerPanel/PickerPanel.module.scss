@@ -1,0 +1,12 @@
+.panel {
+  z-index: var(--z-toast);
+  padding: var(--space-4);
+  border-radius: var(--radius-2xl);
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-line);
+  box-shadow: 0 24px 60px -24px rgba(var(--ed-ink-rgb), 0.35);
+  font-family: var(--font-sans);
+  /* When there's little room the panel scrolls (see usePopover): inside it, without a visible bar. */
+  overscroll-behavior: contain;
+  @include m.hide-scrollbar;
+}

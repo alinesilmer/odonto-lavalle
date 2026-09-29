@@ -1,0 +1,46 @@
+.mapSection {
+  @include m.ed-shell;
+  padding-bottom: var(--ed-section-y);
+}
+
+.map {
+  position: relative;
+  height: clamp(320px, 38vw, 480px);
+  border-radius: var(--ed-radius-block);
+  border: 1px solid var(--ed-line);
+  overflow: hidden;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+.mapChip {
+  position: absolute;
+  left: var(--space-5);
+  bottom: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--ed-glass-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--overlay-white-80);
+  box-shadow: var(--ed-shadow-float);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  color: var(--ed-ink);
+
+  span {
+    @include m.ed-eyebrow;
+    color: var(--ed-accent);
+  }
+
+  &:hover {
+    color: var(--ed-ink);
+  }
+}

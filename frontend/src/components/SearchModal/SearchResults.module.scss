@@ -1,0 +1,125 @@
+.results {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease;
+
+  &.active {
+    background: var(--ed-surface-alt);
+
+    .resultIcon {
+      background: var(--ed-accent);
+      color: var(--color-white);
+    }
+
+    .chev {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.resultIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background: var(--ed-bg);
+  border: 1px solid var(--ed-line);
+  color: var(--ed-accent);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.resultContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  color: var(--ed-ink);
+
+  mark {
+    background: rgba(var(--ed-accent-rgb), 0.14);
+    color: var(--ed-accent);
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-muted);
+}
+
+.desc {
+  @include m.truncate;
+  font-size: var(--fs-sm);
+  color: var(--ed-text-soft);
+
+  mark {
+    background: rgba(var(--ed-accent-rgb), 0.14);
+    color: inherit;
+    border-radius: 3px;
+  }
+}
+
+.chev {
+  flex-shrink: 0;
+  color: var(--ed-accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+}
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-12) var(--space-4);
+  text-align: center;
+  color: var(--ed-muted);
+
+  p {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+    color: var(--ed-ink);
+  }
+
+  span {
+    font-size: var(--fs-sm);
+  }
+}

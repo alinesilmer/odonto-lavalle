@@ -1,0 +1,15 @@
+.eyebrow {
+  @include m.ed-eyebrow;
+}
+
+.line {
+  display: block;
+  width: 7.5rem;
+  height: 1px;
+  background: var(--ed-accent);
+  transform-origin: left;
+
+  @include m.respond-to(m.$bp-sm) {
+    width: 3rem;
+  }
+}

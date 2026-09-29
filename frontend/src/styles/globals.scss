@@ -1,0 +1,38 @@
+/* `@use "@/styles/mixins" as m` is injected into every SCSS file by vite.config.ts. */
+@use "tokens";
+@use "reset";
+
+.container {
+  @include m.container;
+}
+
+/** Read by screen readers, invisible on screen. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.section {
+  padding: var(--space-16) 0;
+
+  @include m.respond-to(m.$bp-tablet) {
+    padding: var(--space-12) 0;
+  }
+}
+
+.appShell {
+  padding-left: var(--sidebar-w);
+  padding-top: var(--header-h);
+  min-width: 0;
+
+  @include m.respond-to(m.$bp-xl) {
+    padding-left: 0;
+  }
+}

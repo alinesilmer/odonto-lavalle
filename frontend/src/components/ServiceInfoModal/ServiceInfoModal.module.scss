@@ -1,0 +1,18 @@
+.description {
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--ed-text);
+}
+
+.bookingNote {
+  flex: 1 1 14rem;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--ed-muted);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

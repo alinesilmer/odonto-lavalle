@@ -1,0 +1,98 @@
+@use "breakpoints" as bp;
+
+/**
+ * Building blocks of the editorial look used on the public pages: a serif
+ * display face over a clean sans, mono eyebrow labels, pill buttons.
+ */
+
+/* -------------------------------- layout --------------------------------- */
+
+@mixin ed-shell {
+  width: 100%;
+  max-width: var(--ed-max);
+  margin: 0 auto;
+  padding-inline: var(--ed-gutter);
+}
+
+/* ------------------------------ typography ------------------------------- */
+
+/// Small mono label that opens a section, e.g. "(01) POR QUÉ ELEGIRNOS".
+@mixin ed-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ed-muted);
+}
+
+/// Serif headline. An <em> inside it becomes the italic accent phrase.
+@mixin ed-display($size: var(--fs-display-lg), $accent: var(--ed-accent)) {
+  font-family: var(--font-display);
+  font-weight: var(--fw-regular);
+  font-size: $size;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--ed-ink);
+
+  em {
+    font-style: italic;
+    color: $accent;
+  }
+}
+
+/* -------------------------------- buttons -------------------------------- */
+
+@mixin ed-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 1.1rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    transform var(--duration-base) var(--ed-ease-out),
+    background-color var(--duration-base) ease,
+    color var(--duration-base) ease;
+
+  svg {
+    transition: transform 350ms var(--ed-ease-out);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+
+    svg {
+      transform: translateX(4px);
+    }
+  }
+
+  @include bp.respond-to(bp.$bp-sm) {
+    width: 100%;
+  }
+}
+
+/// Text link whose underline draws in from the left on hover.
+@mixin ed-underline($always: false) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 400ms var(--ed-ease-out);
+
+  @if $always {
+    background-size: 100% 1px;
+  }
+
+  &:hover {
+    background-size: 100% 1px;
+  }
+}

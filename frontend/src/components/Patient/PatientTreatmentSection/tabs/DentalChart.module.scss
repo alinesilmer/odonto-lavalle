@@ -1,0 +1,147 @@
+@use "toothStates";
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  font-family: var(--font-sans);
+}
+
+@include toothStates.classes;
+
+/* --------------------------------- legend --------------------------------- */
+
+.legend {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-3) var(--space-5);
+  font-size: var(--fs-sm);
+  color: var(--ed-text);
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  strong {
+    display: block;
+    font-weight: var(--fw-semibold);
+    color: var(--ed-ink);
+  }
+
+  .miniTooth {
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+}
+
+.codes {
+  font-size: var(--fs-xs);
+  color: var(--ed-muted);
+}
+
+/* ---------------------------------- mouth --------------------------------- */
+
+.mouth {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--ed-bg);
+  overflow-x: auto;
+}
+
+.arch {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(32px, 1fr));
+  gap: var(--space-1);
+  min-width: 560px;
+
+  & + & {
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--ed-line-strong);
+  }
+}
+
+.tooth {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ed-ease-out);
+
+  &:hover {
+    background: var(--ed-surface);
+    transform: translateY(-2px);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+/* A wider gap marks the midline between the patient's right and left. */
+.midline {
+  margin-right: var(--space-3);
+}
+
+.selected {
+  background: var(--ed-surface);
+  box-shadow: 0 0 0 2px var(--ed-accent);
+}
+
+.shape {
+  width: 26px;
+  height: 31px;
+  fill: var(--fill);
+  stroke: var(--stroke);
+  stroke-width: 2;
+}
+
+.shapeWrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* The state's code, centred on the crown. */
+.code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  color: var(--code);
+  pointer-events: none;
+}
+
+/* Upper teeth point down, roots up. */
+.flip {
+  transform: rotate(180deg);
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ed-muted);
+}
+
+/* A dot in the corner: this tooth has a written description. */
+.noteDot {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--ed-accent);
+}

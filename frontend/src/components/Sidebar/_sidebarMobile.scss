@@ -1,0 +1,47 @@
+@use "@/styles/mixins" as m;
+
+/// Included last by Sidebar.module.scss so these rules win over the desktop ones.
+@mixin rules {
+  /* ------------------ small screens: a scrollable link row ------------------ */
+
+  @include m.respond-to(m.$bp-tablet) {
+    .sidebar,
+    .collapsed {
+      width: 100%;
+      height: auto;
+      position: static;
+      border-right: 0;
+      border-bottom: 1px solid var(--ed-line);
+    }
+
+    .inner {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      overflow-x: auto;
+    }
+
+    .logo,
+    .user {
+      display: none;
+    }
+
+    .nav,
+    .footer {
+      flex: none;
+      flex-direction: row;
+      padding: 0;
+      border: 0;
+    }
+
+    .navItem {
+      width: auto;
+
+      span {
+        opacity: 1 !important;
+        max-width: none !important;
+      }
+    }
+  }
+}

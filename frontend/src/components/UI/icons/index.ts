@@ -1,0 +1,1 @@
+export { ToothIcon } from "./ToothIcon";

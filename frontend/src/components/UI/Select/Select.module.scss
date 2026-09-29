@@ -1,0 +1,72 @@
+.select {
+  --pad-y: clamp(0.65rem, 0.55rem + 0.8vw, 0.875rem);
+  --pad-x: clamp(0.9rem, 0.8rem + 1vw, 1.25rem);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--pad-y) var(--pad-x);
+  border: 2px solid var(--color-gray);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 0.84rem + 0.4vw, 1rem);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition);
+  touch-action: manipulation;
+}
+
+.select:hover { border-color: var(--color-primary); }
+.open { border-color: var(--color-secondary); }
+.error { border-color: var(--color-error); }
+
+.placeholder { color: var(--color-silver); }
+.selected { color: var(--color-dark); }
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-secondary);
+  transition: transform .2s ease;
+}
+.open .icon { transform: rotate(180deg); }
+
+/* The floating list (rendered in PickerPanel, above any dialog). */
+.panel {
+  padding: var(--space-1);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 42px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  color: var(--ed-text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background var(--duration-base) ease;
+
+  svg {
+    flex: none;
+  }
+}
+
+.highlighted {
+  background: var(--ed-surface-alt);
+  color: var(--ed-ink);
+}
+
+.active {
+  color: var(--ed-accent);
+  font-weight: 500;
+}

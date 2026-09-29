@@ -1,0 +1,104 @@
+/* One template in the catalog: category icon, name, unit/minimum tags, "Usar" on hover. */
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  height: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--ed-line);
+  border-radius: var(--radius-lg);
+  background: var(--ed-surface);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-base) ease,
+    box-shadow var(--duration-base) ease,
+    transform var(--duration-base) var(--ed-ease-out);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--ed-accent);
+    box-shadow: var(--ed-shadow-float);
+    transform: translateY(-1px);
+
+    .use {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cardIcon {
+      background: var(--ed-accent);
+      color: var(--color-white);
+    }
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.cardIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--ed-surface-alt);
+  color: var(--ed-accent);
+  transition:
+    background var(--duration-base) ease,
+    color var(--duration-base) ease;
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.cardName {
+  color: var(--ed-ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+
+  span {
+    padding: 1px var(--space-2);
+    border-radius: var(--radius-full);
+    background: var(--ed-bg);
+    color: var(--ed-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+  }
+}
+
+.use {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+  color: var(--ed-accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--duration-base) ease,
+    transform var(--duration-base) var(--ed-ease-out);
+
+  /* No hover on touch screens: always show it. */
+  @media (hover: none) {
+    opacity: 1;
+    transform: none;
+  }
+}

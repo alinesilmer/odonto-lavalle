@@ -1,0 +1,30 @@
+.button {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--ed-muted);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+
+  svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 1.7;
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.default:hover {
+  background: var(--ed-surface-alt);
+  color: var(--ed-accent);
+}
+
+.danger:hover {
+  background: var(--color-error-soft);
+  color: var(--color-error-dark);
+}

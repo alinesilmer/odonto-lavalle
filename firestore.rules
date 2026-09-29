@@ -1,0 +1,13 @@
+rules_version = '2';
+
+// Nothing reaches Firestore directly from a browser: every read and write in
+// this project goes through the API, which uses the Admin SDK and bypasses
+// these rules. Denying everything here means a leaked web API key cannot be
+// used to read patient data.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

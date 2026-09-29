@@ -1,0 +1,39 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.pending {
+  background: var(--color-warning-tint);
+  color: var(--color-warning-strong);
+}
+
+.confirmed {
+  background: var(--color-info-tint);
+  color: var(--color-info-strong);
+}
+
+.completed {
+  background: var(--color-success-tint);
+  color: var(--color-success-strong);
+}
+
+.cancelled {
+  background: var(--gray-100);
+  color: var(--gray-600);
+  text-decoration: line-through;
+}

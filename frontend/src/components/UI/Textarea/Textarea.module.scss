@@ -1,0 +1,9 @@
+.textarea {
+  @include m.input-base;
+  resize: vertical;
+  min-height: clamp(110px, 24vw, 180px);
+}
+
+.error {
+  border-color: var(--color-error);
+}

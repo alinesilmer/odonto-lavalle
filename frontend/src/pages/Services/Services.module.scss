@@ -1,0 +1,36 @@
+.catalog {
+  @include m.ed-shell;
+  padding-bottom: var(--ed-section-y);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* The shared Tabs, pinned under the header while the catalog scrolls. */
+.filters {
+  position: sticky;
+  top: calc(var(--site-header-h) + var(--space-4));
+  z-index: var(--z-raised);
+  align-self: flex-start;
+
+  @include m.respond-to(m.$bp-md) {
+    position: static;
+  }
+}
+
+/* ---------------------------------- grid ---------------------------------- */
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-10) var(--space-6);
+
+  @include m.respond-to(m.$bp-xl) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}

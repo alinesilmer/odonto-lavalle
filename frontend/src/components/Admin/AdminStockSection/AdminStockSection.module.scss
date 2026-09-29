@@ -1,0 +1,71 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  font-family: var(--font-sans);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include m.respond-to(m.$bp-tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border: 1px solid var(--ed-line);
+  border-radius: var(--radius-2xl);
+  background: var(--ed-surface);
+
+  @include m.respond-to(m.$bp-sm) {
+    padding: var(--space-4);
+  }
+}
+
+/* Search grows; tabs and the add button sit beside it, wrapping on small screens. */
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+
+  > :first-child {
+    flex: 1 1 260px;
+  }
+}
+
+.product {
+  color: var(--ed-ink);
+  font-weight: 500;
+}
+
+.quantity {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  color: var(--ed-ink);
+
+  svg {
+    align-self: center;
+  }
+}
+
+.low {
+  color: var(--color-warning-strong);
+  font-weight: 600;
+}
+
+.min {
+  color: var(--ed-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+}

@@ -1,0 +1,171 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1100px;
+  font-family: var(--font-sans);
+}
+
+/* --------------------------------- toolbar -------------------------------- */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------- groups --------------------------------- */
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.groupLabel {
+  @include m.ed-eyebrow;
+  font-family: var(--font-mono);
+  line-height: var(--lh-normal);
+
+  span {
+    padding: 0 0.45rem;
+    border-radius: var(--radius-full);
+    background: var(--ed-surface-alt);
+    color: var(--ed-text);
+  }
+}
+
+.groupOverdue {
+  color: var(--color-error-dark);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--ed-line);
+  background: var(--ed-surface);
+  overflow: hidden;
+}
+
+/* ---------------------------------- rows ---------------------------------- */
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--ed-line);
+  transition: background-color var(--duration-fast) ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--ed-bg);
+
+    .remove {
+      opacity: 1;
+    }
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+
+    .dateBadge,
+    .remove {
+      display: none;
+    }
+  }
+}
+
+.check {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--ed-line-strong);
+  color: transparent;
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+
+  &:hover {
+    border-color: var(--ed-accent);
+    color: var(--ed-accent);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.dateBadge {
+  display: flex;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--fw-semibold);
+  color: var(--ed-ink);
+}
+
+.description {
+  font-size: var(--fs-sm);
+  color: var(--ed-muted);
+}
+
+.when {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ed-accent);
+  white-space: nowrap;
+}
+
+.overdue {
+  color: var(--color-error-dark);
+}
+
+/* The shared IconButton, dimmed until its row is hovered or it gets focus. */
+.remove {
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) ease;
+
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+/* Done: filled check, text struck through and faded. */
+.done {
+  .check {
+    border-color: var(--ed-accent);
+    background: var(--ed-accent);
+    color: var(--color-white);
+  }
+
+  .title {
+    text-decoration: line-through;
+    color: var(--ed-muted);
+  }
+
+  .when {
+    color: var(--ed-muted);
+  }
+}

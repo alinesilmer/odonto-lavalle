@@ -1,0 +1,49 @@
+/* --------------------------------- slots --------------------------------- */
+
+.slotsCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sectionTitle {
+  @include m.ed-eyebrow;
+  font-family: var(--font-mono);
+  line-height: var(--lh-normal);
+}
+
+.slotGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-2);
+}
+
+.slot {
+  padding: 0.8rem 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ed-line-strong);
+  background: var(--ed-surface);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: var(--fw-medium);
+  color: var(--ed-ink);
+  transition:
+    border-color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+
+  &:hover:not(.slotSelected) {
+    border-color: var(--ed-accent);
+    color: var(--ed-accent);
+    transform: translateY(-2px);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.slotSelected {
+  background: var(--ed-ink);
+  border-color: var(--ed-ink);
+  color: var(--color-white);
+}

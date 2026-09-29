@@ -1,0 +1,31 @@
+.list {
+  list-style: none;
+  border-top: 1px solid var(--ed-line-strong);
+
+  li {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--ed-line);
+    font-family: var(--font-sans);
+    line-height: var(--lh-normal);
+  }
+}
+
+.number {
+  flex-shrink: 0;
+  padding-top: 3px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--ed-accent);
+}
+
+.strong li {
+  font-weight: var(--fw-medium);
+  color: var(--ed-ink);
+}
+
+.soft li {
+  font-size: 0.95rem;
+  color: var(--ed-text);
+}

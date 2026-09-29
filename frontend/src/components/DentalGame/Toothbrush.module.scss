@@ -1,0 +1,54 @@
+@keyframes scrub {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 7px -3px;
+  }
+}
+
+.brushAnchor {
+  position: absolute;
+  z-index: var(--z-dropdown);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* The bristle tips (20, 4 in the drawing) sit exactly on the pointer. */
+.brush {
+  position: absolute;
+  left: -20px;
+  top: -4px;
+  width: 120px;
+  height: 32px;
+  overflow: visible;
+  transform-origin: 20px 4px;
+  transform: rotate(-32deg);
+  filter: drop-shadow(0 6px 8px rgba(var(--ed-ink-rgb), 0.25));
+
+  &.scrubbing {
+    animation: scrub 0.18s ease-in-out infinite;
+  }
+}
+
+.brushHandle {
+  fill: var(--ed-accent);
+}
+
+.brushHead {
+  fill: var(--ed-accent);
+}
+
+.bristle {
+  fill: var(--color-white);
+  stroke: rgba(var(--ed-ink-rgb), 0.15);
+  stroke-width: 0.6;
+}
+
+.foam circle {
+  fill: var(--color-white);
+  opacity: 0.9;
+}
+

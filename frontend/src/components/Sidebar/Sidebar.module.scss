@@ -1,0 +1,238 @@
+@use "sidebarMobile";
+
+.sidebar {
+  width: 264px;
+  flex-shrink: 0;
+  height: calc(100dvh - var(--site-header-h));
+  position: sticky;
+  top: var(--site-header-h);
+  z-index: var(--z-dropdown);
+  overflow-y: auto;
+  background: var(--ed-surface);
+  border-right: 1px solid var(--ed-line);
+  color: var(--ed-ink);
+  font-family: var(--font-sans);
+  transition: width 0.28s var(--ease-emphasized);
+
+  @include m.custom-scrollbar(6px, var(--ed-line-strong));
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-4) var(--space-3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-5);
+  border-bottom: 1px solid var(--ed-line);
+}
+
+.logoLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.logoText {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 180px;
+  transition: opacity 0.2s ease, max-width 0.25s ease;
+}
+
+.logoName {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.logoSubtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--ed-accent);
+}
+
+.collapseBtn {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--ed-muted);
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: var(--ed-surface-alt);
+    color: var(--ed-ink);
+  }
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-5) 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0.7rem var(--space-3);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: var(--fw-medium);
+  color: var(--ed-text);
+  transition: background-color 0.18s ease, color 0.18s ease;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--ed-muted);
+    transition: color 0.18s ease;
+  }
+
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 180px;
+    transition: opacity 0.2s ease, max-width 0.25s ease;
+  }
+
+  &:hover {
+    background: var(--ed-surface-alt);
+    color: var(--ed-ink);
+  }
+}
+
+.active,
+.active:hover {
+  background: var(--ed-ink);
+  color: var(--color-white);
+
+  svg {
+    color: var(--ed-accent-soft);
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--ed-line);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: var(--ed-bg);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: 180px;
+  transition: opacity 0.2s ease, max-width 0.25s ease;
+}
+
+.userName {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutBtn {
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--ed-muted);
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-error-soft);
+    color: var(--color-error-dark);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+/* -------------------------------- collapsed ------------------------------- */
+
+.collapsed {
+  width: 84px;
+
+  .logoText,
+  .userInfo,
+  .navItem span {
+    opacity: 0;
+    max-width: 0;
+  }
+
+  .logo {
+    flex-direction: column;
+  }
+
+  .navItem {
+    justify-content: center;
+  }
+
+  .user {
+    flex-direction: column;
+  }
+
+  .logoutBtn {
+    margin-left: 0;
+  }
+}
+
+@include sidebarMobile.rules;

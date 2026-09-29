@@ -1,0 +1,75 @@
+@keyframes warn {
+  0%,
+  100% {
+    filter: drop-shadow(0 3px 4px rgba(var(--ed-ink-rgb), 0.18));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(var(--color-error-rgb), 0.55));
+  }
+}
+
+.tooth {
+  position: absolute;
+  width: 8%;
+  transition: filter var(--duration-slow) ease;
+
+  > svg:first-child {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 3px 4px rgba(var(--ed-ink-rgb), 0.18));
+  }
+
+  &.molar {
+    width: 10%;
+  }
+
+  &.canine {
+    width: 8.6%;
+  }
+
+  /* Plaque coming back: the tooth throbs with a warm warning glow. */
+  &.decaying > svg:first-child {
+    animation: warn 0.8s ease-in-out infinite;
+  }
+
+  &.clean > svg:first-child {
+    filter: drop-shadow(0 0 10px rgba(var(--ed-accent-rgb), 0.35))
+      drop-shadow(0 3px 4px rgba(var(--ed-ink-rgb), 0.12));
+  }
+}
+
+.enamel {
+  fill: var(--color-tooth-enamel);
+  stroke: rgba(var(--ed-ink-rgb), 0.12);
+  stroke-width: 0.8;
+}
+
+.plaque {
+  fill: var(--color-tooth-film);
+  transition: opacity var(--duration-fast) ease;
+}
+
+.spot {
+  fill: var(--color-tooth-plaque);
+  opacity: 0.7;
+}
+
+.shine {
+  fill: none;
+  stroke: var(--color-white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.sparkle {
+  position: absolute;
+  top: -12%;
+  right: -18%;
+  width: 45%;
+  fill: var(--ed-accent);
+  pointer-events: none;
+}
+

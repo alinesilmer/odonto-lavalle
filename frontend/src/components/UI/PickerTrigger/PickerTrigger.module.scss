@@ -1,0 +1,64 @@
+.control {
+  position: relative;
+  width: 100%;
+}
+
+.trigger {
+  @include m.input-base;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 46px;
+  text-align: left;
+  cursor: pointer;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--ed-muted);
+  }
+
+  &[aria-expanded="true"] {
+    border-color: var(--ed-accent);
+    box-shadow: 0 0 0 4px rgba(var(--ed-accent-rgb), 0.12);
+
+    svg {
+      color: var(--ed-accent);
+    }
+  }
+}
+
+.withClear {
+  padding-right: 4.5rem;
+}
+
+.value {
+  color: var(--ed-ink);
+  font-variant-numeric: tabular-nums;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.placeholder {
+  color: var(--gray-400);
+}
+
+.clear {
+  position: absolute;
+  top: 50%;
+  right: 2.75rem;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  transform: translateY(-50%);
+  border-radius: var(--radius-full);
+  color: var(--ed-muted);
+
+  &:hover {
+    background: var(--ed-surface-alt);
+    color: var(--ed-ink);
+  }
+}

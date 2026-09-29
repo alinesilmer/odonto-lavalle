@@ -1,0 +1,55 @@
+/// Odontogram group colours as `--fill` / `--stroke` on one class per group,
+/// shared by the chart and the tooth editor so they are defined once. The four
+/// colours are validated for colour-blind separation; the state code on each
+/// tooth and the written labels carry the rest.
+@mixin classes {
+  .healthy {
+    --fill: var(--color-tooth-enamel);
+    --stroke: var(--ed-line-strong);
+    --code: var(--ed-muted);
+  }
+
+  .pending {
+    --fill: var(--tooth-extraction);
+    --stroke: color-mix(in srgb, var(--tooth-extraction) 70%, black);
+    --code: var(--color-white);
+  }
+
+  .done {
+    --fill: var(--tooth-filling);
+    --stroke: color-mix(in srgb, var(--tooth-filling) 70%, black);
+    --code: var(--color-white);
+  }
+
+  .treatment {
+    --fill: var(--tooth-treatment);
+    --stroke: color-mix(in srgb, var(--tooth-treatment) 70%, black);
+    --code: var(--color-white);
+  }
+
+  .prosthetic {
+    --fill: var(--tooth-crown);
+    --stroke: color-mix(in srgb, var(--tooth-crown) 60%, black);
+    --code: var(--ed-ink);
+  }
+
+  /* A missing tooth: outline only, dashed. */
+  .absent {
+    --fill: transparent;
+    --stroke: var(--gray-400);
+    --code: var(--ed-muted);
+
+    svg {
+      stroke-dasharray: 3 3;
+    }
+  }
+
+  /* A small tooth icon in its group colour (legend, state options). */
+  .miniTooth {
+    width: 14px;
+    height: 17px;
+    fill: var(--fill);
+    stroke: var(--stroke);
+    stroke-width: 2.5;
+  }
+}

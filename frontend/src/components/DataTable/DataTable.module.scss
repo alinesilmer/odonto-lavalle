@@ -1,0 +1,170 @@
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--ed-line);
+  background: var(--ed-surface);
+
+  @include m.custom-scrollbar(6px, var(--ed-line-strong));
+}
+
+.table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  color: var(--ed-ink);
+}
+
+.table thead th {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--ed-line-strong);
+  background: var(--ed-bg);
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--ed-line);
+  transition: background-color var(--duration-fast) ease;
+
+  &:hover {
+    background: var(--ed-bg);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.table tbody td {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--fs-sm);
+  color: var(--ed-text);
+  white-space: nowrap;
+}
+
+/* ------------------------------ selection ------------------------------- */
+
+.selectHeader,
+.selectCell {
+  width: 48px;
+}
+
+.checkboxWrap {
+  display: inline-grid;
+  place-items: center;
+
+  input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ed-accent);
+    cursor: pointer;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+/* ------------------------------- actions -------------------------------- */
+
+.actionsHeader {
+  width: 132px;
+  text-align: right !important;
+}
+
+.actionsCell {
+  text-align: right;
+}
+
+.actions {
+  display: inline-flex;
+  gap: var(--space-1);
+  opacity: 0.65;
+  transition: opacity var(--duration-fast) ease;
+
+  tr:hover &,
+  &:focus-within {
+    opacity: 1;
+  }
+}
+
+.actionButton {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--ed-text);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+
+  svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 1.7;
+  }
+
+  &:hover {
+    background: var(--ed-surface-alt);
+    color: var(--ed-accent);
+  }
+
+  &:last-child:hover {
+    background: var(--color-error-soft);
+    color: var(--color-error-dark);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+/* ------------------------------ pagination ------------------------------ */
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--ed-line);
+  background: var(--ed-bg);
+}
+
+.pagerButton {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--ed-line-strong);
+  background: var(--ed-surface);
+  color: var(--ed-ink);
+
+  &:hover:not(:disabled) {
+    border-color: var(--ed-accent);
+    color: var(--ed-accent);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+
+.pageInfo {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ed-muted);
+}

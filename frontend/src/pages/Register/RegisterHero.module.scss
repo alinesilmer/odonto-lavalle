@@ -1,0 +1,88 @@
+.leftPanel {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-hover) 100%);
+  position: relative;
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white);
+
+  @include m.respond-to(m.$bp-xl) {
+    padding: 2.5rem 2rem;
+  }
+}
+
+.logoContainer {
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background: var(--overlay-white-15);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px var(--overlay-black-10);
+
+  svg {
+    width: 48px;
+    height: 48px;
+    color: var(--color-white);
+  }
+}
+
+.welcome {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  font-weight: var(--fw-bold);
+
+  @include m.respond-to(m.$bp-xl) {
+    font-size: 2.25rem;
+  }
+}
+
+.description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 340px;
+  opacity: 0.95;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--overlay-white-15);
+  backdrop-filter: blur(10px);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  border: 1px solid var(--overlay-white-20);
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    background: var(--overlay-white-20);
+    box-shadow: 0 8px 20px var(--overlay-black-15);
+  }
+}

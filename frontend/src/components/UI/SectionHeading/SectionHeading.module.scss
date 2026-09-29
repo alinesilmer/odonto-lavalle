@@ -1,0 +1,34 @@
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.title {
+  @include m.ed-display;
+}
+
+.lg {
+  font-size: var(--fs-display-lg);
+}
+
+.md {
+  font-size: var(--fs-display-md);
+}
+
+.sm {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1.02;
+}
+
+.plainAccent em {
+  color: var(--ed-ink);
+}
+
+.lead {
+  max-width: 36rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  color: var(--ed-text);
+}

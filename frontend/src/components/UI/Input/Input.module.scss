@@ -1,0 +1,26 @@
+.control {
+  position: relative;
+  width: 100%;
+}
+
+.leftIcon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ed-muted);
+  pointer-events: none;
+}
+
+.input {
+  @include m.input-base;
+  min-height: 44px;
+}
+
+.withIcon {
+  padding-left: var(--space-10);
+}
+
+.error {
+  border-color: var(--color-error);
+}

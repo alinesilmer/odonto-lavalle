@@ -1,0 +1,243 @@
+@forward "breakpoints";
+@forward "editorial";
+@forward "scroll";
+@use "breakpoints" as bp;
+
+/* -------------------------------- layout --------------------------------- */
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* -------------------------------- surface -------------------------------- */
+
+@mixin card-base($lift: 4px) {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-$lift);
+  }
+
+  @include reduced-motion {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* --------------------------------- forms --------------------------------- */
+
+/// Keyboard-only focus ring. Needed everywhere because the global reset drops
+/// the browser's default outline.
+@mixin focus-ring($rgb: var(--color-primary-rgb)) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($rgb, 0.35);
+  }
+}
+
+/// The one text-field look (Input, Textarea, Select): quiet border, accent focus ring.
+@mixin input-base {
+  width: 100%;
+  padding: 0.8rem var(--space-4);
+  border: 1px solid var(--ed-line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--ed-surface);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  color: var(--ed-ink);
+  transition:
+    border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+
+  &::placeholder {
+    color: var(--gray-400);
+  }
+
+  &:focus {
+    border-color: var(--ed-accent);
+    box-shadow: 0 0 0 4px rgba(var(--ed-accent-rgb), 0.12);
+  }
+
+  &.error {
+    border-color: var(--color-error);
+  }
+
+  @include focus-ring(var(--ed-accent-rgb));
+}
+
+/* -------------------------------- buttons -------------------------------- */
+
+@mixin button-base {
+  padding: var(--space-5) var(--space-8);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: var(--lh-tight);
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include focus-ring;
+
+  @include bp.respond-to(bp.$bp-tablet, min) {
+    min-height: 46px;
+  }
+
+  @include bp.respond-to(bp.$bp-sm) {
+    width: 100%;
+  }
+
+  @media (pointer: coarse) {
+    &:hover:not(:disabled) {
+      transform: none;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+  }
+
+  @include reduced-motion {
+    transition: none;
+
+    &:hover:not(:disabled) {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@mixin button-fill($background) {
+  background-color: $background;
+  color: var(--color-white);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+@mixin button-primary {
+  @include button-fill(var(--color-secondary));
+}
+
+@mixin button-secondary {
+  @include button-fill(var(--color-primary));
+}
+
+/* --------------------------------- modals -------------------------------- */
+
+@mixin modal-overlay($scrim: var(--overlay-scrim), $blur: 4px) {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: $scrim;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+@mixin modal-shell($max-width: 640px, $radius: var(--radius-xl)) {
+  position: relative;
+  z-index: var(--z-modal);
+  width: min($max-width, 100%);
+  max-height: calc(100vh - var(--space-16));
+  background: var(--color-white);
+  border-radius: $radius;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ------------------------------- ornaments ------------------------------- */
+
+@mixin pill($background: var(--gray-100), $color: var(--gray-700)) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  background: $background;
+  color: $color;
+}
+
+@mixin custom-scrollbar($width: 6px, $thumb: var(--color-gray), $track: transparent) {
+  scrollbar-width: thin;
+  scrollbar-color: $thumb $track;
+
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: var(--radius-full);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track;
+  }
+}
+
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* --------------------------------- motion -------------------------------- */
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// The brand's diagonal tint, used behind icons, chips and badges.
+@mixin brand-tint($from: 0.12, $to: 0.08) {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), $from),
+    rgba(var(--color-secondary-rgb), $to)
+  );
+}

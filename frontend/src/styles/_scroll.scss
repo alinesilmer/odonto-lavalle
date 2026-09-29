@@ -1,0 +1,22 @@
+/* Scroll containers without visible scrollbars. */
+
+/// Scrolls normally (wheel, touch, keyboard) but never shows a scrollbar.
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/// Soft shadows at the top/bottom edge only while there is more to scroll that
+/// way — the cue that replaces a visible scrollbar. `$bg` must match the surface.
+@mixin scroll-shadows($bg: var(--ed-surface)) {
+  background:
+    linear-gradient($bg 30%, transparent) center top / 100% 40px no-repeat local,
+    linear-gradient(transparent, $bg 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(var(--ed-ink-rgb), 0.14), transparent) center top / 100% 12px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(var(--ed-ink-rgb), 0.14), transparent) center bottom / 100% 12px no-repeat scroll,
+    $bg;
+}

@@ -1,0 +1,52 @@
+/* --------------------------------- mission -------------------------------- */
+
+.mission {
+  @include m.ed-shell;
+  padding-bottom: var(--ed-section-y);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-10) clamp(2rem, 6vw, 6rem);
+  align-items: center;
+
+  @include m.respond-to(m.$bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.missionMedia {
+  height: clamp(320px, 38vw, 540px);
+}
+
+.missionCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* --------------------------------- values --------------------------------- */
+
+.values {
+  background: var(--ed-surface-alt);
+  padding-block: var(--ed-section-y);
+}
+
+.valuesInner {
+  @include m.ed-shell;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+
+  @include m.respond-to(m.$bp-xl) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include m.respond-to(m.$bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}

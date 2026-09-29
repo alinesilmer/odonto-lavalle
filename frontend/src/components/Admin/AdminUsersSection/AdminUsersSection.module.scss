@@ -1,0 +1,64 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.headerLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nameCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-dark);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-light-gray);
+  color: var(--color-silver);
+}
+
+.nameText {
+  white-space: nowrap;
+}
+
+.linkCell {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: var(--fw-bold);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+@include m.respond-to(m.$bp-tablet) {
+  .section {
+    padding: 1.5rem;
+  }
+}
+
+@include m.respond-to(m.$bp-sm) {
+  .section {
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+  }
+}
