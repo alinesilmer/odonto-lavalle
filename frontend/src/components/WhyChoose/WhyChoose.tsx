@@ -10,7 +10,7 @@ const WhyChoose = () => (
       eyebrow="Por qué elegirnos"
       title={
         <>
-          Tecnología de vanguardia, <em>trato de siempre.</em>
+          Calidad en cada detalle, <em>trato de siempre.</em>
         </>
       }
     />

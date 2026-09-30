@@ -48,7 +48,7 @@ export const DEFAULT_CONTENT: { [K in ContentKind]: ContentInput<K>[] } = {
     },
     {
       title: "RADIOGRAFÍAS",
-      description: "Imágenes digitales para diagnósticos precisos",
+      description: "Imágenes claras para diagnósticos precisos",
       image: "https://i.pinimg.com/1200x/35/3d/c1/353dc17e19aa134a1b3e99b5019a0fb1.jpg",
       category: "otros",
       order: 3

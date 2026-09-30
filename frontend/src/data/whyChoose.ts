@@ -1,4 +1,4 @@
-import { CheckCircle2, HeartHandshake, ScanLine, Sparkles, type LucideIcon } from "lucide-react";
+import { CheckCircle2, HeartHandshake, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import whyUs from "@/assets/images/whyUs.jpg";
 import whyUs2 from "@/assets/images/whyUs2.jpg";
 import whyUs3 from "@/assets/images/whyUs3.jpg";
@@ -23,11 +23,11 @@ export const CLINIC_REASONS: ClinicReason[] = [
   },
   {
     image: whyUs2,
-    title: "Tecnología de vanguardia",
+    title: "Calidad en cada tratamiento",
     summary:
-      "Equipamiento digital para diagnósticos más precisos y tratamientos mínimamente invasivos.",
-    details: ["Escáner intraoral 3D", "Radiografía digital", "Tratamientos láser"],
-    icon: ScanLine,
+      "Trabajo minucioso, materiales de primera línea y protocolos cuidadosos en cada paso.",
+    details: ["Protocolos de bioseguridad", "Trabajo minucioso", "Controles periódicos"],
+    icon: ShieldCheck,
   },
   {
     image: whyUs3,

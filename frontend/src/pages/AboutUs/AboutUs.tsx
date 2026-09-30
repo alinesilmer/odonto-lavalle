@@ -49,7 +49,7 @@ const AboutUs = () => (
               Odontología de calidad, <em>en un lugar cómodo.</em>
             </>
           }
-          lead="Brindar servicios odontológicos integrales de la más alta calidad, con tecnología avanzada y técnicas innovadoras, en un ambiente cálido y acogedor para cada paciente."
+          lead="Brindar servicios odontológicos integrales de la más alta calidad, con materiales de primera línea y un trabajo minucioso, en un ambiente cálido y acogedor para cada paciente."
         />
         <NumberedList items={MISSION_POINTS} tone="strong" />
       </motion.div>

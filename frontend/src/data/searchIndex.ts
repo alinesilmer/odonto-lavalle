@@ -55,11 +55,11 @@ export const SEARCH_INDEX: SearchItem[] = [
   },
   {
     title: "Nosotros",
-    description: "Equipo, filosofía y tecnología del consultorio.",
+    description: "Equipo, filosofía y valores del consultorio.",
     url: ROUTES.about,
     category: "Nosotros",
     icon: "info",
-    keywords: ["equipo", "tecnología", "filosofía"],
+    keywords: ["equipo", "calidad", "filosofía", "valores"],
   },
   {
     title: "Área paciente",

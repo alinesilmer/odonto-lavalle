@@ -12,10 +12,15 @@
   -webkit-backdrop-filter: blur(10px);
 }
 
+/*
+ * Top-aligned dialogs (site search, forms that grow): a comfortable gap under
+ * the top edge, like a command palette. The dialog's max-height is 100% of
+ * what's left, so a tall one scrolls inside instead of running off screen.
+ */
 .top {
   z-index: var(--z-popover);
   align-items: flex-start;
-  padding-top: clamp(1rem, 8vh, 5rem);
+  padding-top: clamp(1.5rem, 14vh, 8rem);
 }
 
 .modal {

@@ -25,12 +25,12 @@ const CATEGORY_CONTENT: Record<string, CategoryContent> = {
   cirugia: {
     benefits: [
       "Soluciones definitivas y efectivas",
-      "Tecnología de última generación",
+      "Procedimientos cuidadosos y seguros",
       "Recuperación optimizada",
       "Atención especializada post-operatoria",
     ],
     features: [
-      "Diagnóstico con tecnología 3D",
+      "Diagnóstico previo completo",
       "Anestesia y sedación disponible",
       "Protocolos de seguridad estrictos",
       "Seguimiento post-quirúrgico",
@@ -54,12 +54,12 @@ const CATEGORY_CONTENT: Record<string, CategoryContent> = {
     benefits: [
       "Atención personalizada",
       "Profesionales altamente capacitados",
-      "Equipamiento moderno",
+      "Calidad en cada detalle",
       "Seguimiento continuo",
     ],
     features: [
       "Atención integral",
-      "Tecnología avanzada",
+      "Materiales de primera calidad",
       "Profesionales certificados",
       "Ambiente cómodo y seguro",
     ],

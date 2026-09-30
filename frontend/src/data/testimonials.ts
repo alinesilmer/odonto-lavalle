@@ -26,7 +26,7 @@ export const testimonials: Testimonial[] = [
     id: "4",
     name: "FERNANDA VEGA",
     date: "4 de septiembre 2025",
-    text: "Clínica impecable, tecnología moderna y precios transparentes. Volveré sin dudar.",
+    text: "Clínica impecable, atención de calidad y precios transparentes. Volveré sin dudar.",
     avatar: "https://i.pravatar.cc/150?img=9",
   },
   {

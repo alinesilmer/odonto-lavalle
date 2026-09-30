@@ -2,7 +2,7 @@ import { CLINIC_PHOTOS } from "./clinicPhotos";
 
 export const MISSION_POINTS = [
   "Atención personalizada y profesional",
-  "Tecnología de última generación",
+  "Materiales y atención de calidad",
   "Tratamientos sin dolor",
   "Planes de financiación accesibles",
 ];
@@ -14,7 +14,7 @@ export const VALUES = [
   },
   {
     title: "Excelencia profesional",
-    description: "Equipo altamente capacitado con tecnología de vanguardia.",
+    description: "Equipo altamente capacitado y comprometido con la calidad en cada tratamiento.",
   },
   {
     title: "Enfoque familiar",
