@@ -6,7 +6,7 @@
  * everywhere, so client and server can never drift apart.
  */
 import { z } from "zod";
-import { GENDERS, INSURANCES } from "./enums";
+import { GENDERS } from "./enums";
 
 export const PATTERNS = {
   dni: /^\d{7,8}$/,
@@ -58,7 +58,12 @@ export const zPassword = z
   .regex(/[0-9]/, "Debe contener al menos un número");
 
 export const zGender = z.enum(GENDERS, { message: "Seleccioná una opción válida" });
-export const zInsurance = z.enum(INSURANCES, { message: "Seleccioná una opción válida" });
+/** The obra social's name (from the clinic's list) or NO_INSURANCE; see Insurance in enums. */
+export const zInsurance = z
+  .string({ message: "Seleccioná una obra social" })
+  .trim()
+  .min(1, "Seleccioná una obra social")
+  .max(120, "Nombre demasiado largo");
 
 /**
  * A select whose empty value means "nothing chosen yet".

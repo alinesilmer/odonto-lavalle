@@ -18,21 +18,22 @@ export type SupportTicketStatus = (typeof SUPPORT_TICKET_STATUSES)[number];
 export const GENDERS = ["masculino", "femenino", "otro"] as const;
 export type Gender = (typeof GENDERS)[number];
 
-export const INSURANCES = [
-  "galeno",
-  "swiss",
-  "medife",
-  "sancor",
-  "ospim",
-  "ospjn",
-  "issunne",
-  "otro",
-  "ninguna",
-] as const;
-export type Insurance = (typeof INSURANCES)[number];
+/**
+ * A patient's obra social: the name of one the clinic lists in Contenido del
+ * sitio → Obras sociales (e.g. "Swiss Medical"), or NO_INSURANCE. Records
+ * saved before that may hold one of the old codes below ("swiss"); display
+ * any value through insuranceLabel().
+ */
+export type Insurance = string;
 
-/** Display names for the closed value sets. Defined once, used on both sides. */
-export const INSURANCE_LABEL: Record<Insurance, string> = {
+/** Stored when the patient has no obra social. */
+export const NO_INSURANCE = "Particular";
+
+/** The codes the first version of the site used, kept only to show old records by name. */
+export const INSURANCES = ["galeno", "swiss", "medife", "sancor", "ospim", "ospjn", "issunne", "otro", "ninguna"] as const;
+export type LegacyInsuranceCode = (typeof INSURANCES)[number];
+
+export const INSURANCE_LABEL: Record<LegacyInsuranceCode, string> = {
   galeno: "Galeno",
   swiss: "Swiss Medical",
   medife: "Medifé",
@@ -41,8 +42,15 @@ export const INSURANCE_LABEL: Record<Insurance, string> = {
   ospjn: "OSPJN",
   issunne: "ISSUNNE",
   otro: "Otra",
-  ninguna: "Ninguna",
+  ninguna: "Particular (sin obra social)",
 };
+
+/** Any stored obra social → the name to show ("swiss" → "Swiss Medical", "Particular" → "Particular (sin obra social)"). */
+export function insuranceLabel(value: string | undefined | null): string {
+  if (!value) return "—";
+  if (value === NO_INSURANCE) return "Particular (sin obra social)";
+  return INSURANCE_LABEL[value as LegacyInsuranceCode] ?? value;
+}
 
 export const GENDER_LABEL: Record<Gender, string> = {
   masculino: "Masculino",

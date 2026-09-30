@@ -8,7 +8,8 @@ import DatePicker from "@/components/UI/DatePicker/DatePicker";
 import Input from "@/components/UI/Input/Input";
 import Panel from "@/components/UI/Panel/Panel";
 import Select from "@/components/UI/Select/Select";
-import { GENDER_OPTIONS, INSURANCE_OPTIONS } from "@/data/formOptions";
+import { GENDER_OPTIONS } from "@/data/formOptions";
+import { useInsuranceOptions } from "@/hooks/useInsuranceOptions";
 import { toIsoDate } from "@/utils/date";
 import { usePatientProfile } from "./usePatientProfile";
 import styles from "@/components/Settings/Settings.module.scss";
@@ -18,6 +19,7 @@ const FORM_ID = "patient-config-form";
 const PatientConfig = () => {
   const profile = usePatientProfile();
   const password = usePasswordChange();
+  const insuranceOptions = useInsuranceOptions(profile.form.insurance);
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,7 +84,7 @@ const PatientConfig = () => {
                 label="Obra social"
                 value={profile.form.insurance}
                 onChange={(insurance) => profile.set({ insurance })}
-                options={INSURANCE_OPTIONS}
+                options={insuranceOptions}
               />
             </div>
           </Panel>

@@ -1,29 +1,41 @@
-import type { PatientDto, Role } from "@odonto/shared";
+import { GENDERS, NO_INSURANCE, type Gender, type PatientDto, type Role } from "@odonto/shared";
 import { collections, db } from "../config/firebase.js";
 import { conflict, notFound } from "../lib/errors.js";
-import { toIso } from "../lib/dates.js";
+import { fieldsOf, iso, optionalStr, str, toDate } from "../lib/firestore.js";
 import { cached, invalidate } from "../lib/cache.js";
 import type { CreatePatientBody, UpdatePatientBody } from "../schemas/patients.schema.js";
-
-type PatientDoc = Omit<PatientDto, "id" | "createdAt" | "updatedAt" | "lastVisitAt"> & {
-  createdAt: FirebaseFirestore.Timestamp;
-  updatedAt: FirebaseFirestore.Timestamp;
-  lastVisitAt?: FirebaseFirestore.Timestamp;
-};
 
 export const patientsCol = () => db.collection(collections.patients);
 
 /** Cache key for the full patient list; any write to a patient clears it. */
 export const PATIENTS_CACHE = "patients:all";
 
+const isGender = (v: unknown): v is Gender => (GENDERS as readonly unknown[]).includes(v);
+
+/**
+ * Snapshot → DTO, tolerant of records saved by the first version of the site
+ * (`name` instead of `fullName`, "Activo"/"Inactivo", insurance as free text,
+ * no uid): those still show up and can be edited instead of silently
+ * vanishing from the list while blocking their DNI.
+ */
 export function toPatientDto(snap: FirebaseFirestore.DocumentSnapshot): PatientDto {
-  const data = snap.data() as PatientDoc;
+  const d = fieldsOf(snap);
+  const status = str(d.status).toLowerCase();
   return {
-    ...data,
     id: snap.id,
-    createdAt: toIso(data.createdAt) ?? "",
-    updatedAt: toIso(data.updatedAt) ?? "",
-    lastVisitAt: toIso(data.lastVisitAt),
+    uid: str(d.uid),
+    fullName: str(d.fullName) || str(d.name) || "(sin nombre)",
+    dni: str(d.dni),
+    gender: isGender(d.gender) ? d.gender : "otro",
+    email: str(d.email),
+    phone: str(d.phone),
+    birthDate: str(d.birthDate),
+    insurance: str(d.insurance) || NO_INSURANCE,
+    status: status === "inactive" || status === "inactivo" ? "inactive" : "active",
+    avatarUrl: optionalStr(d.avatarUrl),
+    createdAt: iso(d.createdAt),
+    updatedAt: iso(d.updatedAt),
+    lastVisitAt: toDate(d.lastVisitAt)?.toISOString(),
   };
 }
 
@@ -38,8 +50,12 @@ export async function listPatients(opts: { search?: string; page: number; pageSi
   // memory. Fine at clinic scale; swap for Algolia/Typesense if it outgrows it.
   // Cached briefly: the search-as-you-type box asks on every few keystrokes,
   // and each uncached call reads the whole collection.
+  // Sorted here, not with orderBy("fullName"): Firestore's orderBy leaves out
+  // every document that lacks the field, which is how old records went missing.
   let items = await cached(PATIENTS_CACHE, 30_000, async () =>
-    (await patientsCol().orderBy("fullName").get()).docs.map(toPatientDto),
+    (await patientsCol().get()).docs
+      .map(toPatientDto)
+      .sort((a, b) => a.fullName.localeCompare(b.fullName, "es", { sensitivity: "base" })),
   );
 
   if (opts.search) {
@@ -84,8 +100,11 @@ export async function updatePatient(
 
 /** A patient added by the clinic: no Auth user yet, so `uid` is empty. */
 export async function createPatient(body: CreatePatientBody): Promise<PatientDto> {
-  if (await findByDni(body.dni)) {
-    throw conflict("Ya hay un paciente con ese DNI", { dni: "Este DNI ya está registrado" });
+  const existing = await findByDni(body.dni);
+  if (existing) {
+    throw conflict(`Ya hay un paciente con ese DNI: ${existing.fullName}. Buscalo en la tabla para editarlo.`, {
+      dni: "Este DNI ya está registrado",
+    });
   }
   const now = new Date();
   const ref = patientsCol().doc();

@@ -6,12 +6,12 @@ import { upsertAt, useIndexedForm } from "./hooks/useIndexedForm";
 import { useToothChart } from "./hooks/useToothChart";
 import { useTreatmentProgress } from "./hooks/useTreatmentProgress";
 import { useTreatmentRecord } from "./hooks/useTreatmentRecord";
-import { CalendarDays, CheckCircle2, Activity, Printer } from "lucide-react";
+import { CalendarDays, CheckCircle2, Activity } from "lucide-react";
 import PatientFiles from "@/components/Patient/PatientFiles/PatientFiles";
 import { usePatientFiles } from "@/components/Patient/PatientFiles/usePatientFiles";
 import Alert from "@/components/UI/Alert/Alert";
-import Button from "@/components/UI/Button/Button";
 import { FEATURES } from "@/constants";
+import FichaActions from "./print/FichaActions";
 import TreatmentPrintSheet from "./print/TreatmentPrintSheet";
 import Tabs from "@/components/UI/Tabs/Tabs";
 import { TAB_LABEL } from "./labels";
@@ -111,9 +111,7 @@ const TreatmentContent = ({ isAdmin }: { isAdmin: boolean }) => {
             onChange={setActiveTab}
             label="Secciones del tratamiento"
           />
-          <Button variant="secondary" size="small" icon={<Printer size={16} aria-hidden="true" />} onClick={() => window.print()} disabled={!treatment}>
-            Imprimir ficha
-          </Button>
+          <FichaActions patientName={treatment?.patientName ?? "paciente"} disabled={!treatment} />
         </div>
 
         {activeTab === "files" ? <PatientFiles files={files} canEdit={isAdmin} /> : null}

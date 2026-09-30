@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Clock, Minus, Plus } from "lucide-react";
 import { usePopover } from "@/hooks/usePopover";
 import { addMinutes, parseTime, timeSlots, toTime } from "@/utils/time";
+import { parseTimeInput } from "@/utils/typedInput";
 import Field from "../Field/Field";
 import PickerPanel from "../PickerPanel/PickerPanel";
-import PickerTrigger from "../PickerTrigger/PickerTrigger";
+import PickerInput, { type TypedResult } from "../PickerTrigger/PickerInput";
 import styles from "./TimePicker.module.scss";
 
 interface TimePickerProps {
@@ -27,7 +28,13 @@ interface TimePickerProps {
 
 const NOON = 13 * 60;
 
-/** A time field: one tap on a quick slot, or an exact time with the steppers. */
+const identity = (time: string) => time;
+const checkTime = (text: string): TypedResult => {
+  const time = parseTimeInput(text);
+  return time ? { value: time } : { error: "Hora no válida. Escribila como 9:30, 930 o 14:00." };
+};
+
+/** A time field: type it (9:30, 930, 14h…), or open the clock for a quick slot or the steppers. */
 const TimePicker = ({
   name,
   label,
@@ -42,8 +49,9 @@ const TimePicker = ({
   step = 30,
   clearable = false,
 }: TimePickerProps) => {
-  const popover = usePopover<HTMLButtonElement>();
+  const popover = usePopover<HTMLDivElement>();
   const [exact, setExact] = useState(value || "09:00");
+  const [typedError, setTypedError] = useState<string | null>(null);
 
   // Each time the panel opens, the steppers start from the current value.
   useEffect(() => {
@@ -57,6 +65,7 @@ const TimePicker = ({
   ].filter((g) => g.slots.length > 0);
 
   const pick = (time: string) => {
+    setTypedError(null);
     onChange(time);
     popover.close();
   };
@@ -64,17 +73,30 @@ const TimePicker = ({
   const [hh, mm] = exact.split(":");
 
   return (
-    <Field id={name} label={label} required={required} error={error} hint={hint}>
-      <PickerTrigger
+    <Field
+      id={name}
+      label={label}
+      required={required}
+      error={error ?? typedError ?? undefined}
+      hint={hint ?? (value ? undefined : "Escribila así: 9:30 o 930, o elegila en el reloj")}
+    >
+      <PickerInput
         id={name}
-        buttonRef={popover.anchorRef}
-        display={value ? `${value} hs` : null}
-        placeholder={placeholder}
+        value={value}
+        format={identity}
+        check={checkTime}
+        onCommit={onChange}
+        onTypedError={setTypedError}
+        placeholder="hh:mm"
         icon={<Clock size={18} strokeWidth={1.7} aria-hidden="true" />}
+        openLabel={placeholder}
         open={popover.open}
         onToggle={popover.toggle}
-        onClear={clearable ? () => onChange("") : undefined}
-        invalid={Boolean(error)}
+        onOpen={popover.show}
+        onPanelKeyDown={popover.onPanelKeyDown}
+        anchorRef={popover.anchorRef}
+        invalid={Boolean(error ?? typedError)}
+        clearable={clearable}
       />
 
       <PickerPanel popover={popover} label={label ?? "Elegir hora"} width={320}>

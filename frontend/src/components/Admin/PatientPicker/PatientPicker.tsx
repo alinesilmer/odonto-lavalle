@@ -1,6 +1,6 @@
 import { useId, useState, type KeyboardEvent } from "react";
 import { Search, UserRound } from "lucide-react";
-import { INSURANCE_LABEL, type PatientDto } from "@odonto/shared";
+import { insuranceLabel, type PatientDto } from "@odonto/shared";
 import Input from "@/components/UI/Input/Input";
 import PickerPanel from "@/components/UI/PickerPanel/PickerPanel";
 import { useApi } from "@/hooks/useApi";
@@ -103,7 +103,7 @@ const PatientPicker = ({ name, label = "Paciente", query, onQueryChange, onSelec
                   <span className={styles.name}>{patient.fullName}</span>
                   <span className={styles.meta}>
                     DNI {patient.dni}
-                    {patient.insurance ? ` · ${INSURANCE_LABEL[patient.insurance] ?? patient.insurance}` : ""}
+                    {patient.insurance ? ` · ${insuranceLabel(patient.insurance)}` : ""}
                   </span>
                 </li>
               ))}

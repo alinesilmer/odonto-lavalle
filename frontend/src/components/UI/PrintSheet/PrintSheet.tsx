@@ -5,10 +5,16 @@ import styles from "./PrintSheet.module.scss";
 /**
  * A document that exists only on paper: hidden on screen, and when the page
  * is printed it replaces the app (A4, black on white). Render it next to the
- * screen UI and call `window.print()`.
+ * screen UI and call `window.print()`, or pass its `id` element to
+ * utils/pdf's downloadPdf() to save it as a PDF file.
  */
-const PrintSheet = ({ children }: { children: ReactNode }) =>
-  createPortal(<div className={styles.sheet}>{children}</div>, document.body);
+const PrintSheet = ({ children, id }: { children: ReactNode; id?: string }) =>
+  createPortal(
+    <div id={id} className={styles.sheet}>
+      {children}
+    </div>,
+    document.body,
+  );
 
 /** A titled block of the printed document that avoids splitting across pages when it can. */
 export const PrintSection = ({ title, children }: { title: string; children: ReactNode }) => (

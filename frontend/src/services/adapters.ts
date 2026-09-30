@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Maps wire DTOs onto the Spanish display shapes the dashboard components
  * already render, so the API swap does not ripple into every JSX tree.
  */
@@ -13,13 +13,13 @@ import type {
 import { utcToClinicTime } from "@odonto/shared";
 import {
   APPOINTMENT_STATUS_LABEL,
-  INSURANCE_LABEL,
   PATIENT_STATUS_LABEL,
   PAYMENT_STATUS_LABEL,
+  insuranceLabel,
 } from "@odonto/shared";
 
 // Re-exported so dashboard code has one import for both the maps and the rows.
-export { APPOINTMENT_STATUS_LABEL, INSURANCE_LABEL, PAYMENT_STATUS_LABEL };
+export { APPOINTMENT_STATUS_LABEL, PAYMENT_STATUS_LABEL };
 
 /**
  * "2026-03-14T12:30:00.000Z" -> { date: "14/03/2026", time: "09:30" }
@@ -58,7 +58,7 @@ export function toAppointmentRow(dto: AppointmentDto): AppointmentRow {
     date,
     time,
     reason: dto.reason,
-    insurance: INSURANCE_LABEL[dto.insurance] ?? dto.insurance,
+    insurance: insuranceLabel(dto.insurance),
     payment: PAYMENT_STATUS_LABEL[dto.paymentStatus],
     status: APPOINTMENT_STATUS_LABEL[dto.status],
     patientName: dto.patientName,
@@ -87,7 +87,7 @@ export function toPatientRow(dto: PatientDto): PatientRow {
     dni: dto.dni,
     phone: dto.phone,
     email: dto.email,
-    insurance: INSURANCE_LABEL[dto.insurance] ?? dto.insurance,
+    insurance: insuranceLabel(dto.insurance),
     lastVisit: dto.lastVisitAt ? splitDateTime(dto.lastVisitAt).date : "-",
     status: PATIENT_STATUS_LABEL[dto.status],
   };

@@ -4,7 +4,8 @@ import Input from "@/components/UI/Input/Input";
 import PasswordInput from "@/components/UI/PasswordInput/PasswordInput";
 import PasswordStrengthMeter from "@/components/UI/PasswordStrengthMeter/PasswordStrengthMeter";
 import Select from "@/components/UI/Select/Select";
-import { GENDER_OPTIONS, INSURANCE_OPTIONS } from "@/data/formOptions";
+import { GENDER_OPTIONS } from "@/data/formOptions";
+import { useInsuranceOptions } from "@/hooks/useInsuranceOptions";
 import type { RegisterFormInput } from "@/schemas";
 import styles from "./Register.module.scss";
 
@@ -29,7 +30,10 @@ const TEXT_FIELDS: TextField[] = [
   { name: "birthDate", label: "Fecha de Nacimiento", icon: Calendar, type: "date" },
 ];
 
-const RegisterFormFields = ({ control, password }: RegisterFormFieldsProps) => (
+const RegisterFormFields = ({ control, password }: RegisterFormFieldsProps) => {
+  const insuranceOptions = useInsuranceOptions();
+
+  return (
   <>
     {TEXT_FIELDS.map(({ name, label, placeholder, icon: Icon, type }) => (
       <div key={name} className={styles.field}>
@@ -81,7 +85,7 @@ const RegisterFormFields = ({ control, password }: RegisterFormFieldsProps) => (
             value={field.value ?? ""}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            options={INSURANCE_OPTIONS}
+            options={insuranceOptions}
             error={fieldState.error?.message}
             required
           />
@@ -122,6 +126,7 @@ const RegisterFormFields = ({ control, password }: RegisterFormFieldsProps) => (
       />
     </div>
   </>
-);
+  );
+};
 
 export default RegisterFormFields;

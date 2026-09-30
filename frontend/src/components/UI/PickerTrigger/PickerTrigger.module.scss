@@ -62,3 +62,67 @@
     color: var(--ed-ink);
   }
 }
+
+/* ---------- typeable variant (PickerInput) ---------- */
+
+.field {
+  @include m.input-base;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: var(--space-1);
+
+  &:focus-within {
+    border-color: var(--ed-accent);
+    box-shadow: 0 0 0 4px rgba(var(--ed-accent-rgb), 0.12);
+  }
+}
+
+.fieldOpen {
+  border-color: var(--ed-accent);
+  box-shadow: 0 0 0 4px rgba(var(--ed-accent-rgb), 0.12);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ed-ink);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+
+  &::placeholder {
+    color: var(--gray-400);
+  }
+}
+
+.inlineButton {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  color: var(--ed-muted);
+
+  &:hover,
+  &[aria-expanded="true"] {
+    background: var(--ed-surface-alt);
+    color: var(--ed-accent);
+  }
+
+  @include m.focus-ring(var(--ed-accent-rgb));
+}
+/* Invalid value (button or typeable field): red border, like other inputs. */
+.error,
+.error:focus-within {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 4px rgba(var(--color-error-rgb), 0.12);
+}

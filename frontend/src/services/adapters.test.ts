@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { AppointmentDto, PatientDto, ReminderDto, StockItemDto } from "@odonto/shared";
+import { INSURANCE_LABEL, type AppointmentDto, type PatientDto, type ReminderDto, type StockItemDto } from "@odonto/shared";
 import {
   APPOINTMENT_STATUS_LABEL,
-  INSURANCE_LABEL,
   splitDateTime,
   toAppointmentRow,
   toPatientRow,
@@ -120,7 +119,10 @@ describe("toPatientRow", () => {
   });
 
   it("labels the insurance", () => {
+    // An old record's code still shows by name; a name from the clinic's list shows as-is.
     expect(toPatientRow(dto).insurance).toBe(INSURANCE_LABEL.swiss);
+    expect(toPatientRow({ ...dto, insurance: "Jerárquicos Salud" }).insurance).toBe("Jerárquicos Salud");
+    expect(toPatientRow({ ...dto, insurance: "Particular" }).insurance).toBe("Particular (sin obra social)");
   });
 });
 

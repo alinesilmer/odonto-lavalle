@@ -15,6 +15,9 @@ const day = (iso: string) => {
   return date ? formatDateAR(date) : "—";
 };
 
+/** The sheet's element id, for "Descargar PDF" (utils/pdf). */
+export const TREATMENT_SHEET_ID = "treatment-print-sheet";
+
 interface TreatmentPrintSheetProps {
   treatment: TreatmentDto;
   files: PatientFileDto[];
@@ -34,7 +37,7 @@ const TreatmentPrintSheet = ({ treatment: t, files }: TreatmentPrintSheetProps) 
   ];
 
   return (
-    <PrintSheet>
+    <PrintSheet id={TREATMENT_SHEET_ID}>
       <header className={styles.header}>
         <div className={styles.clinic}>
           <img src={logo} alt="" className={styles.logo} />

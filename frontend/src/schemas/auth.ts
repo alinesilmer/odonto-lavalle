@@ -2,7 +2,6 @@
 import { z } from "zod";
 import {
   GENDERS,
-  INSURANCES,
   loginSchema as apiLoginSchema,
   registerSchema as apiRegisterSchema,
   requiredChoice,
@@ -18,7 +17,8 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export const registerSchema = apiRegisterSchema
   .extend({
     gender: requiredChoice(GENDERS, "Por favor, seleccioná tu género"),
-    insurance: requiredChoice(INSURANCES, "Por favor, seleccioná tu obra social"),
+    // Any obra social from the clinic's list (see useInsuranceOptions), or "Particular".
+    insurance: z.string().trim().min(1, "Por favor, seleccioná tu obra social"),
     confirmPassword: z.string().min(1, "Por favor, confirmá tu contraseña"),
   })
   .refine((data) => data.password === data.confirmPassword, {

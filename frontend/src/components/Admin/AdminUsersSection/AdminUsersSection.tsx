@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react"
 import { Eye, Edit, Plus, Trash2, User } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import { GENDER_LABEL, INSURANCE_LABEL, MAX_PAGE_SIZE, PATIENT_STATUS_LABEL, type PatientDto } from "@odonto/shared"
+import { GENDER_LABEL, MAX_PAGE_SIZE, PATIENT_STATUS_LABEL, insuranceLabel, type PatientDto } from "@odonto/shared"
 import DataTable from "../../DataTable/DataTable"
 import Alert from "@/components/UI/Alert/Alert"
 import AsyncBoundary from "@/components/UI/AsyncBoundary/AsyncBoundary"
@@ -62,7 +62,7 @@ const AdminUsersSection = () => {
     const needle = normalizeText(query)
     if (!needle) return patients
     return patients.filter((p) =>
-      normalizeText(`${p.fullName} ${p.dni} ${p.phone} ${p.email} ${INSURANCE_LABEL[p.insurance] ?? ""}`).includes(needle),
+      normalizeText(`${p.fullName} ${p.dni} ${p.phone} ${p.email} ${insuranceLabel(p.insurance)}`).includes(needle),
     )
   }, [patients, query])
 
@@ -85,7 +85,7 @@ const AdminUsersSection = () => {
     ),
     dni: p.dni,
     phone: p.phone,
-    insurance: INSURANCE_LABEL[p.insurance] ?? p.insurance,
+    insurance: insuranceLabel(p.insurance),
     treatment: link("Ir a tratamiento actual", ROUTES.admin.patientTreatment(p.id)),
     history: link("Ir a historia clínica", ROUTES.admin.patientHistory(p.id)),
   }))
@@ -147,7 +147,7 @@ const AdminUsersSection = () => {
               { label: "Email", value: viewing.email || "—" },
               { label: "Nacimiento", value: birth ? formatDateAR(birth) : "—" },
               { label: "Género", value: GENDER_LABEL[viewing.gender] ?? "—" },
-              { label: "Obra social", value: INSURANCE_LABEL[viewing.insurance] ?? "—" },
+              { label: "Obra social", value: insuranceLabel(viewing.insurance) },
               { label: "Estado", value: PATIENT_STATUS_LABEL[viewing.status] },
               { label: "Cuenta", value: viewing.uid ? "Registrada" : "Sin cuenta (cargado por la clínica)" },
             ]}

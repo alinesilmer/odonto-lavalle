@@ -7,7 +7,8 @@ import FormGrid from "@/components/UI/FormGrid/FormGrid";
 import Input from "@/components/UI/Input/Input";
 import FormModal from "@/components/UI/Modal/FormModal";
 import Select from "@/components/UI/Select/Select";
-import { GENDER_OPTIONS, INSURANCE_OPTIONS } from "@/data/formOptions";
+import { GENDER_OPTIONS } from "@/data/formOptions";
+import { useInsuranceOptions } from "@/hooks/useInsuranceOptions";
 import { toIsoDate } from "@/utils/date";
 
 type Values = CreatePatientRequest;
@@ -22,7 +23,7 @@ interface PatientFormModalProps {
   onSubmit: (values: Values) => Promise<boolean>;
 }
 
-const EMPTY: Values = { fullName: "", dni: "", gender: "" as Values["gender"], email: "", phone: "", birthDate: "", insurance: "" as Values["insurance"] };
+const EMPTY: Values = { fullName: "", dni: "", gender: "" as Values["gender"], email: "", phone: "", birthDate: "", insurance: "" };
 
 /** DNI and email identify the record, so they are fixed once it exists. */
 const editSchema = createPatientSchema.omit({ dni: true, email: true });
@@ -40,6 +41,8 @@ const fromPatient = (p: PatientDto): Values => ({
 /** Add a patient from the dashboard, or edit one; the same fields and rules either way. */
 const PatientFormModal = ({ open, patient, busy, error, onClose, onSubmit }: PatientFormModalProps) => {
   const editing = Boolean(patient);
+  // The clinic's obras sociales from Contenido del sitio, keeping the patient's current one.
+  const insuranceOptions = useInsuranceOptions(patient?.insurance);
   const { control, handleSubmit, reset } = useForm<Values>({
     // The edit schema checks a subset; DNI and email pass through untouched.
     resolver: zodResolver(editing ? editSchema.passthrough() : createPatientSchema) as never,
@@ -113,7 +116,7 @@ const PatientFormModal = ({ open, patient, busy, error, onClose, onSubmit }: Pat
           hint: editing ? undefined : "Opcional. Si más adelante se registra con este DNI, su cuenta toma esta ficha.",
         })}
         {select("gender", "Género", GENDER_OPTIONS)}
-        {select("insurance", "Obra social", INSURANCE_OPTIONS)}
+        {select("insurance", "Obra social", insuranceOptions)}
       </FormGrid>
     </FormModal>
   );

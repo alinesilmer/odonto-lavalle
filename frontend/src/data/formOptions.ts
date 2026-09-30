@@ -7,8 +7,6 @@ import {
   APPOINTMENT_STATUS_LABEL,
   GENDERS,
   GENDER_LABEL,
-  INSURANCES,
-  INSURANCE_LABEL,
   PAYMENT_STATUSES,
   PAYMENT_STATUS_LABEL,
 } from "@odonto/shared";
@@ -24,7 +22,7 @@ const optionsFrom = <T extends string>(
 ): SelectOption[] => values.map((value) => ({ value, label: labels[value] }));
 
 export const GENDER_OPTIONS = optionsFrom(GENDERS, GENDER_LABEL);
-export const INSURANCE_OPTIONS = optionsFrom(INSURANCES, INSURANCE_LABEL);
+// Obras sociales come from the clinic's own list: see hooks/useInsuranceOptions.
 export const APPOINTMENT_STATUS_OPTIONS = optionsFrom(
   APPOINTMENT_STATUSES,
   APPOINTMENT_STATUS_LABEL,
