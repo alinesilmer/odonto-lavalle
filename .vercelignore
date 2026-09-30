@@ -1,0 +1,12 @@
+# Never upload local env files: secrets live in Vercel's Environment Variables,
+# and a leftover localhost VITE_API_URL would break the production site.
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+
+# Rebuilt on Vercel.
+node_modules
+**/node_modules
+**/dist

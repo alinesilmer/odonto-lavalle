@@ -11,6 +11,7 @@ import PatientFiles from "@/components/Patient/PatientFiles/PatientFiles";
 import { usePatientFiles } from "@/components/Patient/PatientFiles/usePatientFiles";
 import Alert from "@/components/UI/Alert/Alert";
 import Button from "@/components/UI/Button/Button";
+import { FEATURES } from "@/constants";
 import TreatmentPrintSheet from "./print/TreatmentPrintSheet";
 import Tabs from "@/components/UI/Tabs/Tabs";
 import { TAB_LABEL } from "./labels";
@@ -57,7 +58,8 @@ const TreatmentContent = ({ isAdmin }: { isAdmin: boolean }) => {
   const treatment = record.treatment;
   const timeline = treatment?.timeline ?? NONE_TIMELINE;
   const appointments = treatment?.plannedVisits ?? NONE_VISITS;
-  const files = usePatientFiles(record.patientId);
+  // No request at all while attachments are switched off.
+  const files = usePatientFiles(FEATURES.patientFiles ? record.patientId : "");
 
   const chart = useToothChart(treatment?.teeth ?? NONE_TEETH, useCallback((teeth) => persist({ teeth }), [persist]));
   const progress = useTreatmentProgress(

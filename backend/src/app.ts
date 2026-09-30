@@ -19,6 +19,20 @@ import { contentRouter } from "./routes/content.routes.js";
 import { filesRouter } from "./routes/files.routes.js";
 import { settingsRouter } from "./routes/settings.routes.js";
 
+/** Vite picks the next free port when 5173 is taken, so any local port works in development. */
+const LOCAL_DEV_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/;
+
+/**
+ * Production only accepts the origins in CORS_ORIGINS (the site's domains).
+ * Requests without an Origin (curl, server-to-server) aren't browser
+ * cross-site requests, so CORS doesn't apply to them.
+ */
+function isAllowedOrigin(origin: string | undefined): boolean {
+  if (!origin) return true;
+  if (env.corsOrigins.includes(origin)) return true;
+  return !isProd && LOCAL_DEV_ORIGIN.test(origin);
+}
+
 export function createApp() {
   const app = express();
 
@@ -29,7 +43,7 @@ export function createApp() {
   app.use(helmet());
   app.use(
     cors({
-      origin: env.corsOrigins,
+      origin: (origin, done) => done(null, isAllowedOrigin(origin)),
       credentials: true,
     }),
   );

@@ -1,0 +1,175 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  color: var(--ed-muted);
+  font-family: var(--font-sans);
+  text-align: center;
+  /* Quick loads finish before this shows, so nothing flashes. */
+  opacity: 0;
+  animation: appear 300ms ease 250ms forwards;
+}
+
+.art {
+  overflow: visible;
+}
+
+/* The one big, centred animation while a page or the session loads. */
+.page {
+  min-height: 60vh;
+  gap: var(--space-4);
+
+  .art {
+    width: clamp(96px, 18vw, 132px);
+    height: clamp(96px, 18vw, 132px);
+  }
+
+  .label {
+    font-size: 1rem;
+  }
+}
+
+/* A small, quiet tooth inside a panel of a page that's already showing. */
+.compact {
+  padding: var(--space-6) var(--space-4);
+
+  .art {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tooth {
+  fill: var(--ed-surface);
+  stroke: var(--ed-accent);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.shine {
+  fill: none;
+  stroke: var(--ed-accent-soft);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* The brush scrubs back and forth across the top of the tooth. */
+.brush {
+  transform-box: fill-box;
+  animation: scrub 700ms ease-in-out infinite alternate;
+}
+
+.handle {
+  fill: var(--ed-accent);
+}
+
+.head {
+  fill: var(--ed-accent);
+}
+
+.bristles {
+  stroke: var(--ed-accent-soft);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.foam circle {
+  fill: var(--ed-surface);
+  stroke: var(--ed-accent-soft);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bubble 1400ms ease-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 450ms;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 900ms;
+  }
+}
+
+.sparkle {
+  fill: var(--tooth-crown);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 1400ms ease-in-out infinite;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scrub {
+  from {
+    transform: translateX(-9px) rotate(-3deg);
+  }
+  to {
+    transform: translateX(9px) rotate(3deg);
+  }
+}
+
+@keyframes bubble {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.4);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.1);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+/* Motion-sensitive visitors get a still tooth and the message. */
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation-duration: 1ms;
+  }
+
+  .brush,
+  .foam circle,
+  .sparkle {
+    animation: none;
+  }
+
+  .foam circle,
+  .sparkle {
+    opacity: 1;
+  }
+}

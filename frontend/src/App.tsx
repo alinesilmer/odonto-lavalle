@@ -45,6 +45,7 @@ import ScrollToHash from "./utils/ScrollToHash"
 import { AuthProvider } from "./auth/AuthContext"
 import ProtectedRoute from "./auth/ProtectedRoute"
 import ConfirmProvider from "./components/UI/Confirm/ConfirmProvider"
+import ToothLoader from "./components/UI/ToothLoader/ToothLoader"
 import "./styles/globals.scss"
 
 function ScrollToTop() {
@@ -86,7 +87,7 @@ function App() {
         <div className="app">
           <Header />
           <main>
-            <Suspense fallback={<div className="page-loader" />}>
+            <Suspense fallback={<ToothLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/contacto" element={<ContactPage />} />

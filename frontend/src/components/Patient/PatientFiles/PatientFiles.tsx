@@ -4,6 +4,8 @@ import { MAX_PATIENT_FILE_BYTES, PATIENT_FILE_ACCEPT, PATIENT_FILE_TYPES, type P
 import Alert from "@/components/UI/Alert/Alert";
 import AsyncBoundary from "@/components/UI/AsyncBoundary/AsyncBoundary";
 import Button from "@/components/UI/Button/Button";
+import ComingSoonModal from "@/components/UI/ComingSoon/ComingSoonModal";
+import { FEATURES } from "@/constants";
 import { useConfirm } from "@/components/UI/Confirm/confirmContext";
 import IconButton from "@/components/UI/IconButton/IconButton";
 import Panel from "@/components/UI/Panel/Panel";
@@ -26,8 +28,12 @@ const PatientFiles = ({ files, canEdit }: { files: PatientFilesState; canEdit: b
   const input = useRef<HTMLInputElement>(null);
   const [filter, setFilter] = useState<Filter>("all");
   const [dragging, setDragging] = useState(false);
+  const [comingSoon, setComingSoon] = useState(false);
 
+  // While uploads are switched off (constants/features), every way in shows the notice instead.
+  const openPicker = () => (FEATURES.patientFiles ? input.current?.click() : setComingSoon(true));
   const pick = (list: FileList | null) => {
+    if (!FEATURES.patientFiles) return setComingSoon(true);
     if (list?.length) void files.upload(Array.from(list));
   };
   const onDrop = (event: DragEvent) => {
@@ -50,7 +56,7 @@ const PatientFiles = ({ files, canEdit }: { files: PatientFilesState; canEdit: b
       title="Archivos adjuntos"
       action={
         canEdit ? (
-          <Button size="small" icon={<UploadCloud size={16} aria-hidden="true" />} onClick={() => input.current?.click()}>
+          <Button size="small" icon={<UploadCloud size={16} aria-hidden="true" />} onClick={openPicker}>
             Adjuntar archivos
           </Button>
         ) : null
@@ -62,7 +68,7 @@ const PatientFiles = ({ files, canEdit }: { files: PatientFilesState; canEdit: b
         <button
           type="button"
           className={`${styles.drop} ${dragging ? styles.dragging : ""}`}
-          onClick={() => input.current?.click()}
+          onClick={openPicker}
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
           onDrop={onDrop}
@@ -107,7 +113,13 @@ const PatientFiles = ({ files, canEdit }: { files: PatientFilesState; canEdit: b
         ) : null}
 
         {visible.length === 0 ? (
-          <p className={styles.empty}>{files.files.length === 0 ? "Todavía no hay archivos en la ficha." : "No hay archivos de este tipo."}</p>
+          <p className={styles.empty}>
+            {!FEATURES.patientFiles
+              ? "Los archivos adjuntos van a estar disponibles muy pronto."
+              : files.files.length === 0
+                ? "Todavía no hay archivos en la ficha."
+                : "No hay archivos de este tipo."}
+          </p>
         ) : (
           <ul className={styles.grid}>
             {visible.map((file) => {
@@ -137,6 +149,13 @@ const PatientFiles = ({ files, canEdit }: { files: PatientFilesState; canEdit: b
           </ul>
         )}
       </AsyncBoundary>
+
+      <ComingSoonModal
+        open={comingSoon}
+        onClose={() => setComingSoon(false)}
+        feature="Adjuntar archivos"
+        message="Muy pronto vas a poder guardar fotos, radiografías, PDF y planillas en la ficha de cada paciente. Estamos terminando de prepararlo."
+      />
     </Panel>
   );
 };

@@ -1,0 +1,22 @@
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  p {
+    margin: 0;
+    color: var(--ed-text);
+    line-height: var(--lh-relaxed);
+  }
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--ed-surface-alt);
+  color: var(--ed-accent);
+}

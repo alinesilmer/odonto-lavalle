@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import ToothLoader from "../ToothLoader/ToothLoader";
 import styles from "./AsyncBoundary.module.scss";
 
 interface Props {
@@ -20,14 +21,9 @@ export default function AsyncBoundary({
   onRetry,
   children,
 }: Props) {
-  if (loading) {
-    return (
-      <div className={styles.state} role="status" aria-live="polite">
-        <span className={styles.spinner} aria-hidden="true" />
-        <p>Cargando...</p>
-      </div>
-    );
-  }
+  // Panels load inside a page that's already showing: the small quiet tooth,
+  // not the big centred one (that's for whole-page loads).
+  if (loading) return <ToothLoader variant="compact" />;
 
   if (error) {
     return (

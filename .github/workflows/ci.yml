@@ -26,9 +26,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Node 18 is dropped: the backend targets node20 and the root
-        # package.json declares engines.node >= 20.
-        node-version: [20.x, 22.x]
+        # Production (Vercel) runs Node 24, pinned in the root package.json:
+        # firebase-admin 14 needs a Node that can require() ES modules.
+        node-version: [24.x]
     steps:
       - uses: actions/checkout@v4
 

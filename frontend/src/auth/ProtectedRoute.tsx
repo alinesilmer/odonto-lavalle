@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import type { Role } from "@odonto/shared";
+import ToothLoader from "@/components/UI/ToothLoader/ToothLoader";
 import { useAuth } from "./useAuth";
 
 interface Props {
@@ -15,7 +16,7 @@ export default function ProtectedRoute({ children, roles }: Props) {
 
   // Never redirect before the stored session has been validated, or a refresh
   // on a dashboard URL would bounce the user to /login every time.
-  if (loading) return <div className="page-loader" />;
+  if (loading) return <ToothLoader label="Verificando tu sesión…" />;
 
   if (!user) return <Navigate to="/login" replace state={{ from: location.pathname }} />;
 
