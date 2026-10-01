@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import RisingWords from "@/components/UI/RisingWords/RisingWords";
 import { MessageCircle } from "lucide-react";
 import Button from "@/components/UI/Button/Button";
-import { bookingWhatsappUrl } from "@/utils/clinicContact";
+import { ROUTES } from "@/constants";
 import { fadeUp } from "@/utils/editorialMotion";
 import styles from "./Hero.module.scss";
 
@@ -35,7 +35,7 @@ const Hero = () => {
           size="large"
           arrow
           className={styles.bookButton}
-          href={bookingWhatsappUrl}
+          to={ROUTES.booking}
           icon={<MessageCircle size={22} strokeWidth={1.6} aria-hidden="true" />}
         >
           Reservar Turno

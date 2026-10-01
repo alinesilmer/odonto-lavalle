@@ -25,8 +25,3 @@ const mapQuery = encodeURIComponent(`${contactInfo.address}, Argentina`);
 export const mapsUrl = `https://maps.google.com/?q=${mapQuery}`;
 
 export const mapsEmbedUrl = `https://maps.google.com/maps?q=${mapQuery}&z=16&output=embed`;
-
-/** WhatsApp link with the booking request already typed; shared by every quick "Reservar turno" button. */
-export const bookingWhatsappUrl = clinicWhatsappUrl(
-  "¡Hola! 😊 ¿Cómo están? Me gustaría reservar un turno. ¿Qué días y horarios tienen disponibles? ¡Muchas gracias!",
-);
