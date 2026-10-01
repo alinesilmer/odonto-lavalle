@@ -4,7 +4,7 @@ import { Search, User, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Logo from "@/assets/images/Logo.webp";
 import Button from "../Button/Button";
-import { ROUTES } from "@/constants";
+import { bookingWhatsappUrl } from "@/utils/clinicContact";
 import SearchModal from "../../SearchModal/SearchModal";
 import { useAuth } from "@/auth/useAuth";
 import styles from "./Header.module.scss";
@@ -89,7 +89,7 @@ const Header = () => {
             <User size={19} strokeWidth={1.7} />
           </Link>
 
-          <Button to={ROUTES.booking} variant="ink" size="small" arrow className={styles.cta}>
+          <Button href={bookingWhatsappUrl} variant="ink" size="small" arrow className={styles.cta}>
             Reservar turno
           </Button>
 
@@ -127,7 +127,7 @@ const Header = () => {
               </Link>
             ))}
             <Button
-              to={ROUTES.booking}
+              href={bookingWhatsappUrl}
               variant="ink"
               arrow
               fullWidth
