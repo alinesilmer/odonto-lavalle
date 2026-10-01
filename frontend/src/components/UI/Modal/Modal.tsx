@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { EASE_OUT } from "@/utils/editorialMotion";
@@ -42,7 +43,10 @@ const Modal = ({
   const dialogRef = useModalBehaviour(open, onClose);
   const ariaLabel = label ?? (typeof title === "string" ? title : undefined);
 
-  return (
+  // Portalled to <body>: an ancestor with a filter/transform (e.g. the blurred
+  // sticky header) would otherwise become the containing block of the fixed
+  // overlay and squash it into that ancestor's box.
+  return createPortal(
     <AnimatePresence>
       {open ? (
         <motion.div
@@ -94,7 +98,8 @@ const Modal = ({
           </motion.div>
         </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 };
 

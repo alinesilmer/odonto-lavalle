@@ -18,7 +18,7 @@ const SearchModal = ({ open, onClose, data = SEARCH_INDEX }: SearchModalProps) =
   const search = useSearchModal(data, open, onClose);
 
   return (
-    <Modal open={open} onClose={onClose} size="lg" align="top" label="Buscar en el sitio" bare>
+    <Modal open={open} onClose={onClose} size="lg" label="Buscar en el sitio" bare>
       <div className={styles.searchBar}>
         <div className={styles.searchInputWrapper}>
           <Search size={22} strokeWidth={1.6} className={styles.searchIcon} aria-hidden="true" />

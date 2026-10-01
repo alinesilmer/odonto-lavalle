@@ -79,9 +79,10 @@
   @include m.focus-ring(var(--ed-accent-rgb));
 }
 
+/* A steady height so the centred dialog doesn't jump as results come and go. */
 .body {
   flex: 1;
-  min-height: 0;
+  min-height: min(380px, 45vh);
   overflow-y: auto;
   padding: var(--space-4);
 
