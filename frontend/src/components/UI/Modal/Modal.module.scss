@@ -92,7 +92,7 @@
   flex-direction: column;
 }
 
-/* Scrolls when the content is taller than the screen, without a visible bar. */
+/* Scrolls when the content is taller than the screen, with a thin visible bar. */
 .scroll {
   min-height: 0;
   flex: 1;
@@ -103,7 +103,7 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 
-  @include m.hide-scrollbar;
+  @include m.custom-scrollbar(6px, var(--ed-line-strong));
   @include m.scroll-shadows;
 }
 
