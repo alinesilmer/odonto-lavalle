@@ -74,7 +74,6 @@ const Login = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className={styles.formHeader}>
-            <p className={styles.eyebrow}>Mi panel</p>
             <h1 className={styles.title}>
               Bienvenido <em>de nuevo.</em>
             </h1>

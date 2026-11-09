@@ -66,7 +66,6 @@ const Services = () => {
                 layout
                 index={index}
                 image={service.image}
-                meta={String(index + 1).padStart(2, "0")}
                 title={toSentenceCase(service.title)}
                 text={service.description}
                 onOpen={() => openService(service)}

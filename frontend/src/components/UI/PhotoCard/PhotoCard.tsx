@@ -7,8 +7,8 @@ import styles from "./PhotoCard.module.scss";
 interface PhotoCardProps {
   image: string;
   alt?: string;
-  /** Small line above the title: a number ("01") or a role. */
-  meta: string;
+  /** Optional small line above the title, e.g. a role. */
+  meta?: string;
   title: string;
   text?: string;
   /** Extra content under the text, e.g. chips. */
@@ -16,7 +16,7 @@ interface PhotoCardProps {
   /** Photo proportions. */
   ratio?: "landscape" | "portrait" | "wide";
   titleSize?: "md" | "lg";
-  /** Makes the whole card a button with an arrow and "Ver detalle". */
+  /** Makes the whole card a button with an arrow. */
   onOpen?: () => void;
   /** Stagger position; also used for the entrance delay. */
   index?: number;
@@ -24,7 +24,7 @@ interface PhotoCardProps {
   layout?: boolean;
 }
 
-/** Photo on top, then a thin rule, a small meta line, a serif title and text. */
+/** Photo on top, then a thin rule, an optional meta line, a serif title and text. */
 const PhotoCard = ({
   image,
   alt = "",
@@ -44,14 +44,15 @@ const PhotoCard = ({
         <img src={image} alt={alt} loading="lazy" />
       </span>
       <span className={styles.body}>
-        <span className={styles.top}>
-          <span className={styles.meta}>{meta}</span>
-          {onOpen ? <ArrowUpRight size={20} strokeWidth={1.6} aria-hidden="true" /> : null}
-        </span>
+        {meta || onOpen ? (
+          <span className={styles.top}>
+            <span className={styles.meta}>{meta}</span>
+            {onOpen ? <ArrowUpRight size={20} strokeWidth={1.6} aria-hidden="true" /> : null}
+          </span>
+        ) : null}
         <span className={`${styles.title} ${styles[titleSize]}`}>{title}</span>
         {text ? <span className={styles.text}>{text}</span> : null}
         {children}
-        {onOpen ? <span className={styles.more}>Ver detalle</span> : null}
       </span>
     </>
   );

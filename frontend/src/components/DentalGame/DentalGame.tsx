@@ -42,8 +42,6 @@ const DentalGame = () => {
       >
         <SectionHeading
           size="sm"
-          index="04"
-          eyebrow="Jugá"
           title={
             <>
               Un minuto para dejar tu sonrisa <em>brillando.</em>

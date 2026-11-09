@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import EditorialHero from "@/components/UI/EditorialHero/EditorialHero";
 import FeatureCard from "@/components/UI/FeatureCard/FeatureCard";
-import NumberedList from "@/components/UI/NumberedList/NumberedList";
+import IconList from "@/components/UI/IconList/IconList";
 import Photo from "@/components/UI/Photo/Photo";
 import SectionHeading from "@/components/UI/SectionHeading/SectionHeading";
 import HomeCta from "@/components/HomeCta/HomeCta";
@@ -42,8 +42,6 @@ const AboutUs = () => (
       >
         <SectionHeading
           size="md"
-          index="01"
-          eyebrow="Nuestra misión"
           title={
             <>
               Odontología de calidad, <em>en un lugar cómodo.</em>
@@ -51,15 +49,13 @@ const AboutUs = () => (
           }
           lead="Brindar servicios odontológicos integrales de la más alta calidad, con materiales de primera línea y un trabajo minucioso, en un ambiente cálido y acogedor para cada paciente."
         />
-        <NumberedList items={MISSION_POINTS} tone="strong" />
+        <IconList items={MISSION_POINTS} />
       </motion.div>
     </section>
 
     <section className={styles.values}>
       <div className={styles.valuesInner}>
         <SectionHeading
-          index="02"
-          eyebrow="Nuestros valores"
           title={
             <>
               Lo que nos guía <em>todos los días.</em>
@@ -68,7 +64,7 @@ const AboutUs = () => (
         />
         <div className={styles.valuesGrid}>
           {VALUES.map((value, index) => (
-            <FeatureCard key={value.title} index={index} title={value.title} text={value.description} />
+            <FeatureCard key={value.title} index={index} icon={value.icon} title={value.title} text={value.description} />
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { HeartPulse, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import { services } from "../../data/services";
 import { ToothIcon } from "../UI/icons/ToothIcon";
 import MoreInfoModal from "../MoreInfoModal/MoreInfoModal";
@@ -8,6 +9,13 @@ import SectionHeading from "@/components/UI/SectionHeading/SectionHeading";
 import styles from "./WhyVisit.module.scss";
 
 type Service = (typeof services)[number];
+
+/** Card icon per service id. */
+const VISIT_ICONS: Record<string, LucideIcon> = {
+  "1": HeartPulse,
+  "2": ShieldCheck,
+  "3": Sparkles,
+};
 
 const WhyVisit = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -26,8 +34,6 @@ const WhyVisit = () => {
       <div className={styles.inner}>
         <SectionHeading
           size="md"
-          index="02"
-          eyebrow="Cuándo visitarnos"
           lead="Te contamos tres razones por las cuales una visita cada seis meses puede ser tu mejor opción."
           title={
             <>
@@ -41,6 +47,7 @@ const WhyVisit = () => {
             <FeatureCard
               key={service.id}
               index={index}
+              icon={VISIT_ICONS[service.id] ?? HeartPulse}
               title={service.title}
               text={service.description}
               onOpen={() => setSelectedService(service)}

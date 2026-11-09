@@ -30,7 +30,6 @@ const MoreInfoModal = ({ open, service, onClose }: MoreInfoModalProps) => {
       onClose={onClose}
       size="xl"
       media={service?.image ? <ZoomImage src={service.image} /> : undefined}
-      eyebrow="Cuándo visitarnos"
       title={service?.title}
     >
       <Tabs items={SERVICE_TABS} active={tab} onChange={setTab} variant="underline" label="Secciones del servicio" />

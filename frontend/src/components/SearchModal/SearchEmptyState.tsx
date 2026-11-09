@@ -29,7 +29,6 @@ const SearchEmptyState = ({ recents, onPick }: SearchEmptyStateProps) => (
     <h3 className={styles.title}>
       Encontrá lo que <em>necesitás.</em>
     </h3>
-    <p className={styles.lead}>Tratamientos, turnos, contacto y toda la información del consultorio.</p>
 
     <section className={styles.group}>
       <h4 className={styles.groupLabel}>Búsquedas populares</h4>

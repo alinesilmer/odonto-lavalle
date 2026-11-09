@@ -135,6 +135,17 @@ const Footer = () => (
           <ArrowUp size={16} strokeWidth={1.7} aria-hidden="true" />
         </button>
       </div>
+
+      <p className={styles.credit}>
+        <a
+          href="https://aline-silva.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.creditLink}
+        >
+          DESARROLLADO POR DEVHORIZON
+        </a>
+      </p>
     </div>
   </footer>
 );

@@ -1,5 +1,15 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, CalendarClock, CreditCard, Info, MessageCircle } from "lucide-react";
+import {
+  ArrowUpRight,
+  CalendarClock,
+  CreditCard,
+  Info,
+  Instagram,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
 import Button from "@/components/UI/Button/Button";
 import SectionHeading from "@/components/UI/SectionHeading/SectionHeading";
 import { contactInfo } from "@/data/contactInfo";
@@ -16,18 +26,16 @@ import { inView, reveal } from "@/utils/editorialMotion";
 import styles from "./ContactPage.module.scss";
 
 const CHANNELS = [
-  { label: "Teléfono", value: formattedPhone, href: phoneUrl },
-  { label: "Email", value: contactInfo.email, href: emailUrl },
-  { label: "Dirección", value: displayAddress, href: mapsUrl, external: true },
-  { label: "Instagram", value: instagramHandle, href: contactInfo.instagram, external: true },
+  { label: "Teléfono", icon: Phone, value: formattedPhone, href: phoneUrl },
+  { label: "Email", icon: Mail, value: contactInfo.email, href: emailUrl },
+  { label: "Dirección", icon: MapPin, value: displayAddress, href: mapsUrl, external: true },
+  { label: "Instagram", icon: Instagram, value: instagramHandle, href: contactInfo.instagram, external: true },
 ];
 
 const ContactDetails = () => (
   <div className={styles.details}>
     <SectionHeading
       size="sm"
-      index="01"
-      eyebrow="Vení a conocernos"
       title={
         <>
           Hablemos de <em>tu sonrisa.</em>
@@ -40,9 +48,12 @@ const ContactDetails = () => (
       <ul className={styles.channels}>
         {CHANNELS.map((channel) => (
           <li key={channel.label}>
-            <span className={styles.channelLabel}>{channel.label}</span>
+            <span className={styles.channelIcon}>
+              <channel.icon size={20} strokeWidth={1.7} aria-hidden="true" />
+            </span>
             <a
               href={channel.href}
+              aria-label={`${channel.label}: ${channel.value}`}
               className={styles.channelValue}
               {...(channel.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             >

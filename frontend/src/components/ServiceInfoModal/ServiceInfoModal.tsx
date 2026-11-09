@@ -6,7 +6,6 @@ import Modal from "@/components/UI/Modal/Modal";
 import ZoomImage from "@/components/UI/ZoomImage/ZoomImage";
 import { ROUTES } from "@/constants";
 import { contentForCategory } from "@/data/serviceCategoryContent";
-import { categoryLabel } from "@/data/serviceCategories";
 import { toSentenceCase } from "@/utils/text";
 import styles from "./ServiceInfoModal.module.scss";
 
@@ -38,7 +37,6 @@ const ServiceInfoModal = ({ isOpen, onClose, service }: ServiceInfoModalProps) =
       onClose={onClose}
       size="xl"
       media={service.image ? <ZoomImage src={service.image} /> : undefined}
-      eyebrow={categoryLabel(service.category)}
       title={toSentenceCase(service.title)}
       footer={
         <>

@@ -6,8 +6,6 @@ import styles from "./WhyChoose.module.scss";
 const WhyChoose = () => (
   <section className={styles.section}>
     <SectionHeading
-      index="01"
-      eyebrow="Por qué elegirnos"
       title={
         <>
           Calidad en cada detalle, <em>trato de siempre.</em>
@@ -23,9 +21,7 @@ const WhyChoose = () => (
           image={reason.image}
           alt={reason.title}
           ratio="portrait"
-          meta={String(index + 1).padStart(2, "0")}
           title={reason.title}
-          text={reason.summary}
         />
       ))}
     </ul>

@@ -43,11 +43,6 @@
   margin-bottom: var(--space-8);
 }
 
-.eyebrow {
-  @include m.ed-eyebrow;
-  color: var(--ed-accent);
-}
-
 .title {
   @include m.ed-display(clamp(2.5rem, 4.4vw, 3.5rem));
   line-height: 1;

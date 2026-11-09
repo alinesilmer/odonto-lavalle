@@ -20,8 +20,6 @@ const ContactInfoHome = () => {
         className={styles.heading}
         size="sm"
         plainAccent
-        index="03"
-        eyebrow="Preguntas frecuentes"
         title={
           <>
             Antes de tu <em>primera visita.</em>

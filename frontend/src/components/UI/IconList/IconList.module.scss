@@ -1,0 +1,27 @@
+.list {
+  list-style: none;
+  border-top: 1px solid var(--ed-line-strong);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--ed-line);
+    font-family: var(--font-sans);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-normal);
+    color: var(--ed-ink);
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background: rgba(var(--ed-accent-rgb), 0.08);
+  color: var(--ed-accent);
+}

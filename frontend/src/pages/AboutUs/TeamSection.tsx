@@ -9,8 +9,6 @@ const TeamSection = () => (
   <section id="equipo" className={styles.team}>
     <SectionHeading
       size="md"
-      index="03"
-      eyebrow="Nuestro equipo"
       title={
         <>
           Las manos que <em>cuidan tu sonrisa.</em>

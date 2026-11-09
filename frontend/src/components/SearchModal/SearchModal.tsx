@@ -50,12 +50,6 @@ const SearchModal = ({ open, onClose, data = SEARCH_INDEX }: SearchModalProps) =
           <SearchEmptyState recents={search.recents} onPick={search.setQuery} />
         )}
       </div>
-
-      <footer className={styles.footer} aria-hidden="true">
-        <span><kbd>↑</kbd><kbd>↓</kbd> navegar</span>
-        <span><kbd>Enter</kbd> abrir</span>
-        <span><kbd>/</kbd> buscar desde cualquier página</span>
-      </footer>
     </Modal>
   );
 };
